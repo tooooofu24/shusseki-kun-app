@@ -1,4 +1,5 @@
 {
+  "ignorePatterns": ["jest.config.js"],
   "extends": [
     "next/core-web-vitals",
     "eslint:recommended", // eslint推奨ルール設定
