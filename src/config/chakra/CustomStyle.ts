@@ -7,7 +7,6 @@ export const CustomStyle = {
   },
   styles: {
     global: {
-      color: "gray.700",
       body: {
         color: colors.black,
         bg: colors.lightGray,
