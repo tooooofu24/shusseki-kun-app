@@ -12,11 +12,7 @@
     "prettier:fix": "prettier --check --write 'src/**/*.{js,jsx,ts,tsx,css,scss,md,mdx}'",
     "format": "npm run eslint:fix && npm run prettier:fix",
     "test": "jest --watch",
-    "prepare": "husky install",
-    "lint-staged": {
-      "*.{js,jsx,ts,tsx}": "eslint --fix",
-      "*": "prettier --write"
-    }
+    "prepare": "husky install"
   },
   "dependencies": {
     "@chakra-ui/react": "^2.4.4",
@@ -69,6 +65,8 @@
   },
   "lint-staged": {
     "*.css": "stylelint --fix",
-    "*.prettier:fix": "prettier --write"
+    "*.prettier:fix": "prettier --write",
+    "*.{js,jsx,ts,tsx}": "eslint --fix",
+    "*": "prettier --write"
   }
 }
