@@ -13,7 +13,10 @@
     "format": "npm run eslint:fix && npm run prettier:fix",
     "test": "jest --watch",
     "prepare": "husky install",
-    "lint-staged": "format"
+    "lint-staged": {
+      "*.{js,jsx,ts,tsx}": "eslint --fix",
+      "*": "prettier --write"
+    }
   },
   "dependencies": {
     "@chakra-ui/react": "^2.4.4",

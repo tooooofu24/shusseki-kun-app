@@ -16,8 +16,8 @@ export const LoginPage = () => {
             gap="15px"
             py="50px"
           >
-            <Logo />
             
+            <Logo />
           </Flex>
           <Button leftIcon={<GoogleLogo />} width="100%">
             ログイン
