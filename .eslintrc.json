@@ -17,6 +17,15 @@
     "import/first": "error", // すべてのimportがファイルの先頭にあることを確認
     "import/newline-after-import": "error", // import後に改行があることを確認
     "import/no-duplicates": "error", // 同じファイルのimportをマージ
-    "unused-imports/no-unused-imports": "error" // 未使用のimport文を削除
+    "unused-imports/no-unused-imports": "error", // 未使用のimport文を削除
+    "react-hooks/exhaustive-deps": "off",
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      {
+        "argsIgnorePattern": "^_",
+        "varsIgnorePattern": "^_",
+        "caughtErrorsIgnorePattern": "^_"
+      }
+    ]
   }
 }
