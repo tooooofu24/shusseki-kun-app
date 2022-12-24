@@ -19,7 +19,6 @@ export const NavigationContent = () => {
 
   return (
     <Flex flexDirection="column" h="full" py="20px">
-      {/* ロゴ部分 */}
       <Box mb="20px">
         <Link href="/">
           <Flex alignItems="center" px="16px" gap="15px" height="75px">
@@ -27,7 +26,6 @@ export const NavigationContent = () => {
           </Flex>
         </Link>
       </Box>
-      {/* ロゴ部分終了 */}
       <Link href="/">
         <Item
           icon={<CalendarCheck />}
