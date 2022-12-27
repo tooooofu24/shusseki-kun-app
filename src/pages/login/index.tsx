@@ -2,6 +2,7 @@ import type { NextPage } from "next";
 import Head from "next/head";
 
 import { LoginPage } from "@/components/page/login/LoginPage";
+import { Layout } from "@/components/ui/layouts/Layout";
 
 const Page: NextPage = () => {
   return (
@@ -9,7 +10,9 @@ const Page: NextPage = () => {
       <Head>
         <title>ログイン - 出席くん</title>
       </Head>
-      <LoginPage />
+      <Layout type="fullPage">
+        <LoginPage />
+      </Layout>
     </>
   );
 };
