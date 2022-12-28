@@ -65,8 +65,8 @@
     "stylelint-scss": "^4.3.0"
   },
   "lint-staged": {
-    "!(src)*.css": "stylelint --fix",
-    "!(src)*.{js,jsx,ts,tsx}": [
+    "*.css": "stylelint --fix",
+    "*.{js,jsx,ts,tsx}": [
       "eslint --fix",
       "prettier --write"
     ]
