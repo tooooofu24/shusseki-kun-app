@@ -15,42 +15,42 @@
 
 import * as runtime from '../runtime';
 import type {
-  ClassroomGet200Response,
-  ClassroomGet200Response1,
-  ClassroomGetRequest,
-  ClassroomsIdDelete200Response,
-  UsersIdDelete200Response,
+  DeleteUser200Response,
+  FindClassroom200Response,
+  GetClassrooms200Response,
+  PostClassroom200Response,
+  PostClassroomRequest,
 } from '../models';
 import {
-    ClassroomGet200ResponseFromJSON,
-    ClassroomGet200ResponseToJSON,
-    ClassroomGet200Response1FromJSON,
-    ClassroomGet200Response1ToJSON,
-    ClassroomGetRequestFromJSON,
-    ClassroomGetRequestToJSON,
-    ClassroomsIdDelete200ResponseFromJSON,
-    ClassroomsIdDelete200ResponseToJSON,
-    UsersIdDelete200ResponseFromJSON,
-    UsersIdDelete200ResponseToJSON,
+    DeleteUser200ResponseFromJSON,
+    DeleteUser200ResponseToJSON,
+    FindClassroom200ResponseFromJSON,
+    FindClassroom200ResponseToJSON,
+    GetClassrooms200ResponseFromJSON,
+    GetClassrooms200ResponseToJSON,
+    PostClassroom200ResponseFromJSON,
+    PostClassroom200ResponseToJSON,
+    PostClassroomRequestFromJSON,
+    PostClassroomRequestToJSON,
 } from '../models';
 
-export interface ClassroomGetRequest {
-    xTenantUID: string;
-}
-
-export interface ClassroomPostRequest {
-    xTenantUID: string;
-    classroomGetRequest: ClassroomGetRequest;
-}
-
-export interface ClassroomsIdDeleteRequest {
+export interface DeleteClassroomRequest {
     xTenantUID: string;
     id: number;
 }
 
-export interface ClassroomsIdGetRequest {
+export interface FindClassroomRequest {
     xTenantUID: string;
     id: number;
+}
+
+export interface GetClassroomsRequest {
+    xTenantUID: string;
+}
+
+export interface PostClassroomOperationRequest {
+    xTenantUID: string;
+    postClassroomRequest: PostClassroomRequest;
 }
 
 /**
@@ -62,37 +62,6 @@ export interface ClassroomsIdGetRequest {
 export interface ClassroomApiInterface {
     /**
      * 
-     * @summary 学級一覧取得
-     * @param {string} xTenantUID テナント識別子
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof ClassroomApiInterface
-     */
-    classroomGetRaw(requestParameters: ClassroomGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ClassroomGet200Response>>;
-
-    /**
-     * 学級一覧取得
-     */
-    classroomGet(requestParameters: ClassroomGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ClassroomGet200Response>;
-
-    /**
-     * 
-     * @summary 学級登録
-     * @param {string} xTenantUID テナント識別子
-     * @param {ClassroomGetRequest} classroomGetRequest 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof ClassroomApiInterface
-     */
-    classroomPostRaw(requestParameters: ClassroomPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ClassroomGet200Response1>>;
-
-    /**
-     * 学級登録
-     */
-    classroomPost(requestParameters: ClassroomPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ClassroomGet200Response1>;
-
-    /**
-     * 
      * @summary 学級削除
      * @param {string} xTenantUID テナント識別子
      * @param {number} id 
@@ -100,12 +69,12 @@ export interface ClassroomApiInterface {
      * @throws {RequiredError}
      * @memberof ClassroomApiInterface
      */
-    classroomsIdDeleteRaw(requestParameters: ClassroomsIdDeleteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UsersIdDelete200Response>>;
+    deleteClassroomRaw(requestParameters: DeleteClassroomRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DeleteUser200Response>>;
 
     /**
      * 学級削除
      */
-    classroomsIdDelete(requestParameters: ClassroomsIdDeleteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UsersIdDelete200Response>;
+    deleteClassroom(requestParameters: DeleteClassroomRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DeleteUser200Response>;
 
     /**
      * 
@@ -116,12 +85,43 @@ export interface ClassroomApiInterface {
      * @throws {RequiredError}
      * @memberof ClassroomApiInterface
      */
-    classroomsIdGetRaw(requestParameters: ClassroomsIdGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ClassroomsIdDelete200Response>>;
+    findClassroomRaw(requestParameters: FindClassroomRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<FindClassroom200Response>>;
 
     /**
      * 学級単一取得
      */
-    classroomsIdGet(requestParameters: ClassroomsIdGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ClassroomsIdDelete200Response>;
+    findClassroom(requestParameters: FindClassroomRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<FindClassroom200Response>;
+
+    /**
+     * 
+     * @summary 学級一覧取得
+     * @param {string} xTenantUID テナント識別子
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ClassroomApiInterface
+     */
+    getClassroomsRaw(requestParameters: GetClassroomsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GetClassrooms200Response>>;
+
+    /**
+     * 学級一覧取得
+     */
+    getClassrooms(requestParameters: GetClassroomsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GetClassrooms200Response>;
+
+    /**
+     * 
+     * @summary 学級登録
+     * @param {string} xTenantUID テナント識別子
+     * @param {PostClassroomRequest} postClassroomRequest 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ClassroomApiInterface
+     */
+    postClassroomRaw(requestParameters: PostClassroomOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PostClassroom200Response>>;
+
+    /**
+     * 学級登録
+     */
+    postClassroom(requestParameters: PostClassroomOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PostClassroom200Response>;
 
 }
 
@@ -131,106 +131,15 @@ export interface ClassroomApiInterface {
 export class ClassroomApi extends runtime.BaseAPI implements ClassroomApiInterface {
 
     /**
-     * 学級一覧取得
-     */
-    async classroomGetRaw(requestParameters: ClassroomGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ClassroomGet200Response>> {
-        if (requestParameters.xTenantUID === null || requestParameters.xTenantUID === undefined) {
-            throw new runtime.RequiredError('xTenantUID','Required parameter requestParameters.xTenantUID was null or undefined when calling classroomGet.');
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (requestParameters.xTenantUID !== undefined && requestParameters.xTenantUID !== null) {
-            headerParameters['X-Tenant-UID'] = String(requestParameters.xTenantUID);
-        }
-
-        if (this.configuration && this.configuration.accessToken) {
-            const token = this.configuration.accessToken;
-            const tokenString = await token("Bearer", []);
-
-            if (tokenString) {
-                headerParameters["Authorization"] = `Bearer ${tokenString}`;
-            }
-        }
-        const response = await this.request({
-            path: `/classroom`,
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => ClassroomGet200ResponseFromJSON(jsonValue));
-    }
-
-    /**
-     * 学級一覧取得
-     */
-    async classroomGet(requestParameters: ClassroomGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ClassroomGet200Response> {
-        const response = await this.classroomGetRaw(requestParameters, initOverrides);
-        return await response.value();
-    }
-
-    /**
-     * 学級登録
-     */
-    async classroomPostRaw(requestParameters: ClassroomPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ClassroomGet200Response1>> {
-        if (requestParameters.xTenantUID === null || requestParameters.xTenantUID === undefined) {
-            throw new runtime.RequiredError('xTenantUID','Required parameter requestParameters.xTenantUID was null or undefined when calling classroomPost.');
-        }
-
-        if (requestParameters.classroomGetRequest === null || requestParameters.classroomGetRequest === undefined) {
-            throw new runtime.RequiredError('classroomGetRequest','Required parameter requestParameters.classroomGetRequest was null or undefined when calling classroomPost.');
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        headerParameters['Content-Type'] = 'application/json';
-
-        if (requestParameters.xTenantUID !== undefined && requestParameters.xTenantUID !== null) {
-            headerParameters['X-Tenant-UID'] = String(requestParameters.xTenantUID);
-        }
-
-        if (this.configuration && this.configuration.accessToken) {
-            const token = this.configuration.accessToken;
-            const tokenString = await token("Bearer", []);
-
-            if (tokenString) {
-                headerParameters["Authorization"] = `Bearer ${tokenString}`;
-            }
-        }
-        const response = await this.request({
-            path: `/classroom`,
-            method: 'POST',
-            headers: headerParameters,
-            query: queryParameters,
-            body: ClassroomGetRequestToJSON(requestParameters.classroomGetRequest),
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => ClassroomGet200Response1FromJSON(jsonValue));
-    }
-
-    /**
-     * 学級登録
-     */
-    async classroomPost(requestParameters: ClassroomPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ClassroomGet200Response1> {
-        const response = await this.classroomPostRaw(requestParameters, initOverrides);
-        return await response.value();
-    }
-
-    /**
      * 学級削除
      */
-    async classroomsIdDeleteRaw(requestParameters: ClassroomsIdDeleteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UsersIdDelete200Response>> {
+    async deleteClassroomRaw(requestParameters: DeleteClassroomRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DeleteUser200Response>> {
         if (requestParameters.xTenantUID === null || requestParameters.xTenantUID === undefined) {
-            throw new runtime.RequiredError('xTenantUID','Required parameter requestParameters.xTenantUID was null or undefined when calling classroomsIdDelete.');
+            throw new runtime.RequiredError('xTenantUID','Required parameter requestParameters.xTenantUID was null or undefined when calling deleteClassroom.');
         }
 
         if (requestParameters.id === null || requestParameters.id === undefined) {
-            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling classroomsIdDelete.');
+            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling deleteClassroom.');
         }
 
         const queryParameters: any = {};
@@ -256,27 +165,27 @@ export class ClassroomApi extends runtime.BaseAPI implements ClassroomApiInterfa
             query: queryParameters,
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => UsersIdDelete200ResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => DeleteUser200ResponseFromJSON(jsonValue));
     }
 
     /**
      * 学級削除
      */
-    async classroomsIdDelete(requestParameters: ClassroomsIdDeleteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UsersIdDelete200Response> {
-        const response = await this.classroomsIdDeleteRaw(requestParameters, initOverrides);
+    async deleteClassroom(requestParameters: DeleteClassroomRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DeleteUser200Response> {
+        const response = await this.deleteClassroomRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
     /**
      * 学級単一取得
      */
-    async classroomsIdGetRaw(requestParameters: ClassroomsIdGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ClassroomsIdDelete200Response>> {
+    async findClassroomRaw(requestParameters: FindClassroomRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<FindClassroom200Response>> {
         if (requestParameters.xTenantUID === null || requestParameters.xTenantUID === undefined) {
-            throw new runtime.RequiredError('xTenantUID','Required parameter requestParameters.xTenantUID was null or undefined when calling classroomsIdGet.');
+            throw new runtime.RequiredError('xTenantUID','Required parameter requestParameters.xTenantUID was null or undefined when calling findClassroom.');
         }
 
         if (requestParameters.id === null || requestParameters.id === undefined) {
-            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling classroomsIdGet.');
+            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling findClassroom.');
         }
 
         const queryParameters: any = {};
@@ -302,14 +211,105 @@ export class ClassroomApi extends runtime.BaseAPI implements ClassroomApiInterfa
             query: queryParameters,
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ClassroomsIdDelete200ResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => FindClassroom200ResponseFromJSON(jsonValue));
     }
 
     /**
      * 学級単一取得
      */
-    async classroomsIdGet(requestParameters: ClassroomsIdGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ClassroomsIdDelete200Response> {
-        const response = await this.classroomsIdGetRaw(requestParameters, initOverrides);
+    async findClassroom(requestParameters: FindClassroomRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<FindClassroom200Response> {
+        const response = await this.findClassroomRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * 学級一覧取得
+     */
+    async getClassroomsRaw(requestParameters: GetClassroomsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GetClassrooms200Response>> {
+        if (requestParameters.xTenantUID === null || requestParameters.xTenantUID === undefined) {
+            throw new runtime.RequiredError('xTenantUID','Required parameter requestParameters.xTenantUID was null or undefined when calling getClassrooms.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters.xTenantUID !== undefined && requestParameters.xTenantUID !== null) {
+            headerParameters['X-Tenant-UID'] = String(requestParameters.xTenantUID);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/classrooms`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => GetClassrooms200ResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * 学級一覧取得
+     */
+    async getClassrooms(requestParameters: GetClassroomsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GetClassrooms200Response> {
+        const response = await this.getClassroomsRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * 学級登録
+     */
+    async postClassroomRaw(requestParameters: PostClassroomOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PostClassroom200Response>> {
+        if (requestParameters.xTenantUID === null || requestParameters.xTenantUID === undefined) {
+            throw new runtime.RequiredError('xTenantUID','Required parameter requestParameters.xTenantUID was null or undefined when calling postClassroom.');
+        }
+
+        if (requestParameters.postClassroomRequest === null || requestParameters.postClassroomRequest === undefined) {
+            throw new runtime.RequiredError('postClassroomRequest','Required parameter requestParameters.postClassroomRequest was null or undefined when calling postClassroom.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters.xTenantUID !== undefined && requestParameters.xTenantUID !== null) {
+            headerParameters['X-Tenant-UID'] = String(requestParameters.xTenantUID);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/classrooms`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: PostClassroomRequestToJSON(requestParameters.postClassroomRequest),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => PostClassroom200ResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * 学級登録
+     */
+    async postClassroom(requestParameters: PostClassroomOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PostClassroom200Response> {
+        const response = await this.postClassroomRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

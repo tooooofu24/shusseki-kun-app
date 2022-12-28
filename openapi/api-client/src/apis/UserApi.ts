@@ -15,38 +15,38 @@
 
 import * as runtime from '../runtime';
 import type {
-  UsersCurrentGet200Response,
-  UsersGet200Response,
-  UsersGet400Response,
-  UsersIdDelete200Response,
+  DeleteUser200Response,
+  GetCurrentUser200Response,
+  GetUsers200Response,
+  GetUsers400Response,
 } from '../models';
 import {
-    UsersCurrentGet200ResponseFromJSON,
-    UsersCurrentGet200ResponseToJSON,
-    UsersGet200ResponseFromJSON,
-    UsersGet200ResponseToJSON,
-    UsersGet400ResponseFromJSON,
-    UsersGet400ResponseToJSON,
-    UsersIdDelete200ResponseFromJSON,
-    UsersIdDelete200ResponseToJSON,
+    DeleteUser200ResponseFromJSON,
+    DeleteUser200ResponseToJSON,
+    GetCurrentUser200ResponseFromJSON,
+    GetCurrentUser200ResponseToJSON,
+    GetUsers200ResponseFromJSON,
+    GetUsers200ResponseToJSON,
+    GetUsers400ResponseFromJSON,
+    GetUsers400ResponseToJSON,
 } from '../models';
 
-export interface UsersCurrentGetRequest {
-    xTenantUID: string;
-}
-
-export interface UsersGetRequest {
-    xTenantUID: string;
-}
-
-export interface UsersIdDeleteRequest {
+export interface DeleteUserRequest {
     xTenantUID: string;
     id: number;
 }
 
-export interface UsersIdGetRequest {
+export interface FindUserRequest {
     xTenantUID: string;
     id: number;
+}
+
+export interface GetCurrentUserRequest {
+    xTenantUID: string;
+}
+
+export interface GetUsersRequest {
+    xTenantUID: string;
 }
 
 /**
@@ -58,36 +58,6 @@ export interface UsersIdGetRequest {
 export interface UserApiInterface {
     /**
      * 
-     * @summary 自身のユーザ情報を取得
-     * @param {string} xTenantUID テナント識別子
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof UserApiInterface
-     */
-    usersCurrentGetRaw(requestParameters: UsersCurrentGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UsersCurrentGet200Response>>;
-
-    /**
-     * 自身のユーザ情報を取得
-     */
-    usersCurrentGet(requestParameters: UsersCurrentGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UsersCurrentGet200Response>;
-
-    /**
-     * 
-     * @summary ユーザ一覧取得
-     * @param {string} xTenantUID テナント識別子
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof UserApiInterface
-     */
-    usersGetRaw(requestParameters: UsersGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UsersGet200Response>>;
-
-    /**
-     * ユーザ一覧取得
-     */
-    usersGet(requestParameters: UsersGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UsersGet200Response>;
-
-    /**
-     * 
      * @summary ユーザ削除
      * @param {string} xTenantUID テナント識別子
      * @param {number} id 
@@ -95,12 +65,12 @@ export interface UserApiInterface {
      * @throws {RequiredError}
      * @memberof UserApiInterface
      */
-    usersIdDeleteRaw(requestParameters: UsersIdDeleteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UsersIdDelete200Response>>;
+    deleteUserRaw(requestParameters: DeleteUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DeleteUser200Response>>;
 
     /**
      * ユーザ削除
      */
-    usersIdDelete(requestParameters: UsersIdDeleteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UsersIdDelete200Response>;
+    deleteUser(requestParameters: DeleteUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DeleteUser200Response>;
 
     /**
      * 
@@ -111,12 +81,42 @@ export interface UserApiInterface {
      * @throws {RequiredError}
      * @memberof UserApiInterface
      */
-    usersIdGetRaw(requestParameters: UsersIdGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UsersCurrentGet200Response>>;
+    findUserRaw(requestParameters: FindUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GetCurrentUser200Response>>;
 
     /**
      * ユーザ単一取得
      */
-    usersIdGet(requestParameters: UsersIdGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UsersCurrentGet200Response>;
+    findUser(requestParameters: FindUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GetCurrentUser200Response>;
+
+    /**
+     * 
+     * @summary 自身のユーザ情報を取得
+     * @param {string} xTenantUID テナント識別子
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UserApiInterface
+     */
+    getCurrentUserRaw(requestParameters: GetCurrentUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GetCurrentUser200Response>>;
+
+    /**
+     * 自身のユーザ情報を取得
+     */
+    getCurrentUser(requestParameters: GetCurrentUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GetCurrentUser200Response>;
+
+    /**
+     * 
+     * @summary ユーザ一覧取得
+     * @param {string} xTenantUID テナント識別子
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UserApiInterface
+     */
+    getUsersRaw(requestParameters: GetUsersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GetUsers200Response>>;
+
+    /**
+     * ユーザ一覧取得
+     */
+    getUsers(requestParameters: GetUsersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GetUsers200Response>;
 
 }
 
@@ -126,99 +126,15 @@ export interface UserApiInterface {
 export class UserApi extends runtime.BaseAPI implements UserApiInterface {
 
     /**
-     * 自身のユーザ情報を取得
-     */
-    async usersCurrentGetRaw(requestParameters: UsersCurrentGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UsersCurrentGet200Response>> {
-        if (requestParameters.xTenantUID === null || requestParameters.xTenantUID === undefined) {
-            throw new runtime.RequiredError('xTenantUID','Required parameter requestParameters.xTenantUID was null or undefined when calling usersCurrentGet.');
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (requestParameters.xTenantUID !== undefined && requestParameters.xTenantUID !== null) {
-            headerParameters['X-Tenant-UID'] = String(requestParameters.xTenantUID);
-        }
-
-        if (this.configuration && this.configuration.accessToken) {
-            const token = this.configuration.accessToken;
-            const tokenString = await token("Bearer", []);
-
-            if (tokenString) {
-                headerParameters["Authorization"] = `Bearer ${tokenString}`;
-            }
-        }
-        const response = await this.request({
-            path: `/users/current`,
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => UsersCurrentGet200ResponseFromJSON(jsonValue));
-    }
-
-    /**
-     * 自身のユーザ情報を取得
-     */
-    async usersCurrentGet(requestParameters: UsersCurrentGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UsersCurrentGet200Response> {
-        const response = await this.usersCurrentGetRaw(requestParameters, initOverrides);
-        return await response.value();
-    }
-
-    /**
-     * ユーザ一覧取得
-     */
-    async usersGetRaw(requestParameters: UsersGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UsersGet200Response>> {
-        if (requestParameters.xTenantUID === null || requestParameters.xTenantUID === undefined) {
-            throw new runtime.RequiredError('xTenantUID','Required parameter requestParameters.xTenantUID was null or undefined when calling usersGet.');
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (requestParameters.xTenantUID !== undefined && requestParameters.xTenantUID !== null) {
-            headerParameters['X-Tenant-UID'] = String(requestParameters.xTenantUID);
-        }
-
-        if (this.configuration && this.configuration.accessToken) {
-            const token = this.configuration.accessToken;
-            const tokenString = await token("Bearer", []);
-
-            if (tokenString) {
-                headerParameters["Authorization"] = `Bearer ${tokenString}`;
-            }
-        }
-        const response = await this.request({
-            path: `/users`,
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => UsersGet200ResponseFromJSON(jsonValue));
-    }
-
-    /**
-     * ユーザ一覧取得
-     */
-    async usersGet(requestParameters: UsersGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UsersGet200Response> {
-        const response = await this.usersGetRaw(requestParameters, initOverrides);
-        return await response.value();
-    }
-
-    /**
      * ユーザ削除
      */
-    async usersIdDeleteRaw(requestParameters: UsersIdDeleteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UsersIdDelete200Response>> {
+    async deleteUserRaw(requestParameters: DeleteUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DeleteUser200Response>> {
         if (requestParameters.xTenantUID === null || requestParameters.xTenantUID === undefined) {
-            throw new runtime.RequiredError('xTenantUID','Required parameter requestParameters.xTenantUID was null or undefined when calling usersIdDelete.');
+            throw new runtime.RequiredError('xTenantUID','Required parameter requestParameters.xTenantUID was null or undefined when calling deleteUser.');
         }
 
         if (requestParameters.id === null || requestParameters.id === undefined) {
-            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling usersIdDelete.');
+            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling deleteUser.');
         }
 
         const queryParameters: any = {};
@@ -244,27 +160,27 @@ export class UserApi extends runtime.BaseAPI implements UserApiInterface {
             query: queryParameters,
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => UsersIdDelete200ResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => DeleteUser200ResponseFromJSON(jsonValue));
     }
 
     /**
      * ユーザ削除
      */
-    async usersIdDelete(requestParameters: UsersIdDeleteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UsersIdDelete200Response> {
-        const response = await this.usersIdDeleteRaw(requestParameters, initOverrides);
+    async deleteUser(requestParameters: DeleteUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DeleteUser200Response> {
+        const response = await this.deleteUserRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
     /**
      * ユーザ単一取得
      */
-    async usersIdGetRaw(requestParameters: UsersIdGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UsersCurrentGet200Response>> {
+    async findUserRaw(requestParameters: FindUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GetCurrentUser200Response>> {
         if (requestParameters.xTenantUID === null || requestParameters.xTenantUID === undefined) {
-            throw new runtime.RequiredError('xTenantUID','Required parameter requestParameters.xTenantUID was null or undefined when calling usersIdGet.');
+            throw new runtime.RequiredError('xTenantUID','Required parameter requestParameters.xTenantUID was null or undefined when calling findUser.');
         }
 
         if (requestParameters.id === null || requestParameters.id === undefined) {
-            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling usersIdGet.');
+            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling findUser.');
         }
 
         const queryParameters: any = {};
@@ -290,14 +206,98 @@ export class UserApi extends runtime.BaseAPI implements UserApiInterface {
             query: queryParameters,
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => UsersCurrentGet200ResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => GetCurrentUser200ResponseFromJSON(jsonValue));
     }
 
     /**
      * ユーザ単一取得
      */
-    async usersIdGet(requestParameters: UsersIdGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UsersCurrentGet200Response> {
-        const response = await this.usersIdGetRaw(requestParameters, initOverrides);
+    async findUser(requestParameters: FindUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GetCurrentUser200Response> {
+        const response = await this.findUserRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * 自身のユーザ情報を取得
+     */
+    async getCurrentUserRaw(requestParameters: GetCurrentUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GetCurrentUser200Response>> {
+        if (requestParameters.xTenantUID === null || requestParameters.xTenantUID === undefined) {
+            throw new runtime.RequiredError('xTenantUID','Required parameter requestParameters.xTenantUID was null or undefined when calling getCurrentUser.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters.xTenantUID !== undefined && requestParameters.xTenantUID !== null) {
+            headerParameters['X-Tenant-UID'] = String(requestParameters.xTenantUID);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/users/current`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => GetCurrentUser200ResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * 自身のユーザ情報を取得
+     */
+    async getCurrentUser(requestParameters: GetCurrentUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GetCurrentUser200Response> {
+        const response = await this.getCurrentUserRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * ユーザ一覧取得
+     */
+    async getUsersRaw(requestParameters: GetUsersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GetUsers200Response>> {
+        if (requestParameters.xTenantUID === null || requestParameters.xTenantUID === undefined) {
+            throw new runtime.RequiredError('xTenantUID','Required parameter requestParameters.xTenantUID was null or undefined when calling getUsers.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters.xTenantUID !== undefined && requestParameters.xTenantUID !== null) {
+            headerParameters['X-Tenant-UID'] = String(requestParameters.xTenantUID);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/users`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => GetUsers200ResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * ユーザ一覧取得
+     */
+    async getUsers(requestParameters: GetUsersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GetUsers200Response> {
+        const response = await this.getUsersRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

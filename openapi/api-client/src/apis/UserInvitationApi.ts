@@ -15,44 +15,44 @@
 
 import * as runtime from '../runtime';
 import type {
-  InvitationsGet200Response,
-  InvitationsGet200Response1,
-  InvitationsGetRequest,
-  UsersIdDelete200Response,
+  DeleteUser200Response,
+  GetInvitations200Response,
+  PostInvitation200Response,
+  PostInvitationRequest,
 } from '../models';
 import {
-    InvitationsGet200ResponseFromJSON,
-    InvitationsGet200ResponseToJSON,
-    InvitationsGet200Response1FromJSON,
-    InvitationsGet200Response1ToJSON,
-    InvitationsGetRequestFromJSON,
-    InvitationsGetRequestToJSON,
-    UsersIdDelete200ResponseFromJSON,
-    UsersIdDelete200ResponseToJSON,
+    DeleteUser200ResponseFromJSON,
+    DeleteUser200ResponseToJSON,
+    GetInvitations200ResponseFromJSON,
+    GetInvitations200ResponseToJSON,
+    PostInvitation200ResponseFromJSON,
+    PostInvitation200ResponseToJSON,
+    PostInvitationRequestFromJSON,
+    PostInvitationRequestToJSON,
 } from '../models';
 
-export interface InvitationsGetRequest {
-    xTenantUID: string;
-}
-
-export interface InvitationsIdDeleteRequest {
+export interface DeleteInvitationRequest {
     xTenantUID: string;
     id: number;
 }
 
-export interface InvitationsIdGetRequest {
+export interface FindInvitationRequest {
     xTenantUID: string;
     id: number;
 }
 
-export interface InvitationsIdResendPostRequest {
+export interface GetInvitationsRequest {
     xTenantUID: string;
-    id: number;
 }
 
-export interface InvitationsPostRequest {
+export interface PostInvitationOperationRequest {
     xTenantUID: string;
-    invitationsGetRequest: InvitationsGetRequest;
+    postInvitationRequest: PostInvitationRequest;
+}
+
+export interface SendInvitationMailRequest {
+    xTenantUID: string;
+    id: number;
 }
 
 /**
@@ -64,21 +64,6 @@ export interface InvitationsPostRequest {
 export interface UserInvitationApiInterface {
     /**
      * 
-     * @summary 招待一覧取得
-     * @param {string} xTenantUID テナント識別子
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof UserInvitationApiInterface
-     */
-    invitationsGetRaw(requestParameters: InvitationsGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<InvitationsGet200Response>>;
-
-    /**
-     * 招待一覧取得
-     */
-    invitationsGet(requestParameters: InvitationsGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<InvitationsGet200Response>;
-
-    /**
-     * 
      * @summary 招待削除
      * @param {string} xTenantUID テナント識別子
      * @param {number} id 
@@ -86,12 +71,12 @@ export interface UserInvitationApiInterface {
      * @throws {RequiredError}
      * @memberof UserInvitationApiInterface
      */
-    invitationsIdDeleteRaw(requestParameters: InvitationsIdDeleteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UsersIdDelete200Response>>;
+    deleteInvitationRaw(requestParameters: DeleteInvitationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DeleteUser200Response>>;
 
     /**
      * 招待削除
      */
-    invitationsIdDelete(requestParameters: InvitationsIdDeleteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UsersIdDelete200Response>;
+    deleteInvitation(requestParameters: DeleteInvitationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DeleteUser200Response>;
 
     /**
      * 
@@ -102,12 +87,43 @@ export interface UserInvitationApiInterface {
      * @throws {RequiredError}
      * @memberof UserInvitationApiInterface
      */
-    invitationsIdGetRaw(requestParameters: InvitationsIdGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<InvitationsGet200Response1>>;
+    findInvitationRaw(requestParameters: FindInvitationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PostInvitation200Response>>;
 
     /**
      * 招待単一取得
      */
-    invitationsIdGet(requestParameters: InvitationsIdGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<InvitationsGet200Response1>;
+    findInvitation(requestParameters: FindInvitationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PostInvitation200Response>;
+
+    /**
+     * 
+     * @summary 招待一覧取得
+     * @param {string} xTenantUID テナント識別子
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UserInvitationApiInterface
+     */
+    getInvitationsRaw(requestParameters: GetInvitationsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GetInvitations200Response>>;
+
+    /**
+     * 招待一覧取得
+     */
+    getInvitations(requestParameters: GetInvitationsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GetInvitations200Response>;
+
+    /**
+     * 
+     * @summary 招待登録
+     * @param {string} xTenantUID テナント識別子
+     * @param {PostInvitationRequest} postInvitationRequest 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UserInvitationApiInterface
+     */
+    postInvitationRaw(requestParameters: PostInvitationOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PostInvitation200Response>>;
+
+    /**
+     * 招待登録
+     */
+    postInvitation(requestParameters: PostInvitationOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PostInvitation200Response>;
 
     /**
      * 
@@ -118,28 +134,12 @@ export interface UserInvitationApiInterface {
      * @throws {RequiredError}
      * @memberof UserInvitationApiInterface
      */
-    invitationsIdResendPostRaw(requestParameters: InvitationsIdResendPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UsersIdDelete200Response>>;
+    sendInvitationMailRaw(requestParameters: SendInvitationMailRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DeleteUser200Response>>;
 
     /**
      * 招待メールを再送
      */
-    invitationsIdResendPost(requestParameters: InvitationsIdResendPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UsersIdDelete200Response>;
-
-    /**
-     * 
-     * @summary 招待登録
-     * @param {string} xTenantUID テナント識別子
-     * @param {InvitationsGetRequest} invitationsGetRequest 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof UserInvitationApiInterface
-     */
-    invitationsPostRaw(requestParameters: InvitationsPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<InvitationsGet200Response1>>;
-
-    /**
-     * 招待登録
-     */
-    invitationsPost(requestParameters: InvitationsPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<InvitationsGet200Response1>;
+    sendInvitationMail(requestParameters: SendInvitationMailRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DeleteUser200Response>;
 
 }
 
@@ -149,57 +149,15 @@ export interface UserInvitationApiInterface {
 export class UserInvitationApi extends runtime.BaseAPI implements UserInvitationApiInterface {
 
     /**
-     * 招待一覧取得
-     */
-    async invitationsGetRaw(requestParameters: InvitationsGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<InvitationsGet200Response>> {
-        if (requestParameters.xTenantUID === null || requestParameters.xTenantUID === undefined) {
-            throw new runtime.RequiredError('xTenantUID','Required parameter requestParameters.xTenantUID was null or undefined when calling invitationsGet.');
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (requestParameters.xTenantUID !== undefined && requestParameters.xTenantUID !== null) {
-            headerParameters['X-Tenant-UID'] = String(requestParameters.xTenantUID);
-        }
-
-        if (this.configuration && this.configuration.accessToken) {
-            const token = this.configuration.accessToken;
-            const tokenString = await token("Bearer", []);
-
-            if (tokenString) {
-                headerParameters["Authorization"] = `Bearer ${tokenString}`;
-            }
-        }
-        const response = await this.request({
-            path: `/invitations`,
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => InvitationsGet200ResponseFromJSON(jsonValue));
-    }
-
-    /**
-     * 招待一覧取得
-     */
-    async invitationsGet(requestParameters: InvitationsGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<InvitationsGet200Response> {
-        const response = await this.invitationsGetRaw(requestParameters, initOverrides);
-        return await response.value();
-    }
-
-    /**
      * 招待削除
      */
-    async invitationsIdDeleteRaw(requestParameters: InvitationsIdDeleteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UsersIdDelete200Response>> {
+    async deleteInvitationRaw(requestParameters: DeleteInvitationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DeleteUser200Response>> {
         if (requestParameters.xTenantUID === null || requestParameters.xTenantUID === undefined) {
-            throw new runtime.RequiredError('xTenantUID','Required parameter requestParameters.xTenantUID was null or undefined when calling invitationsIdDelete.');
+            throw new runtime.RequiredError('xTenantUID','Required parameter requestParameters.xTenantUID was null or undefined when calling deleteInvitation.');
         }
 
         if (requestParameters.id === null || requestParameters.id === undefined) {
-            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling invitationsIdDelete.');
+            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling deleteInvitation.');
         }
 
         const queryParameters: any = {};
@@ -225,27 +183,27 @@ export class UserInvitationApi extends runtime.BaseAPI implements UserInvitation
             query: queryParameters,
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => UsersIdDelete200ResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => DeleteUser200ResponseFromJSON(jsonValue));
     }
 
     /**
      * 招待削除
      */
-    async invitationsIdDelete(requestParameters: InvitationsIdDeleteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UsersIdDelete200Response> {
-        const response = await this.invitationsIdDeleteRaw(requestParameters, initOverrides);
+    async deleteInvitation(requestParameters: DeleteInvitationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DeleteUser200Response> {
+        const response = await this.deleteInvitationRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
     /**
      * 招待単一取得
      */
-    async invitationsIdGetRaw(requestParameters: InvitationsIdGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<InvitationsGet200Response1>> {
+    async findInvitationRaw(requestParameters: FindInvitationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PostInvitation200Response>> {
         if (requestParameters.xTenantUID === null || requestParameters.xTenantUID === undefined) {
-            throw new runtime.RequiredError('xTenantUID','Required parameter requestParameters.xTenantUID was null or undefined when calling invitationsIdGet.');
+            throw new runtime.RequiredError('xTenantUID','Required parameter requestParameters.xTenantUID was null or undefined when calling findInvitation.');
         }
 
         if (requestParameters.id === null || requestParameters.id === undefined) {
-            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling invitationsIdGet.');
+            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling findInvitation.');
         }
 
         const queryParameters: any = {};
@@ -271,27 +229,23 @@ export class UserInvitationApi extends runtime.BaseAPI implements UserInvitation
             query: queryParameters,
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => InvitationsGet200Response1FromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => PostInvitation200ResponseFromJSON(jsonValue));
     }
 
     /**
      * 招待単一取得
      */
-    async invitationsIdGet(requestParameters: InvitationsIdGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<InvitationsGet200Response1> {
-        const response = await this.invitationsIdGetRaw(requestParameters, initOverrides);
+    async findInvitation(requestParameters: FindInvitationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PostInvitation200Response> {
+        const response = await this.findInvitationRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
     /**
-     * 招待メールを再送
+     * 招待一覧取得
      */
-    async invitationsIdResendPostRaw(requestParameters: InvitationsIdResendPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UsersIdDelete200Response>> {
+    async getInvitationsRaw(requestParameters: GetInvitationsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GetInvitations200Response>> {
         if (requestParameters.xTenantUID === null || requestParameters.xTenantUID === undefined) {
-            throw new runtime.RequiredError('xTenantUID','Required parameter requestParameters.xTenantUID was null or undefined when calling invitationsIdResendPost.');
-        }
-
-        if (requestParameters.id === null || requestParameters.id === undefined) {
-            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling invitationsIdResendPost.');
+            throw new runtime.RequiredError('xTenantUID','Required parameter requestParameters.xTenantUID was null or undefined when calling getInvitations.');
         }
 
         const queryParameters: any = {};
@@ -311,33 +265,33 @@ export class UserInvitationApi extends runtime.BaseAPI implements UserInvitation
             }
         }
         const response = await this.request({
-            path: `/invitations/{id}/resend`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
-            method: 'POST',
+            path: `/invitations`,
+            method: 'GET',
             headers: headerParameters,
             query: queryParameters,
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => UsersIdDelete200ResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => GetInvitations200ResponseFromJSON(jsonValue));
     }
 
     /**
-     * 招待メールを再送
+     * 招待一覧取得
      */
-    async invitationsIdResendPost(requestParameters: InvitationsIdResendPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UsersIdDelete200Response> {
-        const response = await this.invitationsIdResendPostRaw(requestParameters, initOverrides);
+    async getInvitations(requestParameters: GetInvitationsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GetInvitations200Response> {
+        const response = await this.getInvitationsRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
     /**
      * 招待登録
      */
-    async invitationsPostRaw(requestParameters: InvitationsPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<InvitationsGet200Response1>> {
+    async postInvitationRaw(requestParameters: PostInvitationOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PostInvitation200Response>> {
         if (requestParameters.xTenantUID === null || requestParameters.xTenantUID === undefined) {
-            throw new runtime.RequiredError('xTenantUID','Required parameter requestParameters.xTenantUID was null or undefined when calling invitationsPost.');
+            throw new runtime.RequiredError('xTenantUID','Required parameter requestParameters.xTenantUID was null or undefined when calling postInvitation.');
         }
 
-        if (requestParameters.invitationsGetRequest === null || requestParameters.invitationsGetRequest === undefined) {
-            throw new runtime.RequiredError('invitationsGetRequest','Required parameter requestParameters.invitationsGetRequest was null or undefined when calling invitationsPost.');
+        if (requestParameters.postInvitationRequest === null || requestParameters.postInvitationRequest === undefined) {
+            throw new runtime.RequiredError('postInvitationRequest','Required parameter requestParameters.postInvitationRequest was null or undefined when calling postInvitation.');
         }
 
         const queryParameters: any = {};
@@ -363,17 +317,63 @@ export class UserInvitationApi extends runtime.BaseAPI implements UserInvitation
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: InvitationsGetRequestToJSON(requestParameters.invitationsGetRequest),
+            body: PostInvitationRequestToJSON(requestParameters.postInvitationRequest),
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => InvitationsGet200Response1FromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => PostInvitation200ResponseFromJSON(jsonValue));
     }
 
     /**
      * 招待登録
      */
-    async invitationsPost(requestParameters: InvitationsPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<InvitationsGet200Response1> {
-        const response = await this.invitationsPostRaw(requestParameters, initOverrides);
+    async postInvitation(requestParameters: PostInvitationOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PostInvitation200Response> {
+        const response = await this.postInvitationRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * 招待メールを再送
+     */
+    async sendInvitationMailRaw(requestParameters: SendInvitationMailRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DeleteUser200Response>> {
+        if (requestParameters.xTenantUID === null || requestParameters.xTenantUID === undefined) {
+            throw new runtime.RequiredError('xTenantUID','Required parameter requestParameters.xTenantUID was null or undefined when calling sendInvitationMail.');
+        }
+
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling sendInvitationMail.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters.xTenantUID !== undefined && requestParameters.xTenantUID !== null) {
+            headerParameters['X-Tenant-UID'] = String(requestParameters.xTenantUID);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/invitations/{id}/resend`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => DeleteUser200ResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * 招待メールを再送
+     */
+    async sendInvitationMail(requestParameters: SendInvitationMailRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DeleteUser200Response> {
+        const response = await this.sendInvitationMailRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

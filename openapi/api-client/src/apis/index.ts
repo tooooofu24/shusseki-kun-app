@@ -6,6 +6,7 @@ export * from './ClientIPApi';
 export * from './CourseApi';
 export * from './CourseLogApi';
 export * from './ScheduleApi';
+export * from './ScoreApi';
 export * from './StudentApi';
 export * from './SubjectApi';
 export * from './UserApi';

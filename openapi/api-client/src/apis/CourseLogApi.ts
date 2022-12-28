@@ -16,25 +16,25 @@
 import * as runtime from '../runtime';
 import type {
   CourseLogsGet200Response,
-  CourseLogsGetRequest,
-  CourseLogsIdDelete200Response,
-  CourseLogsIdDeleteRequest,
-  CoursesGet200Response1,
-  UsersIdDelete200Response,
+  DeleteUser200Response,
+  FindCourseLog200Response,
+  GetCourseLogsRequest,
+  PostCourse200Response,
+  UpdateCourseLogRequest,
 } from '../models';
 import {
     CourseLogsGet200ResponseFromJSON,
     CourseLogsGet200ResponseToJSON,
-    CourseLogsGetRequestFromJSON,
-    CourseLogsGetRequestToJSON,
-    CourseLogsIdDelete200ResponseFromJSON,
-    CourseLogsIdDelete200ResponseToJSON,
-    CourseLogsIdDeleteRequestFromJSON,
-    CourseLogsIdDeleteRequestToJSON,
-    CoursesGet200Response1FromJSON,
-    CoursesGet200Response1ToJSON,
-    UsersIdDelete200ResponseFromJSON,
-    UsersIdDelete200ResponseToJSON,
+    DeleteUser200ResponseFromJSON,
+    DeleteUser200ResponseToJSON,
+    FindCourseLog200ResponseFromJSON,
+    FindCourseLog200ResponseToJSON,
+    GetCourseLogsRequestFromJSON,
+    GetCourseLogsRequestToJSON,
+    PostCourse200ResponseFromJSON,
+    PostCourse200ResponseToJSON,
+    UpdateCourseLogRequestFromJSON,
+    UpdateCourseLogRequestToJSON,
 } from '../models';
 
 export interface CourseLogsGetRequest {
@@ -45,25 +45,25 @@ export interface CourseLogsGetRequest {
     maxDate?: Date;
 }
 
-export interface CourseLogsIdDeleteRequest {
+export interface DeleteCourseLogRequest {
     xTenantUID: string;
     id: number;
 }
 
-export interface CourseLogsIdGetRequest {
+export interface FindCourseLogRequest {
     xTenantUID: string;
     id: number;
 }
 
-export interface CourseLogsIdPutRequest {
+export interface GetCourseLogsOperationRequest {
     xTenantUID: string;
-    id: number;
-    courseLogsIdDeleteRequest?: CourseLogsIdDeleteRequest;
+    getCourseLogsRequest: GetCourseLogsRequest;
 }
 
-export interface CourseLogsPostRequest {
+export interface UpdateCourseLogOperationRequest {
     xTenantUID: string;
-    courseLogsGetRequest: CourseLogsGetRequest;
+    id: number;
+    updateCourseLogRequest?: UpdateCourseLogRequest;
 }
 
 /**
@@ -101,12 +101,12 @@ export interface CourseLogApiInterface {
      * @throws {RequiredError}
      * @memberof CourseLogApiInterface
      */
-    courseLogsIdDeleteRaw(requestParameters: CourseLogsIdDeleteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UsersIdDelete200Response>>;
+    deleteCourseLogRaw(requestParameters: DeleteCourseLogRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DeleteUser200Response>>;
 
     /**
      * 授業記録削除
      */
-    courseLogsIdDelete(requestParameters: CourseLogsIdDeleteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UsersIdDelete200Response>;
+    deleteCourseLog(requestParameters: DeleteCourseLogRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DeleteUser200Response>;
 
     /**
      * 
@@ -117,45 +117,45 @@ export interface CourseLogApiInterface {
      * @throws {RequiredError}
      * @memberof CourseLogApiInterface
      */
-    courseLogsIdGetRaw(requestParameters: CourseLogsIdGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CourseLogsIdDelete200Response>>;
+    findCourseLogRaw(requestParameters: FindCourseLogRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<FindCourseLog200Response>>;
 
     /**
      * 授業記録単一取得
      */
-    courseLogsIdGet(requestParameters: CourseLogsIdGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CourseLogsIdDelete200Response>;
+    findCourseLog(requestParameters: FindCourseLogRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<FindCourseLog200Response>;
+
+    /**
+     * 
+     * @summary 授業記録登録
+     * @param {string} xTenantUID テナント識別子
+     * @param {GetCourseLogsRequest} getCourseLogsRequest 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof CourseLogApiInterface
+     */
+    getCourseLogsRaw(requestParameters: GetCourseLogsOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PostCourse200Response>>;
+
+    /**
+     * 授業記録登録
+     */
+    getCourseLogs(requestParameters: GetCourseLogsOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PostCourse200Response>;
 
     /**
      * 
      * @summary 授業記録更新
      * @param {string} xTenantUID テナント識別子
      * @param {number} id 
-     * @param {CourseLogsIdDeleteRequest} [courseLogsIdDeleteRequest] 
+     * @param {UpdateCourseLogRequest} [updateCourseLogRequest] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof CourseLogApiInterface
      */
-    courseLogsIdPutRaw(requestParameters: CourseLogsIdPutRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CourseLogsIdDelete200Response>>;
+    updateCourseLogRaw(requestParameters: UpdateCourseLogOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<FindCourseLog200Response>>;
 
     /**
      * 授業記録更新
      */
-    courseLogsIdPut(requestParameters: CourseLogsIdPutRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CourseLogsIdDelete200Response>;
-
-    /**
-     * 
-     * @summary 授業記録登録
-     * @param {string} xTenantUID テナント識別子
-     * @param {CourseLogsGetRequest} courseLogsGetRequest 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof CourseLogApiInterface
-     */
-    courseLogsPostRaw(requestParameters: CourseLogsPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CoursesGet200Response1>>;
-
-    /**
-     * 授業記録登録
-     */
-    courseLogsPost(requestParameters: CourseLogsPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CoursesGet200Response1>;
+    updateCourseLog(requestParameters: UpdateCourseLogOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<FindCourseLog200Response>;
 
 }
 
@@ -225,13 +225,13 @@ export class CourseLogApi extends runtime.BaseAPI implements CourseLogApiInterfa
     /**
      * 授業記録削除
      */
-    async courseLogsIdDeleteRaw(requestParameters: CourseLogsIdDeleteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UsersIdDelete200Response>> {
+    async deleteCourseLogRaw(requestParameters: DeleteCourseLogRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DeleteUser200Response>> {
         if (requestParameters.xTenantUID === null || requestParameters.xTenantUID === undefined) {
-            throw new runtime.RequiredError('xTenantUID','Required parameter requestParameters.xTenantUID was null or undefined when calling courseLogsIdDelete.');
+            throw new runtime.RequiredError('xTenantUID','Required parameter requestParameters.xTenantUID was null or undefined when calling deleteCourseLog.');
         }
 
         if (requestParameters.id === null || requestParameters.id === undefined) {
-            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling courseLogsIdDelete.');
+            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling deleteCourseLog.');
         }
 
         const queryParameters: any = {};
@@ -257,27 +257,27 @@ export class CourseLogApi extends runtime.BaseAPI implements CourseLogApiInterfa
             query: queryParameters,
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => UsersIdDelete200ResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => DeleteUser200ResponseFromJSON(jsonValue));
     }
 
     /**
      * 授業記録削除
      */
-    async courseLogsIdDelete(requestParameters: CourseLogsIdDeleteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UsersIdDelete200Response> {
-        const response = await this.courseLogsIdDeleteRaw(requestParameters, initOverrides);
+    async deleteCourseLog(requestParameters: DeleteCourseLogRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DeleteUser200Response> {
+        const response = await this.deleteCourseLogRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
     /**
      * 授業記録単一取得
      */
-    async courseLogsIdGetRaw(requestParameters: CourseLogsIdGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CourseLogsIdDelete200Response>> {
+    async findCourseLogRaw(requestParameters: FindCourseLogRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<FindCourseLog200Response>> {
         if (requestParameters.xTenantUID === null || requestParameters.xTenantUID === undefined) {
-            throw new runtime.RequiredError('xTenantUID','Required parameter requestParameters.xTenantUID was null or undefined when calling courseLogsIdGet.');
+            throw new runtime.RequiredError('xTenantUID','Required parameter requestParameters.xTenantUID was null or undefined when calling findCourseLog.');
         }
 
         if (requestParameters.id === null || requestParameters.id === undefined) {
-            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling courseLogsIdGet.');
+            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling findCourseLog.');
         }
 
         const queryParameters: any = {};
@@ -303,76 +303,27 @@ export class CourseLogApi extends runtime.BaseAPI implements CourseLogApiInterfa
             query: queryParameters,
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => CourseLogsIdDelete200ResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => FindCourseLog200ResponseFromJSON(jsonValue));
     }
 
     /**
      * 授業記録単一取得
      */
-    async courseLogsIdGet(requestParameters: CourseLogsIdGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CourseLogsIdDelete200Response> {
-        const response = await this.courseLogsIdGetRaw(requestParameters, initOverrides);
-        return await response.value();
-    }
-
-    /**
-     * 授業記録更新
-     */
-    async courseLogsIdPutRaw(requestParameters: CourseLogsIdPutRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CourseLogsIdDelete200Response>> {
-        if (requestParameters.xTenantUID === null || requestParameters.xTenantUID === undefined) {
-            throw new runtime.RequiredError('xTenantUID','Required parameter requestParameters.xTenantUID was null or undefined when calling courseLogsIdPut.');
-        }
-
-        if (requestParameters.id === null || requestParameters.id === undefined) {
-            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling courseLogsIdPut.');
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        headerParameters['Content-Type'] = 'application/json';
-
-        if (requestParameters.xTenantUID !== undefined && requestParameters.xTenantUID !== null) {
-            headerParameters['X-Tenant-UID'] = String(requestParameters.xTenantUID);
-        }
-
-        if (this.configuration && this.configuration.accessToken) {
-            const token = this.configuration.accessToken;
-            const tokenString = await token("Bearer", []);
-
-            if (tokenString) {
-                headerParameters["Authorization"] = `Bearer ${tokenString}`;
-            }
-        }
-        const response = await this.request({
-            path: `/course-logs/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
-            method: 'PUT',
-            headers: headerParameters,
-            query: queryParameters,
-            body: CourseLogsIdDeleteRequestToJSON(requestParameters.courseLogsIdDeleteRequest),
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => CourseLogsIdDelete200ResponseFromJSON(jsonValue));
-    }
-
-    /**
-     * 授業記録更新
-     */
-    async courseLogsIdPut(requestParameters: CourseLogsIdPutRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CourseLogsIdDelete200Response> {
-        const response = await this.courseLogsIdPutRaw(requestParameters, initOverrides);
+    async findCourseLog(requestParameters: FindCourseLogRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<FindCourseLog200Response> {
+        const response = await this.findCourseLogRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
     /**
      * 授業記録登録
      */
-    async courseLogsPostRaw(requestParameters: CourseLogsPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CoursesGet200Response1>> {
+    async getCourseLogsRaw(requestParameters: GetCourseLogsOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PostCourse200Response>> {
         if (requestParameters.xTenantUID === null || requestParameters.xTenantUID === undefined) {
-            throw new runtime.RequiredError('xTenantUID','Required parameter requestParameters.xTenantUID was null or undefined when calling courseLogsPost.');
+            throw new runtime.RequiredError('xTenantUID','Required parameter requestParameters.xTenantUID was null or undefined when calling getCourseLogs.');
         }
 
-        if (requestParameters.courseLogsGetRequest === null || requestParameters.courseLogsGetRequest === undefined) {
-            throw new runtime.RequiredError('courseLogsGetRequest','Required parameter requestParameters.courseLogsGetRequest was null or undefined when calling courseLogsPost.');
+        if (requestParameters.getCourseLogsRequest === null || requestParameters.getCourseLogsRequest === undefined) {
+            throw new runtime.RequiredError('getCourseLogsRequest','Required parameter requestParameters.getCourseLogsRequest was null or undefined when calling getCourseLogs.');
         }
 
         const queryParameters: any = {};
@@ -398,17 +349,66 @@ export class CourseLogApi extends runtime.BaseAPI implements CourseLogApiInterfa
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: CourseLogsGetRequestToJSON(requestParameters.courseLogsGetRequest),
+            body: GetCourseLogsRequestToJSON(requestParameters.getCourseLogsRequest),
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => CoursesGet200Response1FromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => PostCourse200ResponseFromJSON(jsonValue));
     }
 
     /**
      * 授業記録登録
      */
-    async courseLogsPost(requestParameters: CourseLogsPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CoursesGet200Response1> {
-        const response = await this.courseLogsPostRaw(requestParameters, initOverrides);
+    async getCourseLogs(requestParameters: GetCourseLogsOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PostCourse200Response> {
+        const response = await this.getCourseLogsRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * 授業記録更新
+     */
+    async updateCourseLogRaw(requestParameters: UpdateCourseLogOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<FindCourseLog200Response>> {
+        if (requestParameters.xTenantUID === null || requestParameters.xTenantUID === undefined) {
+            throw new runtime.RequiredError('xTenantUID','Required parameter requestParameters.xTenantUID was null or undefined when calling updateCourseLog.');
+        }
+
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling updateCourseLog.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters.xTenantUID !== undefined && requestParameters.xTenantUID !== null) {
+            headerParameters['X-Tenant-UID'] = String(requestParameters.xTenantUID);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/course-logs/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            method: 'PUT',
+            headers: headerParameters,
+            query: queryParameters,
+            body: UpdateCourseLogRequestToJSON(requestParameters.updateCourseLogRequest),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => FindCourseLog200ResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * 授業記録更新
+     */
+    async updateCourseLog(requestParameters: UpdateCourseLogOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<FindCourseLog200Response> {
+        const response = await this.updateCourseLogRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

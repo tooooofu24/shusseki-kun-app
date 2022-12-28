@@ -15,42 +15,42 @@
 
 import * as runtime from '../runtime';
 import type {
-  SchedulesGet200Response,
-  SchedulesGet200Response1,
-  SchedulesGetRequest,
-  UsersIdDelete200Response,
+  DeleteUser200Response,
+  GetSchedules200Response,
+  PostSchedule200Response,
+  PostScheduleRequest,
 } from '../models';
 import {
-    SchedulesGet200ResponseFromJSON,
-    SchedulesGet200ResponseToJSON,
-    SchedulesGet200Response1FromJSON,
-    SchedulesGet200Response1ToJSON,
-    SchedulesGetRequestFromJSON,
-    SchedulesGetRequestToJSON,
-    UsersIdDelete200ResponseFromJSON,
-    UsersIdDelete200ResponseToJSON,
+    DeleteUser200ResponseFromJSON,
+    DeleteUser200ResponseToJSON,
+    GetSchedules200ResponseFromJSON,
+    GetSchedules200ResponseToJSON,
+    PostSchedule200ResponseFromJSON,
+    PostSchedule200ResponseToJSON,
+    PostScheduleRequestFromJSON,
+    PostScheduleRequestToJSON,
 } from '../models';
 
-export interface SchedulesGetRequest {
+export interface DeleteScheduleRequest {
+    xTenantUID: string;
+    id: number;
+}
+
+export interface FindScheduleRequest {
+    xTenantUID: string;
+    id: number;
+}
+
+export interface GetSchedulesRequest {
     xTenantUID: string;
     courseId?: number;
     day?: number;
     period?: number;
 }
 
-export interface SchedulesIdDeleteRequest {
+export interface PostScheduleOperationRequest {
     xTenantUID: string;
-    id: number;
-}
-
-export interface SchedulesIdGetRequest {
-    xTenantUID: string;
-    id: number;
-}
-
-export interface SchedulesPostRequest {
-    xTenantUID: string;
-    schedulesGetRequest: SchedulesGetRequest;
+    postScheduleRequest: PostScheduleRequest;
 }
 
 /**
@@ -62,24 +62,6 @@ export interface SchedulesPostRequest {
 export interface ScheduleApiInterface {
     /**
      * 
-     * @summary 時間割一覧取得
-     * @param {string} xTenantUID テナント識別子
-     * @param {number} [courseId] 
-     * @param {number} [day] 1&#x3D;月, 2&#x3D;火, 3&#x3D;水, ..., 7&#x3D;日
-     * @param {number} [period] 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof ScheduleApiInterface
-     */
-    schedulesGetRaw(requestParameters: SchedulesGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchedulesGet200Response>>;
-
-    /**
-     * 時間割一覧取得
-     */
-    schedulesGet(requestParameters: SchedulesGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchedulesGet200Response>;
-
-    /**
-     * 
      * @summary 時間割削除
      * @param {string} xTenantUID テナント識別子
      * @param {number} id 
@@ -87,12 +69,12 @@ export interface ScheduleApiInterface {
      * @throws {RequiredError}
      * @memberof ScheduleApiInterface
      */
-    schedulesIdDeleteRaw(requestParameters: SchedulesIdDeleteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UsersIdDelete200Response>>;
+    deleteScheduleRaw(requestParameters: DeleteScheduleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DeleteUser200Response>>;
 
     /**
      * 時間割削除
      */
-    schedulesIdDelete(requestParameters: SchedulesIdDeleteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UsersIdDelete200Response>;
+    deleteSchedule(requestParameters: DeleteScheduleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DeleteUser200Response>;
 
     /**
      * 
@@ -103,28 +85,46 @@ export interface ScheduleApiInterface {
      * @throws {RequiredError}
      * @memberof ScheduleApiInterface
      */
-    schedulesIdGetRaw(requestParameters: SchedulesIdGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchedulesGet200Response1>>;
+    findScheduleRaw(requestParameters: FindScheduleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PostSchedule200Response>>;
 
     /**
      * 時間割単一取得
      */
-    schedulesIdGet(requestParameters: SchedulesIdGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchedulesGet200Response1>;
+    findSchedule(requestParameters: FindScheduleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PostSchedule200Response>;
+
+    /**
+     * 
+     * @summary 時間割一覧取得
+     * @param {string} xTenantUID テナント識別子
+     * @param {number} [courseId] 
+     * @param {number} [day] 1&#x3D;月, 2&#x3D;火, 3&#x3D;水, ..., 7&#x3D;日
+     * @param {number} [period] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ScheduleApiInterface
+     */
+    getSchedulesRaw(requestParameters: GetSchedulesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GetSchedules200Response>>;
+
+    /**
+     * 時間割一覧取得
+     */
+    getSchedules(requestParameters: GetSchedulesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GetSchedules200Response>;
 
     /**
      * 
      * @summary 時間割登録
      * @param {string} xTenantUID テナント識別子
-     * @param {SchedulesGetRequest} schedulesGetRequest 
+     * @param {PostScheduleRequest} postScheduleRequest 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ScheduleApiInterface
      */
-    schedulesPostRaw(requestParameters: SchedulesPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchedulesGet200Response1>>;
+    postScheduleRaw(requestParameters: PostScheduleOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PostSchedule200Response>>;
 
     /**
      * 時間割登録
      */
-    schedulesPost(requestParameters: SchedulesPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchedulesGet200Response1>;
+    postSchedule(requestParameters: PostScheduleOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PostSchedule200Response>;
 
 }
 
@@ -134,11 +134,103 @@ export interface ScheduleApiInterface {
 export class ScheduleApi extends runtime.BaseAPI implements ScheduleApiInterface {
 
     /**
+     * 時間割削除
+     */
+    async deleteScheduleRaw(requestParameters: DeleteScheduleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DeleteUser200Response>> {
+        if (requestParameters.xTenantUID === null || requestParameters.xTenantUID === undefined) {
+            throw new runtime.RequiredError('xTenantUID','Required parameter requestParameters.xTenantUID was null or undefined when calling deleteSchedule.');
+        }
+
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling deleteSchedule.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters.xTenantUID !== undefined && requestParameters.xTenantUID !== null) {
+            headerParameters['X-Tenant-UID'] = String(requestParameters.xTenantUID);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/schedules/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            method: 'DELETE',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => DeleteUser200ResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * 時間割削除
+     */
+    async deleteSchedule(requestParameters: DeleteScheduleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DeleteUser200Response> {
+        const response = await this.deleteScheduleRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * 時間割単一取得
+     */
+    async findScheduleRaw(requestParameters: FindScheduleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PostSchedule200Response>> {
+        if (requestParameters.xTenantUID === null || requestParameters.xTenantUID === undefined) {
+            throw new runtime.RequiredError('xTenantUID','Required parameter requestParameters.xTenantUID was null or undefined when calling findSchedule.');
+        }
+
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling findSchedule.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters.xTenantUID !== undefined && requestParameters.xTenantUID !== null) {
+            headerParameters['X-Tenant-UID'] = String(requestParameters.xTenantUID);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/schedules/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => PostSchedule200ResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * 時間割単一取得
+     */
+    async findSchedule(requestParameters: FindScheduleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PostSchedule200Response> {
+        const response = await this.findScheduleRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * 時間割一覧取得
      */
-    async schedulesGetRaw(requestParameters: SchedulesGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchedulesGet200Response>> {
+    async getSchedulesRaw(requestParameters: GetSchedulesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GetSchedules200Response>> {
         if (requestParameters.xTenantUID === null || requestParameters.xTenantUID === undefined) {
-            throw new runtime.RequiredError('xTenantUID','Required parameter requestParameters.xTenantUID was null or undefined when calling schedulesGet.');
+            throw new runtime.RequiredError('xTenantUID','Required parameter requestParameters.xTenantUID was null or undefined when calling getSchedules.');
         }
 
         const queryParameters: any = {};
@@ -176,119 +268,27 @@ export class ScheduleApi extends runtime.BaseAPI implements ScheduleApiInterface
             query: queryParameters,
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => SchedulesGet200ResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => GetSchedules200ResponseFromJSON(jsonValue));
     }
 
     /**
      * 時間割一覧取得
      */
-    async schedulesGet(requestParameters: SchedulesGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchedulesGet200Response> {
-        const response = await this.schedulesGetRaw(requestParameters, initOverrides);
-        return await response.value();
-    }
-
-    /**
-     * 時間割削除
-     */
-    async schedulesIdDeleteRaw(requestParameters: SchedulesIdDeleteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UsersIdDelete200Response>> {
-        if (requestParameters.xTenantUID === null || requestParameters.xTenantUID === undefined) {
-            throw new runtime.RequiredError('xTenantUID','Required parameter requestParameters.xTenantUID was null or undefined when calling schedulesIdDelete.');
-        }
-
-        if (requestParameters.id === null || requestParameters.id === undefined) {
-            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling schedulesIdDelete.');
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (requestParameters.xTenantUID !== undefined && requestParameters.xTenantUID !== null) {
-            headerParameters['X-Tenant-UID'] = String(requestParameters.xTenantUID);
-        }
-
-        if (this.configuration && this.configuration.accessToken) {
-            const token = this.configuration.accessToken;
-            const tokenString = await token("Bearer", []);
-
-            if (tokenString) {
-                headerParameters["Authorization"] = `Bearer ${tokenString}`;
-            }
-        }
-        const response = await this.request({
-            path: `/schedules/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
-            method: 'DELETE',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => UsersIdDelete200ResponseFromJSON(jsonValue));
-    }
-
-    /**
-     * 時間割削除
-     */
-    async schedulesIdDelete(requestParameters: SchedulesIdDeleteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UsersIdDelete200Response> {
-        const response = await this.schedulesIdDeleteRaw(requestParameters, initOverrides);
-        return await response.value();
-    }
-
-    /**
-     * 時間割単一取得
-     */
-    async schedulesIdGetRaw(requestParameters: SchedulesIdGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchedulesGet200Response1>> {
-        if (requestParameters.xTenantUID === null || requestParameters.xTenantUID === undefined) {
-            throw new runtime.RequiredError('xTenantUID','Required parameter requestParameters.xTenantUID was null or undefined when calling schedulesIdGet.');
-        }
-
-        if (requestParameters.id === null || requestParameters.id === undefined) {
-            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling schedulesIdGet.');
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (requestParameters.xTenantUID !== undefined && requestParameters.xTenantUID !== null) {
-            headerParameters['X-Tenant-UID'] = String(requestParameters.xTenantUID);
-        }
-
-        if (this.configuration && this.configuration.accessToken) {
-            const token = this.configuration.accessToken;
-            const tokenString = await token("Bearer", []);
-
-            if (tokenString) {
-                headerParameters["Authorization"] = `Bearer ${tokenString}`;
-            }
-        }
-        const response = await this.request({
-            path: `/schedules/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => SchedulesGet200Response1FromJSON(jsonValue));
-    }
-
-    /**
-     * 時間割単一取得
-     */
-    async schedulesIdGet(requestParameters: SchedulesIdGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchedulesGet200Response1> {
-        const response = await this.schedulesIdGetRaw(requestParameters, initOverrides);
+    async getSchedules(requestParameters: GetSchedulesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GetSchedules200Response> {
+        const response = await this.getSchedulesRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
     /**
      * 時間割登録
      */
-    async schedulesPostRaw(requestParameters: SchedulesPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SchedulesGet200Response1>> {
+    async postScheduleRaw(requestParameters: PostScheduleOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PostSchedule200Response>> {
         if (requestParameters.xTenantUID === null || requestParameters.xTenantUID === undefined) {
-            throw new runtime.RequiredError('xTenantUID','Required parameter requestParameters.xTenantUID was null or undefined when calling schedulesPost.');
+            throw new runtime.RequiredError('xTenantUID','Required parameter requestParameters.xTenantUID was null or undefined when calling postSchedule.');
         }
 
-        if (requestParameters.schedulesGetRequest === null || requestParameters.schedulesGetRequest === undefined) {
-            throw new runtime.RequiredError('schedulesGetRequest','Required parameter requestParameters.schedulesGetRequest was null or undefined when calling schedulesPost.');
+        if (requestParameters.postScheduleRequest === null || requestParameters.postScheduleRequest === undefined) {
+            throw new runtime.RequiredError('postScheduleRequest','Required parameter requestParameters.postScheduleRequest was null or undefined when calling postSchedule.');
         }
 
         const queryParameters: any = {};
@@ -314,17 +314,17 @@ export class ScheduleApi extends runtime.BaseAPI implements ScheduleApiInterface
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SchedulesGetRequestToJSON(requestParameters.schedulesGetRequest),
+            body: PostScheduleRequestToJSON(requestParameters.postScheduleRequest),
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => SchedulesGet200Response1FromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => PostSchedule200ResponseFromJSON(jsonValue));
     }
 
     /**
      * 時間割登録
      */
-    async schedulesPost(requestParameters: SchedulesPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SchedulesGet200Response1> {
-        const response = await this.schedulesPostRaw(requestParameters, initOverrides);
+    async postSchedule(requestParameters: PostScheduleOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PostSchedule200Response> {
+        const response = await this.postScheduleRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

@@ -15,34 +15,34 @@
 
 import * as runtime from '../runtime';
 import type {
-  IpAddressesGet200Response,
-  IpAddressesGet200Response1,
-  IpAddressesGetRequest,
-  UsersIdDelete200Response,
+  DeleteUser200Response,
+  GetIpAddresses200Response,
+  PostIpAddress200Response,
+  PostIpAddressRequest,
 } from '../models';
 import {
-    IpAddressesGet200ResponseFromJSON,
-    IpAddressesGet200ResponseToJSON,
-    IpAddressesGet200Response1FromJSON,
-    IpAddressesGet200Response1ToJSON,
-    IpAddressesGetRequestFromJSON,
-    IpAddressesGetRequestToJSON,
-    UsersIdDelete200ResponseFromJSON,
-    UsersIdDelete200ResponseToJSON,
+    DeleteUser200ResponseFromJSON,
+    DeleteUser200ResponseToJSON,
+    GetIpAddresses200ResponseFromJSON,
+    GetIpAddresses200ResponseToJSON,
+    PostIpAddress200ResponseFromJSON,
+    PostIpAddress200ResponseToJSON,
+    PostIpAddressRequestFromJSON,
+    PostIpAddressRequestToJSON,
 } from '../models';
 
-export interface IpAddressesGetRequest {
-    xTenantUID: string;
-}
-
-export interface IpAddressesIdDeleteRequest {
+export interface FindIpAddressRequest {
     xTenantUID: string;
     id: number;
 }
 
-export interface IpAddressesPostRequest {
+export interface GetIpAddressesRequest {
     xTenantUID: string;
-    ipAddressesGetRequest: IpAddressesGetRequest;
+}
+
+export interface PostIpAddressOperationRequest {
+    xTenantUID: string;
+    postIpAddressRequest: PostIpAddressRequest;
 }
 
 /**
@@ -54,21 +54,6 @@ export interface IpAddressesPostRequest {
 export interface ClientIPApiInterface {
     /**
      * 
-     * @summary 許容IP一覧取得
-     * @param {string} xTenantUID テナント識別子
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof ClientIPApiInterface
-     */
-    ipAddressesGetRaw(requestParameters: IpAddressesGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<IpAddressesGet200Response>>;
-
-    /**
-     * 許容IP一覧取得
-     */
-    ipAddressesGet(requestParameters: IpAddressesGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<IpAddressesGet200Response>;
-
-    /**
-     * 
      * @summary 許容IP削除
      * @param {string} xTenantUID テナント識別子
      * @param {number} id 
@@ -76,28 +61,43 @@ export interface ClientIPApiInterface {
      * @throws {RequiredError}
      * @memberof ClientIPApiInterface
      */
-    ipAddressesIdDeleteRaw(requestParameters: IpAddressesIdDeleteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UsersIdDelete200Response>>;
+    findIpAddressRaw(requestParameters: FindIpAddressRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DeleteUser200Response>>;
 
     /**
      * 許容IP削除
      */
-    ipAddressesIdDelete(requestParameters: IpAddressesIdDeleteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UsersIdDelete200Response>;
+    findIpAddress(requestParameters: FindIpAddressRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DeleteUser200Response>;
+
+    /**
+     * 
+     * @summary 許容IP一覧取得
+     * @param {string} xTenantUID テナント識別子
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ClientIPApiInterface
+     */
+    getIpAddressesRaw(requestParameters: GetIpAddressesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GetIpAddresses200Response>>;
+
+    /**
+     * 許容IP一覧取得
+     */
+    getIpAddresses(requestParameters: GetIpAddressesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GetIpAddresses200Response>;
 
     /**
      * 
      * @summary 許容IP登録
      * @param {string} xTenantUID テナント識別子
-     * @param {IpAddressesGetRequest} ipAddressesGetRequest 
+     * @param {PostIpAddressRequest} postIpAddressRequest 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ClientIPApiInterface
      */
-    ipAddressesPostRaw(requestParameters: IpAddressesPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<IpAddressesGet200Response1>>;
+    postIpAddressRaw(requestParameters: PostIpAddressOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PostIpAddress200Response>>;
 
     /**
      * 許容IP登録
      */
-    ipAddressesPost(requestParameters: IpAddressesPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<IpAddressesGet200Response1>;
+    postIpAddress(requestParameters: PostIpAddressOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PostIpAddress200Response>;
 
 }
 
@@ -107,57 +107,15 @@ export interface ClientIPApiInterface {
 export class ClientIPApi extends runtime.BaseAPI implements ClientIPApiInterface {
 
     /**
-     * 許容IP一覧取得
-     */
-    async ipAddressesGetRaw(requestParameters: IpAddressesGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<IpAddressesGet200Response>> {
-        if (requestParameters.xTenantUID === null || requestParameters.xTenantUID === undefined) {
-            throw new runtime.RequiredError('xTenantUID','Required parameter requestParameters.xTenantUID was null or undefined when calling ipAddressesGet.');
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (requestParameters.xTenantUID !== undefined && requestParameters.xTenantUID !== null) {
-            headerParameters['X-Tenant-UID'] = String(requestParameters.xTenantUID);
-        }
-
-        if (this.configuration && this.configuration.accessToken) {
-            const token = this.configuration.accessToken;
-            const tokenString = await token("Bearer", []);
-
-            if (tokenString) {
-                headerParameters["Authorization"] = `Bearer ${tokenString}`;
-            }
-        }
-        const response = await this.request({
-            path: `/ip-addresses`,
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => IpAddressesGet200ResponseFromJSON(jsonValue));
-    }
-
-    /**
-     * 許容IP一覧取得
-     */
-    async ipAddressesGet(requestParameters: IpAddressesGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<IpAddressesGet200Response> {
-        const response = await this.ipAddressesGetRaw(requestParameters, initOverrides);
-        return await response.value();
-    }
-
-    /**
      * 許容IP削除
      */
-    async ipAddressesIdDeleteRaw(requestParameters: IpAddressesIdDeleteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UsersIdDelete200Response>> {
+    async findIpAddressRaw(requestParameters: FindIpAddressRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DeleteUser200Response>> {
         if (requestParameters.xTenantUID === null || requestParameters.xTenantUID === undefined) {
-            throw new runtime.RequiredError('xTenantUID','Required parameter requestParameters.xTenantUID was null or undefined when calling ipAddressesIdDelete.');
+            throw new runtime.RequiredError('xTenantUID','Required parameter requestParameters.xTenantUID was null or undefined when calling findIpAddress.');
         }
 
         if (requestParameters.id === null || requestParameters.id === undefined) {
-            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling ipAddressesIdDelete.');
+            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling findIpAddress.');
         }
 
         const queryParameters: any = {};
@@ -183,27 +141,69 @@ export class ClientIPApi extends runtime.BaseAPI implements ClientIPApiInterface
             query: queryParameters,
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => UsersIdDelete200ResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => DeleteUser200ResponseFromJSON(jsonValue));
     }
 
     /**
      * 許容IP削除
      */
-    async ipAddressesIdDelete(requestParameters: IpAddressesIdDeleteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UsersIdDelete200Response> {
-        const response = await this.ipAddressesIdDeleteRaw(requestParameters, initOverrides);
+    async findIpAddress(requestParameters: FindIpAddressRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DeleteUser200Response> {
+        const response = await this.findIpAddressRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * 許容IP一覧取得
+     */
+    async getIpAddressesRaw(requestParameters: GetIpAddressesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GetIpAddresses200Response>> {
+        if (requestParameters.xTenantUID === null || requestParameters.xTenantUID === undefined) {
+            throw new runtime.RequiredError('xTenantUID','Required parameter requestParameters.xTenantUID was null or undefined when calling getIpAddresses.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters.xTenantUID !== undefined && requestParameters.xTenantUID !== null) {
+            headerParameters['X-Tenant-UID'] = String(requestParameters.xTenantUID);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/ip-addresses`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => GetIpAddresses200ResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * 許容IP一覧取得
+     */
+    async getIpAddresses(requestParameters: GetIpAddressesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GetIpAddresses200Response> {
+        const response = await this.getIpAddressesRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
     /**
      * 許容IP登録
      */
-    async ipAddressesPostRaw(requestParameters: IpAddressesPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<IpAddressesGet200Response1>> {
+    async postIpAddressRaw(requestParameters: PostIpAddressOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PostIpAddress200Response>> {
         if (requestParameters.xTenantUID === null || requestParameters.xTenantUID === undefined) {
-            throw new runtime.RequiredError('xTenantUID','Required parameter requestParameters.xTenantUID was null or undefined when calling ipAddressesPost.');
+            throw new runtime.RequiredError('xTenantUID','Required parameter requestParameters.xTenantUID was null or undefined when calling postIpAddress.');
         }
 
-        if (requestParameters.ipAddressesGetRequest === null || requestParameters.ipAddressesGetRequest === undefined) {
-            throw new runtime.RequiredError('ipAddressesGetRequest','Required parameter requestParameters.ipAddressesGetRequest was null or undefined when calling ipAddressesPost.');
+        if (requestParameters.postIpAddressRequest === null || requestParameters.postIpAddressRequest === undefined) {
+            throw new runtime.RequiredError('postIpAddressRequest','Required parameter requestParameters.postIpAddressRequest was null or undefined when calling postIpAddress.');
         }
 
         const queryParameters: any = {};
@@ -229,17 +229,17 @@ export class ClientIPApi extends runtime.BaseAPI implements ClientIPApiInterface
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: IpAddressesGetRequestToJSON(requestParameters.ipAddressesGetRequest),
+            body: PostIpAddressRequestToJSON(requestParameters.postIpAddressRequest),
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => IpAddressesGet200Response1FromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => PostIpAddress200ResponseFromJSON(jsonValue));
     }
 
     /**
      * 許容IP登録
      */
-    async ipAddressesPost(requestParameters: IpAddressesPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<IpAddressesGet200Response1> {
-        const response = await this.ipAddressesPostRaw(requestParameters, initOverrides);
+    async postIpAddress(requestParameters: PostIpAddressOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PostIpAddress200Response> {
+        const response = await this.postIpAddressRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

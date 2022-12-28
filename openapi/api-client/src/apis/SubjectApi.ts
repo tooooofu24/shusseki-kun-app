@@ -15,14 +15,14 @@
 
 import * as runtime from '../runtime';
 import type {
-  SubjectsGet200Response,
+  GetSubjects200Response,
 } from '../models';
 import {
-    SubjectsGet200ResponseFromJSON,
-    SubjectsGet200ResponseToJSON,
+    GetSubjects200ResponseFromJSON,
+    GetSubjects200ResponseToJSON,
 } from '../models';
 
-export interface SubjectsGetRequest {
+export interface GetSubjectsRequest {
     xTenantUID: string;
 }
 
@@ -41,12 +41,12 @@ export interface SubjectApiInterface {
      * @throws {RequiredError}
      * @memberof SubjectApiInterface
      */
-    subjectsGetRaw(requestParameters: SubjectsGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SubjectsGet200Response>>;
+    getSubjectsRaw(requestParameters: GetSubjectsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GetSubjects200Response>>;
 
     /**
      * 科目一覧取得
      */
-    subjectsGet(requestParameters: SubjectsGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SubjectsGet200Response>;
+    getSubjects(requestParameters: GetSubjectsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GetSubjects200Response>;
 
 }
 
@@ -58,9 +58,9 @@ export class SubjectApi extends runtime.BaseAPI implements SubjectApiInterface {
     /**
      * 科目一覧取得
      */
-    async subjectsGetRaw(requestParameters: SubjectsGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SubjectsGet200Response>> {
+    async getSubjectsRaw(requestParameters: GetSubjectsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GetSubjects200Response>> {
         if (requestParameters.xTenantUID === null || requestParameters.xTenantUID === undefined) {
-            throw new runtime.RequiredError('xTenantUID','Required parameter requestParameters.xTenantUID was null or undefined when calling subjectsGet.');
+            throw new runtime.RequiredError('xTenantUID','Required parameter requestParameters.xTenantUID was null or undefined when calling getSubjects.');
         }
 
         const queryParameters: any = {};
@@ -86,14 +86,14 @@ export class SubjectApi extends runtime.BaseAPI implements SubjectApiInterface {
             query: queryParameters,
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => SubjectsGet200ResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => GetSubjects200ResponseFromJSON(jsonValue));
     }
 
     /**
      * 科目一覧取得
      */
-    async subjectsGet(requestParameters: SubjectsGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SubjectsGet200Response> {
-        const response = await this.subjectsGetRaw(requestParameters, initOverrides);
+    async getSubjects(requestParameters: GetSubjectsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GetSubjects200Response> {
+        const response = await this.getSubjectsRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

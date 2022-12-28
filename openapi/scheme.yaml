@@ -21,6 +21,7 @@ tags:
   - name: "Schedule"
   - name: "Attendance"
   - name: "Subject"
+  - name: "Score"
 
 security:
   - Bearer: []
@@ -33,6 +34,7 @@ paths:
       summary: ユーザ一覧取得
       tags:
         - User
+      operationId: getUsers
       parameters:
         - $ref: "#/components/parameters/tenant"
       responses:
@@ -55,6 +57,7 @@ paths:
       summary: 自身のユーザ情報を取得
       tags:
         - User
+      operationId: getCurrentUser
       parameters:
         - $ref: "#/components/parameters/tenant"
       responses:
@@ -73,6 +76,7 @@ paths:
       summary: ユーザ単一取得
       tags:
         - User
+      operationId: findUser
       parameters:
         - $ref: "#/components/parameters/tenant"
         - $ref: "#/components/parameters/id"
@@ -90,6 +94,7 @@ paths:
       summary: ユーザ削除
       tags:
         - User
+      operationId: deleteUser
       parameters:
         - $ref: "#/components/parameters/tenant"
         - $ref: "#/components/parameters/id"
@@ -104,6 +109,7 @@ paths:
       summary: 招待登録
       tags:
         - UserInvitation
+      operationId: postInvitation
       parameters:
         - $ref: "#/components/parameters/tenant"
       requestBody:
@@ -131,6 +137,7 @@ paths:
       summary: 招待一覧取得
       tags:
         - UserInvitation
+      operationId: getInvitations
       parameters:
         - $ref: "#/components/parameters/tenant"
       responses:
@@ -151,6 +158,7 @@ paths:
       summary: 招待単一取得
       tags:
         - UserInvitation
+      operationId: findInvitation
       parameters:
         - $ref: "#/components/parameters/tenant"
         - $ref: "#/components/parameters/id"
@@ -166,6 +174,7 @@ paths:
                     $ref: "#/components/schemas/userInvitation"
     delete:
       summary: 招待削除
+      operationId: deleteInvitation
       tags:
         - UserInvitation
       parameters:
@@ -177,6 +186,7 @@ paths:
   /invitations/{id}/resend:
     post:
       summary: 招待メールを再送
+      operationId: sendInvitationMail
       tags:
         - UserInvitation
       parameters:
@@ -193,6 +203,7 @@ paths:
       summary: 許容IP登録
       tags:
         - ClientIP
+      operationId: postIpAddress
       parameters:
         - $ref: "#/components/parameters/tenant"
       requestBody:
@@ -224,6 +235,7 @@ paths:
       summary: 許容IP一覧取得
       tags:
         - ClientIP
+      operationId: getIpAddresses
       parameters:
         - $ref: "#/components/parameters/tenant"
       responses:
@@ -244,6 +256,7 @@ paths:
       summary: 許容IP削除
       tags:
         - ClientIP
+      operationId: findIpAddress
       parameters:
         - $ref: "#/components/parameters/tenant"
         - $ref: "#/components/parameters/id"
@@ -253,11 +266,12 @@ paths:
 
   # Classroom --------------------------------------------
 
-  /classroom:
+  /classrooms:
     post:
       summary: 学級登録
       tags:
         - Classroom
+      operationId: postClassroom
       parameters:
         - $ref: "#/components/parameters/tenant"
       requestBody:
@@ -298,6 +312,7 @@ paths:
       summary: 学級一覧取得
       tags:
         - Classroom
+      operationId: getClassrooms
       parameters:
         - $ref: "#/components/parameters/tenant"
       responses:
@@ -318,6 +333,7 @@ paths:
       summary: 学級単一取得
       tags:
         - Classroom
+      operationId: findClassroom
       parameters:
         - $ref: "#/components/parameters/tenant"
         - $ref: "#/components/parameters/id"
@@ -335,6 +351,7 @@ paths:
       summary: 学級削除
       tags:
         - Classroom
+      operationId: deleteClassroom
       parameters:
         - $ref: "#/components/parameters/tenant"
         - $ref: "#/components/parameters/id"
@@ -349,6 +366,7 @@ paths:
       summary: 生徒一覧取得
       tags:
         - Student
+      operationId: getStudents
       parameters:
         - $ref: "#/components/parameters/tenant"
         - name: classroom-id
@@ -383,6 +401,7 @@ paths:
       summary: 生徒単一取得
       tags:
         - Student
+      operationId: findStudent
       parameters:
         - $ref: "#/components/parameters/tenant"
         - $ref: "#/components/parameters/id"
@@ -400,6 +419,7 @@ paths:
       summary: 生徒削除
       tags:
         - Student
+      operationId: deleteStudent
       parameters:
         - $ref: "#/components/parameters/tenant"
         - $ref: "#/components/parameters/id"
@@ -414,6 +434,7 @@ paths:
       summary: 授業登録
       tags:
         - Course
+      operationId: postCourse
       parameters:
         - $ref: "#/components/parameters/tenant"
       requestBody:
@@ -444,6 +465,7 @@ paths:
       summary: 授業一覧取得
       tags:
         - Course
+      operationId: getCourses
       parameters:
         - $ref: "#/components/parameters/tenant"
         - name: classroom-id
@@ -474,6 +496,7 @@ paths:
       summary: 授業単一取得
       tags:
         - Course
+      operationId: findCourse
       parameters:
         - $ref: "#/components/parameters/tenant"
         - $ref: "#/components/parameters/id"
@@ -489,6 +512,7 @@ paths:
                     $ref: "#/components/schemas/course"
     delete:
       summary: 授業削除
+      operationId: deleteCourse
       tags:
         - Course
       parameters:
@@ -502,7 +526,8 @@ paths:
     get:
       summary: 授業の成績一覧を取得
       tags:
-        - Course
+        - Score
+      operationId: getScores
       parameters:
         - $ref: "#/components/parameters/tenant"
         - $ref: "#/components/parameters/id"
@@ -524,6 +549,7 @@ paths:
       summary: 授業記録登録
       tags:
         - CourseLog
+      operationId: getCourseLogs
       parameters:
         - $ref: "#/components/parameters/tenant"
       requestBody:
@@ -632,6 +658,7 @@ paths:
       summary: 授業記録単一取得
       tags:
         - CourseLog
+      operationId: findCourseLog
       parameters:
         - $ref: "#/components/parameters/tenant"
         - $ref: "#/components/parameters/id"
@@ -649,6 +676,7 @@ paths:
       summary: 授業記録更新
       tags:
         - CourseLog
+      operationId: updateCourseLog
       parameters:
         - $ref: "#/components/parameters/tenant"
         - $ref: "#/components/parameters/id"
@@ -681,6 +709,7 @@ paths:
       summary: 授業記録削除
       tags:
         - CourseLog
+      operationId: deleteCourseLog
       parameters:
         - $ref: "#/components/parameters/tenant"
         - $ref: "#/components/parameters/id"
@@ -694,6 +723,7 @@ paths:
       summary: 時間割登録
       tags:
         - Schedule
+      operationId: postSchedule
       parameters:
         - $ref: "#/components/parameters/tenant"
       requestBody:
@@ -730,6 +760,7 @@ paths:
       summary: 時間割一覧取得
       tags:
         - Schedule
+      operationId: getSchedules
       parameters:
         - $ref: "#/components/parameters/tenant"
         - name: course-id
@@ -766,6 +797,7 @@ paths:
       summary: 時間割単一取得
       tags:
         - Schedule
+      operationId: findSchedule
       parameters:
         - $ref: "#/components/parameters/tenant"
         - $ref: "#/components/parameters/id"
@@ -783,6 +815,7 @@ paths:
       summary: 時間割削除
       tags:
         - Schedule
+      operationId: deleteSchedule
       parameters:
         - $ref: "#/components/parameters/tenant"
         - $ref: "#/components/parameters/id"
@@ -795,6 +828,7 @@ paths:
       summary: 出席情報一覧取得
       tags:
         - Attendance
+      operationId: getAttendances
       parameters:
         - $ref: "#/components/parameters/tenant"
         - name: course-log-id
@@ -840,6 +874,7 @@ paths:
       summary: 出席情報単一取得
       tags:
         - Attendance
+      operationId: findAttendance
       parameters:
         - $ref: "#/components/parameters/tenant"
         - $ref: "#/components/parameters/id"
@@ -857,6 +892,7 @@ paths:
       summary: 出席情報更新
       tags:
         - Attendance
+      operationId: updateAttendance
       parameters:
         - $ref: "#/components/parameters/tenant"
         - $ref: "#/components/parameters/id"
@@ -896,6 +932,7 @@ paths:
       summary: 出席情報削除
       tags:
         - Attendance
+      operationId: deleteAttendance
       parameters:
         - $ref: "#/components/parameters/tenant"
         - $ref: "#/components/parameters/id"
@@ -908,6 +945,7 @@ paths:
       summary: 科目一覧取得
       tags:
         - Subject
+      operationId: getSubjects
       parameters:
         - $ref: "#/components/parameters/tenant"
       responses:

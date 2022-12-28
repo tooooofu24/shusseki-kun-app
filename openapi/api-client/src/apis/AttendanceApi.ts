@@ -15,23 +15,33 @@
 
 import * as runtime from '../runtime';
 import type {
-  AttendancesGet200Response,
-  AttendancesIdDelete200Response,
-  AttendancesIdDeleteRequest,
-  UsersIdDelete200Response,
+  DeleteUser200Response,
+  FindAttendance200Response,
+  GetAttendances200Response,
+  UpdateAttendanceRequest,
 } from '../models';
 import {
-    AttendancesGet200ResponseFromJSON,
-    AttendancesGet200ResponseToJSON,
-    AttendancesIdDelete200ResponseFromJSON,
-    AttendancesIdDelete200ResponseToJSON,
-    AttendancesIdDeleteRequestFromJSON,
-    AttendancesIdDeleteRequestToJSON,
-    UsersIdDelete200ResponseFromJSON,
-    UsersIdDelete200ResponseToJSON,
+    DeleteUser200ResponseFromJSON,
+    DeleteUser200ResponseToJSON,
+    FindAttendance200ResponseFromJSON,
+    FindAttendance200ResponseToJSON,
+    GetAttendances200ResponseFromJSON,
+    GetAttendances200ResponseToJSON,
+    UpdateAttendanceRequestFromJSON,
+    UpdateAttendanceRequestToJSON,
 } from '../models';
 
-export interface AttendancesGetRequest {
+export interface DeleteAttendanceRequest {
+    xTenantUID: string;
+    id: number;
+}
+
+export interface FindAttendanceRequest {
+    xTenantUID: string;
+    id: number;
+}
+
+export interface GetAttendancesRequest {
     xTenantUID: string;
     courseLogId?: number;
     studentId?: number;
@@ -40,20 +50,10 @@ export interface AttendancesGetRequest {
     subjectId?: number;
 }
 
-export interface AttendancesIdDeleteRequest {
+export interface UpdateAttendanceOperationRequest {
     xTenantUID: string;
     id: number;
-}
-
-export interface AttendancesIdGetRequest {
-    xTenantUID: string;
-    id: number;
-}
-
-export interface AttendancesIdPutRequest {
-    xTenantUID: string;
-    id: number;
-    attendancesIdDeleteRequest?: AttendancesIdDeleteRequest;
+    updateAttendanceRequest?: UpdateAttendanceRequest;
 }
 
 /**
@@ -63,6 +63,38 @@ export interface AttendancesIdPutRequest {
  * @interface AttendanceApiInterface
  */
 export interface AttendanceApiInterface {
+    /**
+     * 
+     * @summary 出席情報削除
+     * @param {string} xTenantUID テナント識別子
+     * @param {number} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AttendanceApiInterface
+     */
+    deleteAttendanceRaw(requestParameters: DeleteAttendanceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DeleteUser200Response>>;
+
+    /**
+     * 出席情報削除
+     */
+    deleteAttendance(requestParameters: DeleteAttendanceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DeleteUser200Response>;
+
+    /**
+     * 
+     * @summary 出席情報単一取得
+     * @param {string} xTenantUID テナント識別子
+     * @param {number} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AttendanceApiInterface
+     */
+    findAttendanceRaw(requestParameters: FindAttendanceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<FindAttendance200Response>>;
+
+    /**
+     * 出席情報単一取得
+     */
+    findAttendance(requestParameters: FindAttendanceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<FindAttendance200Response>;
+
     /**
      * 
      * @summary 出席情報一覧取得
@@ -76,61 +108,29 @@ export interface AttendanceApiInterface {
      * @throws {RequiredError}
      * @memberof AttendanceApiInterface
      */
-    attendancesGetRaw(requestParameters: AttendancesGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AttendancesGet200Response>>;
+    getAttendancesRaw(requestParameters: GetAttendancesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GetAttendances200Response>>;
 
     /**
      * 出席情報一覧取得
      */
-    attendancesGet(requestParameters: AttendancesGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AttendancesGet200Response>;
-
-    /**
-     * 
-     * @summary 出席情報削除
-     * @param {string} xTenantUID テナント識別子
-     * @param {number} id 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof AttendanceApiInterface
-     */
-    attendancesIdDeleteRaw(requestParameters: AttendancesIdDeleteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UsersIdDelete200Response>>;
-
-    /**
-     * 出席情報削除
-     */
-    attendancesIdDelete(requestParameters: AttendancesIdDeleteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UsersIdDelete200Response>;
-
-    /**
-     * 
-     * @summary 出席情報単一取得
-     * @param {string} xTenantUID テナント識別子
-     * @param {number} id 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof AttendanceApiInterface
-     */
-    attendancesIdGetRaw(requestParameters: AttendancesIdGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AttendancesIdDelete200Response>>;
-
-    /**
-     * 出席情報単一取得
-     */
-    attendancesIdGet(requestParameters: AttendancesIdGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AttendancesIdDelete200Response>;
+    getAttendances(requestParameters: GetAttendancesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GetAttendances200Response>;
 
     /**
      * 
      * @summary 出席情報更新
      * @param {string} xTenantUID テナント識別子
      * @param {number} id 
-     * @param {AttendancesIdDeleteRequest} [attendancesIdDeleteRequest] 
+     * @param {UpdateAttendanceRequest} [updateAttendanceRequest] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AttendanceApiInterface
      */
-    attendancesIdPutRaw(requestParameters: AttendancesIdPutRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AttendancesIdDelete200Response>>;
+    updateAttendanceRaw(requestParameters: UpdateAttendanceOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<FindAttendance200Response>>;
 
     /**
      * 出席情報更新
      */
-    attendancesIdPut(requestParameters: AttendancesIdPutRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AttendancesIdDelete200Response>;
+    updateAttendance(requestParameters: UpdateAttendanceOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<FindAttendance200Response>;
 
 }
 
@@ -140,11 +140,103 @@ export interface AttendanceApiInterface {
 export class AttendanceApi extends runtime.BaseAPI implements AttendanceApiInterface {
 
     /**
+     * 出席情報削除
+     */
+    async deleteAttendanceRaw(requestParameters: DeleteAttendanceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DeleteUser200Response>> {
+        if (requestParameters.xTenantUID === null || requestParameters.xTenantUID === undefined) {
+            throw new runtime.RequiredError('xTenantUID','Required parameter requestParameters.xTenantUID was null or undefined when calling deleteAttendance.');
+        }
+
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling deleteAttendance.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters.xTenantUID !== undefined && requestParameters.xTenantUID !== null) {
+            headerParameters['X-Tenant-UID'] = String(requestParameters.xTenantUID);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/attendances/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            method: 'DELETE',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => DeleteUser200ResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * 出席情報削除
+     */
+    async deleteAttendance(requestParameters: DeleteAttendanceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DeleteUser200Response> {
+        const response = await this.deleteAttendanceRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * 出席情報単一取得
+     */
+    async findAttendanceRaw(requestParameters: FindAttendanceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<FindAttendance200Response>> {
+        if (requestParameters.xTenantUID === null || requestParameters.xTenantUID === undefined) {
+            throw new runtime.RequiredError('xTenantUID','Required parameter requestParameters.xTenantUID was null or undefined when calling findAttendance.');
+        }
+
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling findAttendance.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters.xTenantUID !== undefined && requestParameters.xTenantUID !== null) {
+            headerParameters['X-Tenant-UID'] = String(requestParameters.xTenantUID);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/attendances/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => FindAttendance200ResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * 出席情報単一取得
+     */
+    async findAttendance(requestParameters: FindAttendanceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<FindAttendance200Response> {
+        const response = await this.findAttendanceRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * 出席情報一覧取得
      */
-    async attendancesGetRaw(requestParameters: AttendancesGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AttendancesGet200Response>> {
+    async getAttendancesRaw(requestParameters: GetAttendancesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GetAttendances200Response>> {
         if (requestParameters.xTenantUID === null || requestParameters.xTenantUID === undefined) {
-            throw new runtime.RequiredError('xTenantUID','Required parameter requestParameters.xTenantUID was null or undefined when calling attendancesGet.');
+            throw new runtime.RequiredError('xTenantUID','Required parameter requestParameters.xTenantUID was null or undefined when calling getAttendances.');
         }
 
         const queryParameters: any = {};
@@ -190,119 +282,27 @@ export class AttendanceApi extends runtime.BaseAPI implements AttendanceApiInter
             query: queryParameters,
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => AttendancesGet200ResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => GetAttendances200ResponseFromJSON(jsonValue));
     }
 
     /**
      * 出席情報一覧取得
      */
-    async attendancesGet(requestParameters: AttendancesGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AttendancesGet200Response> {
-        const response = await this.attendancesGetRaw(requestParameters, initOverrides);
-        return await response.value();
-    }
-
-    /**
-     * 出席情報削除
-     */
-    async attendancesIdDeleteRaw(requestParameters: AttendancesIdDeleteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UsersIdDelete200Response>> {
-        if (requestParameters.xTenantUID === null || requestParameters.xTenantUID === undefined) {
-            throw new runtime.RequiredError('xTenantUID','Required parameter requestParameters.xTenantUID was null or undefined when calling attendancesIdDelete.');
-        }
-
-        if (requestParameters.id === null || requestParameters.id === undefined) {
-            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling attendancesIdDelete.');
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (requestParameters.xTenantUID !== undefined && requestParameters.xTenantUID !== null) {
-            headerParameters['X-Tenant-UID'] = String(requestParameters.xTenantUID);
-        }
-
-        if (this.configuration && this.configuration.accessToken) {
-            const token = this.configuration.accessToken;
-            const tokenString = await token("Bearer", []);
-
-            if (tokenString) {
-                headerParameters["Authorization"] = `Bearer ${tokenString}`;
-            }
-        }
-        const response = await this.request({
-            path: `/attendances/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
-            method: 'DELETE',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => UsersIdDelete200ResponseFromJSON(jsonValue));
-    }
-
-    /**
-     * 出席情報削除
-     */
-    async attendancesIdDelete(requestParameters: AttendancesIdDeleteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UsersIdDelete200Response> {
-        const response = await this.attendancesIdDeleteRaw(requestParameters, initOverrides);
-        return await response.value();
-    }
-
-    /**
-     * 出席情報単一取得
-     */
-    async attendancesIdGetRaw(requestParameters: AttendancesIdGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AttendancesIdDelete200Response>> {
-        if (requestParameters.xTenantUID === null || requestParameters.xTenantUID === undefined) {
-            throw new runtime.RequiredError('xTenantUID','Required parameter requestParameters.xTenantUID was null or undefined when calling attendancesIdGet.');
-        }
-
-        if (requestParameters.id === null || requestParameters.id === undefined) {
-            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling attendancesIdGet.');
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (requestParameters.xTenantUID !== undefined && requestParameters.xTenantUID !== null) {
-            headerParameters['X-Tenant-UID'] = String(requestParameters.xTenantUID);
-        }
-
-        if (this.configuration && this.configuration.accessToken) {
-            const token = this.configuration.accessToken;
-            const tokenString = await token("Bearer", []);
-
-            if (tokenString) {
-                headerParameters["Authorization"] = `Bearer ${tokenString}`;
-            }
-        }
-        const response = await this.request({
-            path: `/attendances/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => AttendancesIdDelete200ResponseFromJSON(jsonValue));
-    }
-
-    /**
-     * 出席情報単一取得
-     */
-    async attendancesIdGet(requestParameters: AttendancesIdGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AttendancesIdDelete200Response> {
-        const response = await this.attendancesIdGetRaw(requestParameters, initOverrides);
+    async getAttendances(requestParameters: GetAttendancesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GetAttendances200Response> {
+        const response = await this.getAttendancesRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
     /**
      * 出席情報更新
      */
-    async attendancesIdPutRaw(requestParameters: AttendancesIdPutRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AttendancesIdDelete200Response>> {
+    async updateAttendanceRaw(requestParameters: UpdateAttendanceOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<FindAttendance200Response>> {
         if (requestParameters.xTenantUID === null || requestParameters.xTenantUID === undefined) {
-            throw new runtime.RequiredError('xTenantUID','Required parameter requestParameters.xTenantUID was null or undefined when calling attendancesIdPut.');
+            throw new runtime.RequiredError('xTenantUID','Required parameter requestParameters.xTenantUID was null or undefined when calling updateAttendance.');
         }
 
         if (requestParameters.id === null || requestParameters.id === undefined) {
-            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling attendancesIdPut.');
+            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling updateAttendance.');
         }
 
         const queryParameters: any = {};
@@ -328,17 +328,17 @@ export class AttendanceApi extends runtime.BaseAPI implements AttendanceApiInter
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
-            body: AttendancesIdDeleteRequestToJSON(requestParameters.attendancesIdDeleteRequest),
+            body: UpdateAttendanceRequestToJSON(requestParameters.updateAttendanceRequest),
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => AttendancesIdDelete200ResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => FindAttendance200ResponseFromJSON(jsonValue));
     }
 
     /**
      * 出席情報更新
      */
-    async attendancesIdPut(requestParameters: AttendancesIdPutRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AttendancesIdDelete200Response> {
-        const response = await this.attendancesIdPutRaw(requestParameters, initOverrides);
+    async updateAttendance(requestParameters: UpdateAttendanceOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<FindAttendance200Response> {
+        const response = await this.updateAttendanceRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
