@@ -1,0 +1,1314 @@
+openapi: "3.0.0"
+
+info:
+  title: "出席くんAPI"
+  version: "0.0.0"
+
+servers:
+  - url: "https://localhost"
+    description: "ローカル"
+  - url: "https://dev.api.shusseki-kun.com"
+    description: "検証環境"
+
+tags:
+  - name: "User"
+  - name: "UserInvitation"
+  - name: "ClientIP"
+  - name: "Classroom"
+  - name: "Student"
+  - name: "Course"
+  - name: "CourseLog"
+  - name: "Schedule"
+  - name: "Attendance"
+  - name: "Subject"
+
+security:
+  - Bearer: []
+
+paths:
+  # User --------------------------------------------------
+
+  /users:
+    get:
+      summary: ユーザ一覧取得
+      tags:
+        - User
+      parameters:
+        - $ref: "#/components/parameters/tenant"
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/user"
+        "400":
+          $ref: "#/components/responses/error"
+
+  /users/current:
+    get:
+      summary: 自身のユーザ情報を取得
+      tags:
+        - User
+      parameters:
+        - $ref: "#/components/parameters/tenant"
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/user"
+
+  /users/{id}:
+    get:
+      summary: ユーザ単一取得
+      tags:
+        - User
+      parameters:
+        - $ref: "#/components/parameters/tenant"
+        - $ref: "#/components/parameters/id"
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/user"
+    delete:
+      summary: ユーザ削除
+      tags:
+        - User
+      parameters:
+        - $ref: "#/components/parameters/tenant"
+        - $ref: "#/components/parameters/id"
+      responses:
+        200:
+          $ref: "#/components/responses/delete"
+
+  # UserInvitation -------------------------------------------
+
+  /invitations:
+    post:
+      summary: 招待登録
+      tags:
+        - UserInvitation
+      parameters:
+        - $ref: "#/components/parameters/tenant"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/userInvitation"
+
+    get:
+      summary: 招待一覧取得
+      tags:
+        - UserInvitation
+      parameters:
+        - $ref: "#/components/parameters/tenant"
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/userInvitation"
+
+  /invitations/{id}:
+    get:
+      summary: 招待単一取得
+      tags:
+        - UserInvitation
+      parameters:
+        - $ref: "#/components/parameters/tenant"
+        - $ref: "#/components/parameters/id"
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/userInvitation"
+    delete:
+      summary: 招待削除
+      tags:
+        - UserInvitation
+      parameters:
+        - $ref: "#/components/parameters/tenant"
+        - $ref: "#/components/parameters/id"
+      responses:
+        200:
+          $ref: "#/components/responses/delete"
+  /invitations/{id}/resend:
+    post:
+      summary: 招待メールを再送
+      tags:
+        - UserInvitation
+      parameters:
+        - $ref: "#/components/parameters/tenant"
+        - $ref: "#/components/parameters/id"
+      responses:
+        200:
+          $ref: "#/components/responses/delete"
+
+  # ClientIP -----------------------------------------------
+
+  /ip-addresses:
+    post:
+      summary: 許容IP登録
+      tags:
+        - ClientIP
+      parameters:
+        - $ref: "#/components/parameters/tenant"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - ip
+              properties:
+                ip:
+                  type: string
+                  example: xxx.xxx.xxx.xxx
+                label:
+                  type: string
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/clientIp"
+
+    get:
+      summary: 許容IP一覧取得
+      tags:
+        - ClientIP
+      parameters:
+        - $ref: "#/components/parameters/tenant"
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/clientIp"
+
+  /ip-addresses/{id}:
+    delete:
+      summary: 許容IP削除
+      tags:
+        - ClientIP
+      parameters:
+        - $ref: "#/components/parameters/tenant"
+        - $ref: "#/components/parameters/id"
+      responses:
+        200:
+          $ref: "#/components/responses/delete"
+
+  # Classroom --------------------------------------------
+
+  /classroom:
+    post:
+      summary: 学級登録
+      tags:
+        - Classroom
+      parameters:
+        - $ref: "#/components/parameters/tenant"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - grade
+                - name
+                - teacher
+                - students
+              properties:
+                grade:
+                  type: integer
+                name:
+                  type: string
+                teacher:
+                  type: string
+                student:
+                  type: array
+                  description: 生徒氏名リスト（出席番号順）
+                  items:
+                    type: string
+                    description: 生徒氏名
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/classroom"
+    get:
+      summary: 学級一覧取得
+      tags:
+        - Classroom
+      parameters:
+        - $ref: "#/components/parameters/tenant"
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/classroomWithCourse"
+
+  /classrooms/{id}:
+    get:
+      summary: 学級単一取得
+      tags:
+        - Classroom
+      parameters:
+        - $ref: "#/components/parameters/tenant"
+        - $ref: "#/components/parameters/id"
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/classroomWithCourse"
+    delete:
+      summary: 学級削除
+      tags:
+        - Classroom
+      parameters:
+        - $ref: "#/components/parameters/tenant"
+        - $ref: "#/components/parameters/id"
+      responses:
+        200:
+          $ref: "#/components/responses/delete"
+
+  # Student ------------------------------------------------
+
+  /students:
+    get:
+      summary: 生徒一覧取得
+      tags:
+        - Student
+      parameters:
+        - $ref: "#/components/parameters/tenant"
+        - name: classroom-id
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: course-id
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: number
+          in: query
+          required: false
+          schema:
+            type: integer
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/student"
+  /students/{id}:
+    get:
+      summary: 生徒単一取得
+      tags:
+        - Student
+      parameters:
+        - $ref: "#/components/parameters/tenant"
+        - $ref: "#/components/parameters/id"
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/student"
+    delete:
+      summary: 生徒削除
+      tags:
+        - Student
+      parameters:
+        - $ref: "#/components/parameters/tenant"
+        - $ref: "#/components/parameters/id"
+      responses:
+        200:
+          $ref: "#/components/responses/delete"
+
+  # Course
+
+  /courses:
+    post:
+      summary: 授業登録
+      tags:
+        - Course
+      parameters:
+        - $ref: "#/components/parameters/tenant"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - classroomId
+                - subjectId
+              properties:
+                classroomId:
+                  type: integer
+                subjectId:
+                  type: integer
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/course"
+    get:
+      summary: 授業一覧取得
+      tags:
+        - Course
+      parameters:
+        - $ref: "#/components/parameters/tenant"
+        - name: classroom-id
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: subject-id
+          in: query
+          required: false
+          schema:
+            type: integer
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/course"
+
+  /courses/{id}:
+    get:
+      summary: 授業単一取得
+      tags:
+        - Course
+      parameters:
+        - $ref: "#/components/parameters/tenant"
+        - $ref: "#/components/parameters/id"
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/course"
+    delete:
+      summary: 授業削除
+      tags:
+        - Course
+      parameters:
+        - $ref: "#/components/parameters/tenant"
+        - $ref: "#/components/parameters/id"
+      responses:
+        200:
+          $ref: "#/components/responses/delete"
+
+  /courses/{id}/scores:
+    get:
+      summary: 授業の成績一覧を取得
+      tags:
+        - Course
+      parameters:
+        - $ref: "#/components/parameters/tenant"
+        - $ref: "#/components/parameters/id"
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/score"
+
+  /course-logs:
+    post:
+      summary: 授業記録登録
+      tags:
+        - CourseLog
+      parameters:
+        - $ref: "#/components/parameters/tenant"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - courseId
+                - date
+                - period
+                - attendances
+              properties:
+                courseId:
+                  type: integer
+                date:
+                  type: string
+                  format: date
+                period:
+                  type: integer
+                  minimum: 1
+                  maximum: 7
+                attendances:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                      - studentId
+                      - attend
+                    properties:
+                      studentId:
+                        type: integer
+                      attend:
+                        type: boolean
+                      knowledge:
+                        type: integer
+                        minimum: 1
+                        maximum: 3
+                      expression:
+                        type: integer
+                        minimum: 1
+                        maximum: 3
+                      attitude:
+                        type: integer
+                        minimum: 1
+                        maximum: 3
+                      comment:
+                        type: string
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/course"
+
+    get:
+      summary: 授業記録一覧取得
+      tags:
+        - CourseLog
+      parameters:
+        - $ref: "#/components/parameters/tenant"
+        - name: course-id
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: period
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: min-date
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date
+            example: "2022-10-01"
+        - name: max-date
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date
+            example: "2022-10-01"
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/courseLog"
+
+  /course-logs/{id}:
+    get:
+      summary: 授業記録単一取得
+      tags:
+        - CourseLog
+      parameters:
+        - $ref: "#/components/parameters/tenant"
+        - $ref: "#/components/parameters/id"
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/courseLog"
+    put:
+      summary: 授業記録更新
+      tags:
+        - CourseLog
+      parameters:
+        - $ref: "#/components/parameters/tenant"
+        - $ref: "#/components/parameters/id"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                courseId:
+                  type: integer
+                date:
+                  type: string
+                  format: date
+                period:
+                  type: integer
+                  minimum: 1
+                  maximum: 7
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/courseLog"
+    delete:
+      summary: 授業記録削除
+      tags:
+        - CourseLog
+      parameters:
+        - $ref: "#/components/parameters/tenant"
+        - $ref: "#/components/parameters/id"
+      responses:
+        200:
+          $ref: "#/components/responses/delete"
+
+  # Schedule
+  /schedules:
+    post:
+      summary: 時間割登録
+      tags:
+        - Schedule
+      parameters:
+        - $ref: "#/components/parameters/tenant"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                classroomId:
+                  type: integer
+                subjectId:
+                  type: integer
+                day:
+                  type: string
+                  example: mon
+                  description: 1-7 or mon-sun or 月-日
+                period:
+                  type: integer
+                  minimum: 1
+                  maximum: 7
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/schedule"
+
+    get:
+      summary: 時間割一覧取得
+      tags:
+        - Schedule
+      parameters:
+        - $ref: "#/components/parameters/tenant"
+        - name: course-id
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: day
+          in: query
+          description: 1=月, 2=火, 3=水, ..., 7=日
+          required: false
+          schema:
+            type: integer
+        - name: period
+          in: query
+          required: false
+          schema:
+            type: integer
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/schedule"
+
+  /schedules/{id}:
+    get:
+      summary: 時間割単一取得
+      tags:
+        - Schedule
+      parameters:
+        - $ref: "#/components/parameters/tenant"
+        - $ref: "#/components/parameters/id"
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/schedule"
+    delete:
+      summary: 時間割削除
+      tags:
+        - Schedule
+      parameters:
+        - $ref: "#/components/parameters/tenant"
+        - $ref: "#/components/parameters/id"
+      responses:
+        200:
+          $ref: "#/components/responses/delete"
+
+  /attendances:
+    get:
+      summary: 出席情報一覧取得
+      tags:
+        - Attendance
+      parameters:
+        - $ref: "#/components/parameters/tenant"
+        - name: course-log-id
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: student-id
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: course-id
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: classroom-id
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: subject-id
+          in: query
+          required: false
+          schema:
+            type: integer
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/attendance"
+
+  /attendances/{id}:
+    get:
+      summary: 出席情報単一取得
+      tags:
+        - Attendance
+      parameters:
+        - $ref: "#/components/parameters/tenant"
+        - $ref: "#/components/parameters/id"
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/attendance"
+    put:
+      summary: 出席情報更新
+      tags:
+        - Attendance
+      parameters:
+        - $ref: "#/components/parameters/tenant"
+        - $ref: "#/components/parameters/id"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                attend:
+                  type: boolean
+                knowledge:
+                  type: integer
+                  minimum: 1
+                  maximum: 3
+                expression:
+                  type: integer
+                  minimum: 1
+                  maximum: 3
+                attitude:
+                  type: integer
+                  minimum: 1
+                  maximum: 3
+                comment:
+                  type: string
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/attendance"
+    delete:
+      summary: 出席情報削除
+      tags:
+        - Attendance
+      parameters:
+        - $ref: "#/components/parameters/tenant"
+        - $ref: "#/components/parameters/id"
+      responses:
+        200:
+          $ref: "#/components/responses/delete"
+
+  /subjects:
+    get:
+      summary: 科目一覧取得
+      tags:
+        - Subject
+      parameters:
+        - $ref: "#/components/parameters/tenant"
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/subject"
+
+components:
+  parameters:
+    tenant:
+      name: X-Tenant-UID
+      in: header
+      required: true
+      description: テナント識別子
+      schema:
+        type: string
+    id:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: integer
+
+  schemas:
+    # 日時
+    datetime:
+      type: string
+      format: date-time
+      example: "2022-10-01T09:00:00"
+
+    # ユーザ
+    user:
+      type: object
+      required:
+        - id
+        - name
+        - email
+        - profileImage
+        - lastAuthenticatedAt
+        - createdAt
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        email:
+          type: string
+        profileImage:
+          type: string
+        lastAuthenticatedAt:
+          $ref: "#/components/schemas/datetime"
+        createdAt:
+          $ref: "#/components/schemas/datetime"
+        updatedAt:
+          $ref: "#/components/schemas/datetime"
+
+    # 招待
+    userInvitation:
+      type: object
+      required:
+        - id
+        - email
+        - acceptFlag
+        - createdAt
+      properties:
+        id:
+          type: integer
+        email:
+          type: string
+        acceptFlag:
+          type: boolean
+        createdBy:
+          $ref: "#/components/schemas/user"
+        updatedBy:
+          $ref: "#/components/schemas/user"
+        createdAt:
+          $ref: "#/components/schemas/datetime"
+        updatedAt:
+          $ref: "#/components/schemas/datetime"
+
+    # 送信元
+    clientIp:
+      type: object
+      required:
+        - id
+        - ip
+        - createdAt
+      properties:
+        id:
+          type: integer
+        ip:
+          type: string
+        label:
+          type: string
+        createdBy:
+          $ref: "#/components/schemas/user"
+        updatedBy:
+          $ref: "#/components/schemas/user"
+        createdAt:
+          $ref: "#/components/schemas/datetime"
+        updatedAt:
+          $ref: "#/components/schemas/datetime"
+
+    # 科目
+    subject:
+      type: object
+      required:
+        - id
+        - name
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+
+    # 学級
+    classroom:
+      type: object
+      required:
+        - id
+        - grade
+        - name
+        - teacher
+        - createdAt
+      properties:
+        id:
+          type: integer
+        grade:
+          type: integer
+          minimum: 1
+          maximum: 3
+        name:
+          type: string
+        teacher:
+          type: string
+        createdAt:
+          $ref: "#/components/schemas/datetime"
+        updatedAt:
+          $ref: "#/components/schemas/datetime"
+
+    # 学級（成績データ付き）
+    classroomWithCourse:
+      type: object
+      required:
+        - id
+        - grade
+        - name
+        - teacher
+        - studentsCount
+        - courses
+        - createdAt
+      properties:
+        id:
+          type: integer
+        grade:
+          type: integer
+          minimum: 1
+          maximum: 3
+        name:
+          type: string
+        teacher:
+          type: string
+        studentsCount:
+          type: integer
+        courses:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              user:
+                $ref: "#/components/schemas/user"
+              classroom:
+                $ref: "#/components/schemas/classroom"
+              subject:
+                $ref: "#/components/schemas/subject"
+              scores:
+                type: array
+                items:
+                  $ref: "#/components/schemas/score"
+              createdAt:
+                $ref: "#/components/schemas/datetime"
+              updatedAt:
+                $ref: "#/components/schemas/datetime"
+        createdAt:
+          $ref: "#/components/schemas/datetime"
+        updatedAt:
+          $ref: "#/components/schemas/datetime"
+
+    # 生徒
+    student:
+      type: object
+      required:
+        - id
+        - number
+        - name
+        - classroom
+        - createdAt
+      properties:
+        id:
+          type: integer
+        number:
+          type: integer
+          minimum: 1
+        name:
+          type: string
+        classroom:
+          $ref: "#/components/schemas/classroom"
+        createdAt:
+          $ref: "#/components/schemas/datetime"
+        updatedAt:
+          $ref: "#/components/schemas/datetime"
+
+    # 授業
+    course:
+      type: object
+      required:
+        - id
+        - user
+        - classroom
+        - subject
+        - createdAt
+      properties:
+        id:
+          type: integer
+        user:
+          $ref: "#/components/schemas/user"
+        classroom:
+          $ref: "#/components/schemas/classroom"
+        subject:
+          $ref: "#/components/schemas/subject"
+        createdAt:
+          $ref: "#/components/schemas/datetime"
+        updatedAt:
+          $ref: "#/components/schemas/datetime"
+
+    # 授業記録
+    courseLog:
+      type: object
+      required:
+        - id
+        - date
+        - period
+        - course
+        - createdAt
+      properties:
+        id:
+          type: integer
+        date:
+          type: string
+          format: date
+        period:
+          type: integer
+          minimum: 1
+          maximum: 7
+        course:
+          $ref: "#/components/schemas/course"
+        createdAt:
+          $ref: "#/components/schemas/datetime"
+        updatedAt:
+          $ref: "#/components/schemas/datetime"
+
+    # 時間割
+    schedule:
+      type: object
+      required:
+        - id
+        - day
+        - dayEn
+        - dayJa
+        - period
+        - course
+        - createdAt
+      properties:
+        id:
+          type: integer
+        day:
+          type: integer
+          minimum: 1
+          maximum: 7
+        dayEn:
+          type: string
+        dayJa:
+          type: string
+        period:
+          type: integer
+          minimum: 1
+          maximum: 7
+        course:
+          $ref: "#/components/schemas/course"
+        createdAt:
+          $ref: "#/components/schemas/datetime"
+        updatedAt:
+          $ref: "#/components/schemas/datetime"
+
+    # 出席情報
+    attendance:
+      type: object
+      required:
+        - id
+        - courseLog
+        - student
+        - attend
+        - createdAt
+      properties:
+        id:
+          type: integer
+        courseLog:
+          $ref: "#/components/schemas/courseLog"
+        student:
+          $ref: "#/components/schemas/student"
+        attend:
+          type: boolean
+        knowledge:
+          type: integer
+          minimum: 1
+          maximum: 3
+        expression:
+          type: integer
+          minimum: 1
+          maximum: 3
+        attitude:
+          type: integer
+          minimum: 1
+          maximum: 3
+        comment:
+          type: string
+        createdAt:
+          $ref: "#/components/schemas/datetime"
+        updatedAt:
+          $ref: "#/components/schemas/datetime"
+    # 成績情報
+    score:
+      type: object
+      required:
+        - course
+        - student
+        - attendanceRate
+        - attendanceCount
+        - absenceCount
+        - knowledgeAverage
+        - expressionAverage
+        - attitudeAverage
+      properties:
+        course:
+          $ref: "#/components/schemas/course"
+        student:
+          $ref: "#/components/schemas/student"
+        attendanceRate:
+          type: number
+          format: double
+        attendanceCount:
+          type: integer
+        absenceCount:
+          type: integer
+        knowledgeAverage:
+          type: number
+          format: double
+        expressionAverage:
+          type: number
+          format: double
+        attitudeAverage:
+          type: number
+          format: double
+
+  responses:
+    delete:
+      description: 成功
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: integer
+                description: 削除されたID
+    error:
+      description: エラーレスポンス
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+              code:
+                type: integer
+              message:
+                type: string
+              displayMessage:
+                type: string
+              detail:
+                type: object
+  securitySchemes:
+    Bearer:
+      type: http
+      scheme: bearer
