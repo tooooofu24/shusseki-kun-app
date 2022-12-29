@@ -8,8 +8,7 @@ const versionAtom = atom(0);
 const classroomsAtom = atom<Promise<ClassroomWithCourse[]> | []>(
 	async (get) => {
 		get(versionAtom);
-		const classrooms = await getClassrooms();
-		return classrooms;
+		return await getClassrooms();
 	}
 );
 

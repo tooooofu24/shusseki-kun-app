@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
-import type { ClientIp } from './ClientIp';
+import type { IPAddress } from './IPAddress';
 import {
-    ClientIpFromJSON,
-    ClientIpFromJSONTyped,
-    ClientIpToJSON,
-} from './ClientIp';
+    IPAddressFromJSON,
+    IPAddressFromJSONTyped,
+    IPAddressToJSON,
+} from './IPAddress';
 
 /**
  * 
@@ -28,10 +28,10 @@ import {
 export interface GetIpAddresses200Response {
     /**
      * 
-     * @type {Array<ClientIp>}
+     * @type {Array<IPAddress>}
      * @memberof GetIpAddresses200Response
      */
-    data?: Array<ClientIp>;
+    data?: Array<IPAddress>;
 }
 
 /**
@@ -53,7 +53,7 @@ export function GetIpAddresses200ResponseFromJSONTyped(json: any, ignoreDiscrimi
     }
     return {
         
-        'data': !exists(json, 'data') ? undefined : ((json['data'] as Array<any>).map(ClientIpFromJSON)),
+        'data': !exists(json, 'data') ? undefined : ((json['data'] as Array<any>).map(IPAddressFromJSON)),
     };
 }
 
@@ -66,7 +66,7 @@ export function GetIpAddresses200ResponseToJSON(value?: GetIpAddresses200Respons
     }
     return {
         
-        'data': value.data === undefined ? undefined : ((value.data as Array<any>).map(ClientIpToJSON)),
+        'data': value.data === undefined ? undefined : ((value.data as Array<any>).map(IPAddressToJSON)),
     };
 }
 

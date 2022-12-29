@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
-import type { ClientIp } from './ClientIp';
+import type { IPAddress } from './IPAddress';
 import {
-    ClientIpFromJSON,
-    ClientIpFromJSONTyped,
-    ClientIpToJSON,
-} from './ClientIp';
+    IPAddressFromJSON,
+    IPAddressFromJSONTyped,
+    IPAddressToJSON,
+} from './IPAddress';
 
 /**
  * 
@@ -28,10 +28,10 @@ import {
 export interface PostIpAddress200Response {
     /**
      * 
-     * @type {ClientIp}
+     * @type {IPAddress}
      * @memberof PostIpAddress200Response
      */
-    data?: ClientIp;
+    data?: IPAddress;
 }
 
 /**
@@ -53,7 +53,7 @@ export function PostIpAddress200ResponseFromJSONTyped(json: any, ignoreDiscrimin
     }
     return {
         
-        'data': !exists(json, 'data') ? undefined : ClientIpFromJSON(json['data']),
+        'data': !exists(json, 'data') ? undefined : IPAddressFromJSON(json['data']),
     };
 }
 
@@ -66,7 +66,7 @@ export function PostIpAddress200ResponseToJSON(value?: PostIpAddress200Response 
     }
     return {
         
-        'data': ClientIpToJSON(value.data),
+        'data': IPAddressToJSON(value.data),
     };
 }
 

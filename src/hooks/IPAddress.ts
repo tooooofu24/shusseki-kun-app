@@ -1,13 +1,13 @@
 import { atom, useAtom } from "jotai";
+import { IPAddress } from "openapi/api-client/src/models/IPAddress";
 
-import { IPAddress } from "@/types/IPAddress";
 import { getIPAddresses } from "@/utils/api/IPAdress";
 
 const versionAtom = atom(0);
 
 const IPAddressesAtom = atom<Promise<IPAddress[]> | []>(async (get) => {
 	get(versionAtom);
-	const IPAddresses = getIPAddresses();
+	const IPAddresses = await getIPAddresses();
 	return IPAddresses;
 });
 

@@ -23,57 +23,57 @@ import {
 /**
  * 
  * @export
- * @interface ClientIp
+ * @interface IPAddress
  */
-export interface ClientIp {
+export interface IPAddress {
     /**
      * 
      * @type {number}
-     * @memberof ClientIp
+     * @memberof IPAddress
      */
     id: number;
     /**
      * 
      * @type {string}
-     * @memberof ClientIp
+     * @memberof IPAddress
      */
     ip: string;
     /**
      * 
      * @type {string}
-     * @memberof ClientIp
+     * @memberof IPAddress
      */
     label?: string;
     /**
      * 
      * @type {User}
-     * @memberof ClientIp
+     * @memberof IPAddress
      */
     createdBy?: User;
     /**
      * 
      * @type {User}
-     * @memberof ClientIp
+     * @memberof IPAddress
      */
     updatedBy?: User;
     /**
      * 
      * @type {Date}
-     * @memberof ClientIp
+     * @memberof IPAddress
      */
     createdAt: Date;
     /**
      * 
      * @type {Date}
-     * @memberof ClientIp
+     * @memberof IPAddress
      */
     updatedAt?: Date;
 }
 
 /**
- * Check if a given object implements the ClientIp interface.
+ * Check if a given object implements the IPAddress interface.
  */
-export function instanceOfClientIp(value: object): boolean {
+export function instanceOfIPAddress(value: object): boolean {
     let isInstance = true;
     isInstance = isInstance && "id" in value;
     isInstance = isInstance && "ip" in value;
@@ -82,11 +82,11 @@ export function instanceOfClientIp(value: object): boolean {
     return isInstance;
 }
 
-export function ClientIpFromJSON(json: any): ClientIp {
-    return ClientIpFromJSONTyped(json, false);
+export function IPAddressFromJSON(json: any): IPAddress {
+    return IPAddressFromJSONTyped(json, false);
 }
 
-export function ClientIpFromJSONTyped(json: any, ignoreDiscriminator: boolean): ClientIp {
+export function IPAddressFromJSONTyped(json: any, ignoreDiscriminator: boolean): IPAddress {
     if ((json === undefined) || (json === null)) {
         return json;
     }
@@ -102,7 +102,7 @@ export function ClientIpFromJSONTyped(json: any, ignoreDiscriminator: boolean): 
     };
 }
 
-export function ClientIpToJSON(value?: ClientIp | null): any {
+export function IPAddressToJSON(value?: IPAddress | null): any {
     if (value === undefined) {
         return undefined;
     }

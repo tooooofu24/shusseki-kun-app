@@ -46,12 +46,12 @@ export interface PostIpAddressOperationRequest {
 }
 
 /**
- * ClientIPApi - interface
+ * IPAddressApi - interface
  * 
  * @export
- * @interface ClientIPApiInterface
+ * @interface IPAddressApiInterface
  */
-export interface ClientIPApiInterface {
+export interface IPAddressApiInterface {
     /**
      * 
      * @summary 許容IP削除
@@ -59,7 +59,7 @@ export interface ClientIPApiInterface {
      * @param {number} id 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof ClientIPApiInterface
+     * @memberof IPAddressApiInterface
      */
     findIpAddressRaw(requestParameters: FindIpAddressRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DeleteUser200Response>>;
 
@@ -74,7 +74,7 @@ export interface ClientIPApiInterface {
      * @param {string} xTenantUID テナント識別子
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof ClientIPApiInterface
+     * @memberof IPAddressApiInterface
      */
     getIpAddressesRaw(requestParameters: GetIpAddressesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GetIpAddresses200Response>>;
 
@@ -90,7 +90,7 @@ export interface ClientIPApiInterface {
      * @param {PostIpAddressRequest} postIpAddressRequest 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof ClientIPApiInterface
+     * @memberof IPAddressApiInterface
      */
     postIpAddressRaw(requestParameters: PostIpAddressOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PostIpAddress200Response>>;
 
@@ -104,7 +104,7 @@ export interface ClientIPApiInterface {
 /**
  * 
  */
-export class ClientIPApi extends runtime.BaseAPI implements ClientIPApiInterface {
+export class IPAddressApi extends runtime.BaseAPI implements IPAddressApiInterface {
 
     /**
      * 許容IP削除

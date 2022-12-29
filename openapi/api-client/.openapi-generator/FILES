@@ -5,9 +5,9 @@ README.md
 package.json
 src/apis/AttendanceApi.ts
 src/apis/ClassroomApi.ts
-src/apis/ClientIPApi.ts
 src/apis/CourseApi.ts
 src/apis/CourseLogApi.ts
+src/apis/IPAddressApi.ts
 src/apis/InvitationApi.ts
 src/apis/ScheduleApi.ts
 src/apis/ScoreApi.ts
@@ -20,7 +20,6 @@ src/models/Attendance.ts
 src/models/Classroom.ts
 src/models/ClassroomWithCourse.ts
 src/models/ClassroomWithCourseCoursesInner.ts
-src/models/ClientIp.ts
 src/models/Course.ts
 src/models/CourseLog.ts
 src/models/CourseLogsGet200Response.ts
@@ -43,6 +42,7 @@ src/models/GetStudents200Response.ts
 src/models/GetSubjects200Response.ts
 src/models/GetUsers200Response.ts
 src/models/GetUsers400Response.ts
+src/models/IPAddress.ts
 src/models/Invitation.ts
 src/models/PostClassroom200Response.ts
 src/models/PostClassroomRequest.ts

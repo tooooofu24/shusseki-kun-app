@@ -13,7 +13,7 @@ servers:
 tags:
   - name: "User"
   - name: "Invitation"
-  - name: "ClientIP"
+  - name: "IPAddress"
   - name: "Classroom"
   - name: "Student"
   - name: "Course"
@@ -203,13 +203,13 @@ paths:
         200:
           $ref: "#/components/responses/delete"
 
-  # ClientIP -----------------------------------------------
+  # IPAddress -----------------------------------------------
 
   /ip-addresses:
     post:
       summary: 許容IP登録
       tags:
-        - ClientIP
+        - IPAddress
       operationId: postIpAddress
       parameters:
         - $ref: "#/components/parameters/tenant"
@@ -236,12 +236,12 @@ paths:
                 type: object
                 properties:
                   data:
-                    $ref: "#/components/schemas/clientIp"
+                    $ref: "#/components/schemas/IPAddress"
 
     get:
       summary: 許容IP一覧取得
       tags:
-        - ClientIP
+        - IPAddress
       operationId: getIpAddresses
       parameters:
         - $ref: "#/components/parameters/tenant"
@@ -256,13 +256,13 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: "#/components/schemas/clientIp"
+                      $ref: "#/components/schemas/IPAddress"
 
   /ip-addresses/{id}:
     delete:
       summary: 許容IP削除
       tags:
-        - ClientIP
+        - IPAddress
       operationId: findIpAddress
       parameters:
         - $ref: "#/components/parameters/tenant"
@@ -1040,7 +1040,7 @@ components:
           $ref: "#/components/schemas/datetime"
 
     # 送信元
-    clientIp:
+    IPAddress:
       type: object
       required:
         - id

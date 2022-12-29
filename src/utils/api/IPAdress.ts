@@ -1,11 +1,12 @@
-import { fetcher } from "../fetcher";
+import { IPAddressApi } from "openapi/api-client/src/apis/IPAddressApi";
+
+import { getApiConfig, getTenantUid } from "./ApiConfig";
 
 export const getIPAddresses = async () => {
-	const json = await fetcher({ uri: "/ip-addresses", method: "GET" });
-	return json.results;
-};
-
-export const deleteIPAddress = async (id: number) => {
-	await fetcher({ uri: `/ip-addresses/${id}`, method: "DELETE" });
-	return;
+	const config = await getApiConfig();
+	const api = new IPAddressApi(config);
+	const response = await api.getIpAddresses({
+		xTenantUID: getTenantUid(),
+	});
+	return response.data ?? [];
 };

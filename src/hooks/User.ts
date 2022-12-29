@@ -1,14 +1,13 @@
 import { atom, useAtom } from "jotai";
+import { User } from "openapi/api-client/src";
 
-import { User } from "@/types/User";
 import { getUsers } from "@/utils/api/User";
 
 const versionAtom = atom(0);
 
 const usersAtom = atom<Promise<User[]> | []>(async (get) => {
 	get(versionAtom);
-	const users = getUsers();
-	return users;
+	return getUsers();
 });
 
 export const useUsers = () => {

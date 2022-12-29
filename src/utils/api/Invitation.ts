@@ -28,7 +28,7 @@ export const postInvitation = async (props: PostInvitationRequest) => {
 export const deleteInvitation = async (id: number) => {
 	const config = await getApiConfig();
 	const api = new InvitationApi(config);
-	api.deleteInvitation({
+	await api.deleteInvitation({
 		xTenantUID: getTenantUid(),
 		id,
 	});
@@ -37,7 +37,7 @@ export const deleteInvitation = async (id: number) => {
 export const sendInvitationMail = async (id: number) => {
 	const config = await getApiConfig();
 	const api = new InvitationApi(config);
-	api.sendInvitationMail({
+	await api.sendInvitationMail({
 		xTenantUID: getTenantUid(),
 		id,
 	});
