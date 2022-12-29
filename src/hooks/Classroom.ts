@@ -1,15 +1,17 @@
 import { atom, useAtom } from "jotai";
+import { ClassroomWithCourse } from "openapi/api-client/src";
 
-import { Classroom } from "@/types/Classroom";
 import { getClassrooms } from "@/utils/api/Classroom";
 
 const versionAtom = atom(0);
 
-const classroomsAtom = atom<Promise<Classroom[]> | []>(async (get) => {
-	get(versionAtom);
-	const users = getClassrooms();
-	return users;
-});
+const classroomsAtom = atom<Promise<ClassroomWithCourse[]> | []>(
+	async (get) => {
+		get(versionAtom);
+		const classrooms = await getClassrooms();
+		return classrooms;
+	}
+);
 
 export const useClassrooms = () => {
 	const [classrooms] = useAtom(classroomsAtom);

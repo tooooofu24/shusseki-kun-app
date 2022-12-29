@@ -1,6 +1,12 @@
-import { fetcher } from "../fetcher";
+import { ClassroomApi } from "openapi/api-client/src";
+
+import { getApiConfig, getTenantUid } from "./ApiConfig";
 
 export const getClassrooms = async () => {
-	const json = await fetcher({ uri: "/classrooms", method: "GET" });
-	return json.results;
+	const config = await getApiConfig();
+	const api = new ClassroomApi(config);
+	const json = await api.getClassrooms({
+		xTenantUID: getTenantUid(),
+	});
+	return json.data ?? [];
 };
