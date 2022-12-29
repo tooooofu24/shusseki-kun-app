@@ -1,14 +1,11 @@
-import { ResponsiveValue, ThemeTypings } from "@chakra-ui/react";
-import * as CSS from "csstype";
+// declare type Token<
+// 	CSSType,
+// 	ThemeKey = unknown
+// > = ThemeKey extends keyof ThemeTypings
+// 	? ResponsiveValue<CSSType | ThemeTypings[ThemeKey]>
+// 	: ResponsiveValue<CSSType>;
 
-declare type Token<
-	CSSType,
-	ThemeKey = unknown
-> = ThemeKey extends keyof ThemeTypings
-	? ResponsiveValue<CSSType | ThemeTypings[ThemeKey]>
-	: ResponsiveValue<CSSType>;
-
-type Color = Token<CSS.Property.Color, "colors">;
+type Color = string;
 
 type Colors = {
 	primary: Color;
