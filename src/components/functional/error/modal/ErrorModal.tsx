@@ -27,7 +27,7 @@ export const ErrorModal: FC<props> = ({ isOpen, onClose, message }) => {
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>エラーが発生しました</ModalHeader>
+        <ModalHeader>操作に失敗しました</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
           <Alert status="error">

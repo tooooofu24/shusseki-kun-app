@@ -16,19 +16,19 @@
 import * as runtime from '../runtime';
 import type {
   DeleteUser200Response,
+  ErrorResponse,
   GetCurrentUser200Response,
   GetUsers200Response,
-  GetUsers400Response,
 } from '../models';
 import {
     DeleteUser200ResponseFromJSON,
     DeleteUser200ResponseToJSON,
+    ErrorResponseFromJSON,
+    ErrorResponseToJSON,
     GetCurrentUser200ResponseFromJSON,
     GetCurrentUser200ResponseToJSON,
     GetUsers200ResponseFromJSON,
     GetUsers200ResponseToJSON,
-    GetUsers400ResponseFromJSON,
-    GetUsers400ResponseToJSON,
 } from '../models';
 
 export interface DeleteUserRequest {

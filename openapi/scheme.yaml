@@ -102,6 +102,8 @@ paths:
       responses:
         "200":
           $ref: "#/components/responses/delete"
+        "400":
+          $ref: "#/components/responses/error"
   /invitations:
     post:
       summary: 招待登録
@@ -1270,6 +1272,27 @@ components:
         attitudeAverage:
           type: number
           format: double
+    errorResponse:
+      title: ErrorResponse
+      type: object
+      description: エラーレスポンス
+      required:
+        - error
+        - code
+        - message
+        - displayMessage
+        - detail
+      properties:
+        error:
+          type: string
+        code:
+          type: integer
+        message:
+          type: string
+        displayMessage:
+          type: string
+        detail:
+          type: object
   responses:
     delete:
       description: 成功
@@ -1286,18 +1309,7 @@ components:
       content:
         application/json:
           schema:
-            type: object
-            properties:
-              error:
-                type: string
-              code:
-                type: integer
-              message:
-                type: string
-              displayMessage:
-                type: string
-              detail:
-                type: object
+            $ref: "#/components/schemas/errorResponse"
   securitySchemes:
     Bearer:
       type: http

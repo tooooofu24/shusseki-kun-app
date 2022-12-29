@@ -23,6 +23,7 @@ src/models/ClassroomWithCourseCoursesInner.ts
 src/models/Course.ts
 src/models/CourseLog.ts
 src/models/DeleteUser200Response.ts
+src/models/ErrorResponse.ts
 src/models/FindAttendance200Response.ts
 src/models/FindClassroom200Response.ts
 src/models/FindCourseLog200Response.ts
@@ -39,7 +40,6 @@ src/models/GetScores200Response.ts
 src/models/GetStudents200Response.ts
 src/models/GetSubjects200Response.ts
 src/models/GetUsers200Response.ts
-src/models/GetUsers400Response.ts
 src/models/IPAddress.ts
 src/models/Invitation.ts
 src/models/PostClassroom200Response.ts

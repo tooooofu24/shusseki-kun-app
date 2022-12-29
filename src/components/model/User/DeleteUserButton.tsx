@@ -17,7 +17,8 @@ import { User } from "openapi/api-client/src";
 import { X } from "phosphor-react";
 import { FC, useState } from "react";
 
-import { ErrorModal } from "@/components/functional/error/ErrorModal";
+import { ErrorModal } from "@/components/functional/error/modal/ErrorModal";
+import { deleteUser } from "@/utils/api/User";
 
 type props = {
   user: User;
@@ -35,14 +36,10 @@ export const DeleteUserButton: FC<props> = ({ user }) => {
   const onClick = async () => {
     setIsLoading(true);
     try {
-      // await deleteUser(100);
+      await deleteUser(100);
       onClose();
-    } catch (e) {
-      if (e instanceof Error) {
-        setError(e.message);
-      } else {
-        setError("不明なエラー");
-      }
+    } catch (e: any) {
+      setError(e.message);
       onOpenErrorModal();
     }
 

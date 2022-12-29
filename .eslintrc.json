@@ -20,6 +20,7 @@
     "unused-imports/no-unused-imports": "error", // 未使用のimport文を削除
     "react-hooks/exhaustive-deps": "off",
     "react/display-name": "off",
+    "@typescript-eslint/no-explicit-any": "off", // anyの使用
     "@typescript-eslint/no-unused-vars": [
       "error",
       {

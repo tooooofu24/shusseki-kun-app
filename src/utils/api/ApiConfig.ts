@@ -1,7 +1,13 @@
 import { getAuth } from "firebase/auth";
-import { Configuration } from "openapi/api-client/src";
+import {
+  Configuration,
+  ErrorResponse,
+  ResponseError,
+} from "openapi/api-client/src";
 
 import { config } from "@/config/config";
+
+import { ApiError } from "../error/ApiError";
 
 export const getApiConfig = async () => {
   const user = getAuth().currentUser;
@@ -14,4 +20,9 @@ export const getApiConfig = async () => {
 
 export const getTenantUid = () => {
   return "demo";
+};
+
+export const handleApiError = async (e: ResponseError) => {
+  const error = (await e.response.json()) as ErrorResponse;
+  return new ApiError(error.displayMessage, error);
 };
