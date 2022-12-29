@@ -1,5 +1,6 @@
 .gitignore
 .npmignore
+.openapi-generator-ignore
 README.md
 package.json
 src/apis/AttendanceApi.ts
@@ -7,12 +8,12 @@ src/apis/ClassroomApi.ts
 src/apis/ClientIPApi.ts
 src/apis/CourseApi.ts
 src/apis/CourseLogApi.ts
+src/apis/InvitationApi.ts
 src/apis/ScheduleApi.ts
 src/apis/ScoreApi.ts
 src/apis/StudentApi.ts
 src/apis/SubjectApi.ts
 src/apis/UserApi.ts
-src/apis/UserInvitationApi.ts
 src/apis/index.ts
 src/index.ts
 src/models/Attendance.ts
@@ -42,6 +43,7 @@ src/models/GetStudents200Response.ts
 src/models/GetSubjects200Response.ts
 src/models/GetUsers200Response.ts
 src/models/GetUsers400Response.ts
+src/models/Invitation.ts
 src/models/PostClassroom200Response.ts
 src/models/PostClassroomRequest.ts
 src/models/PostCourse200Response.ts
@@ -59,7 +61,6 @@ src/models/Subject.ts
 src/models/UpdateAttendanceRequest.ts
 src/models/UpdateCourseLogRequest.ts
 src/models/User.ts
-src/models/UserInvitation.ts
 src/models/index.ts
 src/runtime.ts
 tsconfig.esm.json

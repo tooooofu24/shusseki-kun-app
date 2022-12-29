@@ -37,6 +37,7 @@ const headers = async (): Promise<HeadersInit> => {
 	return {
 		"Content-Type": "application/json",
 		Authorization: "Bearer " + bearer,
+		"X-Tenant-UID": "demo",
 	};
 };
 

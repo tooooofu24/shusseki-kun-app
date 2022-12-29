@@ -24,7 +24,7 @@ export interface PostInvitationRequest {
      * @type {string}
      * @memberof PostInvitationRequest
      */
-    email?: string;
+    email: string;
 }
 
 /**
@@ -32,6 +32,7 @@ export interface PostInvitationRequest {
  */
 export function instanceOfPostInvitationRequest(value: object): boolean {
     let isInstance = true;
+    isInstance = isInstance && "email" in value;
 
     return isInstance;
 }
@@ -46,7 +47,7 @@ export function PostInvitationRequestFromJSONTyped(json: any, ignoreDiscriminato
     }
     return {
         
-        'email': !exists(json, 'email') ? undefined : json['email'],
+        'email': json['email'],
     };
 }
 

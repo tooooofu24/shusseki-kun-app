@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
-import type { UserInvitation } from './UserInvitation';
+import type { Invitation } from './Invitation';
 import {
-    UserInvitationFromJSON,
-    UserInvitationFromJSONTyped,
-    UserInvitationToJSON,
-} from './UserInvitation';
+    InvitationFromJSON,
+    InvitationFromJSONTyped,
+    InvitationToJSON,
+} from './Invitation';
 
 /**
  * 
@@ -28,10 +28,10 @@ import {
 export interface GetInvitations200Response {
     /**
      * 
-     * @type {Array<UserInvitation>}
+     * @type {Array<Invitation>}
      * @memberof GetInvitations200Response
      */
-    data?: Array<UserInvitation>;
+    data?: Array<Invitation>;
 }
 
 /**
@@ -53,7 +53,7 @@ export function GetInvitations200ResponseFromJSONTyped(json: any, ignoreDiscrimi
     }
     return {
         
-        'data': !exists(json, 'data') ? undefined : ((json['data'] as Array<any>).map(UserInvitationFromJSON)),
+        'data': !exists(json, 'data') ? undefined : ((json['data'] as Array<any>).map(InvitationFromJSON)),
     };
 }
 
@@ -66,7 +66,7 @@ export function GetInvitations200ResponseToJSON(value?: GetInvitations200Respons
     }
     return {
         
-        'data': value.data === undefined ? undefined : ((value.data as Array<any>).map(UserInvitationToJSON)),
+        'data': value.data === undefined ? undefined : ((value.data as Array<any>).map(InvitationToJSON)),
     };
 }
 

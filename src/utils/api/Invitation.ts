@@ -1,27 +1,44 @@
-import { fetcher } from "../fetcher";
+import { InvitationApi, PostInvitationRequest } from "openapi/api-client/src";
+
+import { getApiConfig, getTenantUid } from "./ApiConfig";
 
 export const getInvitations = async () => {
-	const json = await fetcher({
-		uri: "/invitations",
-		method: "GET",
-		query: { accept: "0" },
+	const config = await getApiConfig();
+	const api = new InvitationApi(config);
+	const response = await api.getInvitations({
+		xTenantUID: getTenantUid(),
+		accept: true,
 	});
-	return json.results;
+	return response.data ?? [];
 };
 
-type AddInvitationProps = {
-	email: string;
-};
-export const addInvitation = async ({ email }: AddInvitationProps) => {
-	const json = await fetcher({
-		uri: "/invitations",
-		method: "POST",
-		body: { email },
+export const postInvitation = async (props: PostInvitationRequest) => {
+	const { email } = props;
+	const config = await getApiConfig();
+	const api = new InvitationApi(config);
+	const response = await api.postInvitation({
+		xTenantUID: getTenantUid(),
+		postInvitationRequest: {
+			email,
+		},
 	});
-	return json.result;
+	return response.data ?? null;
 };
 
 export const deleteInvitation = async (id: number) => {
-	await fetcher({ uri: `/invitations/${id}`, method: "DELETE" });
-	return;
+	const config = await getApiConfig();
+	const api = new InvitationApi(config);
+	api.deleteInvitation({
+		xTenantUID: getTenantUid(),
+		id,
+	});
+};
+
+export const sendInvitationMail = async (id: number) => {
+	const config = await getApiConfig();
+	const api = new InvitationApi(config);
+	api.sendInvitationMail({
+		xTenantUID: getTenantUid(),
+		id,
+	});
 };

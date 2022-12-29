@@ -1,5 +1,3 @@
-import useSWR from "swr";
-
 import { Subject } from "../types/Subject";
 import { fetcher } from "../utils/fetcher";
 

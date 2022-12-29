@@ -43,6 +43,7 @@ export interface FindInvitationRequest {
 
 export interface GetInvitationsRequest {
     xTenantUID: string;
+    accept?: boolean;
 }
 
 export interface PostInvitationOperationRequest {
@@ -56,12 +57,12 @@ export interface SendInvitationMailRequest {
 }
 
 /**
- * UserInvitationApi - interface
+ * InvitationApi - interface
  * 
  * @export
- * @interface UserInvitationApiInterface
+ * @interface InvitationApiInterface
  */
-export interface UserInvitationApiInterface {
+export interface InvitationApiInterface {
     /**
      * 
      * @summary 招待削除
@@ -69,7 +70,7 @@ export interface UserInvitationApiInterface {
      * @param {number} id 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof UserInvitationApiInterface
+     * @memberof InvitationApiInterface
      */
     deleteInvitationRaw(requestParameters: DeleteInvitationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DeleteUser200Response>>;
 
@@ -85,7 +86,7 @@ export interface UserInvitationApiInterface {
      * @param {number} id 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof UserInvitationApiInterface
+     * @memberof InvitationApiInterface
      */
     findInvitationRaw(requestParameters: FindInvitationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PostInvitation200Response>>;
 
@@ -98,9 +99,10 @@ export interface UserInvitationApiInterface {
      * 
      * @summary 招待一覧取得
      * @param {string} xTenantUID テナント識別子
+     * @param {boolean} [accept] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof UserInvitationApiInterface
+     * @memberof InvitationApiInterface
      */
     getInvitationsRaw(requestParameters: GetInvitationsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GetInvitations200Response>>;
 
@@ -116,7 +118,7 @@ export interface UserInvitationApiInterface {
      * @param {PostInvitationRequest} postInvitationRequest 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof UserInvitationApiInterface
+     * @memberof InvitationApiInterface
      */
     postInvitationRaw(requestParameters: PostInvitationOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PostInvitation200Response>>;
 
@@ -132,7 +134,7 @@ export interface UserInvitationApiInterface {
      * @param {number} id 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof UserInvitationApiInterface
+     * @memberof InvitationApiInterface
      */
     sendInvitationMailRaw(requestParameters: SendInvitationMailRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DeleteUser200Response>>;
 
@@ -146,7 +148,7 @@ export interface UserInvitationApiInterface {
 /**
  * 
  */
-export class UserInvitationApi extends runtime.BaseAPI implements UserInvitationApiInterface {
+export class InvitationApi extends runtime.BaseAPI implements InvitationApiInterface {
 
     /**
      * 招待削除
@@ -249,6 +251,10 @@ export class UserInvitationApi extends runtime.BaseAPI implements UserInvitation
         }
 
         const queryParameters: any = {};
+
+        if (requestParameters.accept !== undefined) {
+            queryParameters['accept'] = requestParameters.accept;
+        }
 
         const headerParameters: runtime.HTTPHeaders = {};
 

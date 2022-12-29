@@ -42,7 +42,7 @@ export interface PostClassroomRequest {
      * @type {Array<string>}
      * @memberof PostClassroomRequest
      */
-    student?: Array<string>;
+    students: Array<string>;
 }
 
 /**
@@ -53,6 +53,7 @@ export function instanceOfPostClassroomRequest(value: object): boolean {
     isInstance = isInstance && "grade" in value;
     isInstance = isInstance && "name" in value;
     isInstance = isInstance && "teacher" in value;
+    isInstance = isInstance && "students" in value;
 
     return isInstance;
 }
@@ -70,7 +71,7 @@ export function PostClassroomRequestFromJSONTyped(json: any, ignoreDiscriminator
         'grade': json['grade'],
         'name': json['name'],
         'teacher': json['teacher'],
-        'student': !exists(json, 'student') ? undefined : json['student'],
+        'students': json['students'],
     };
 }
 
@@ -86,7 +87,7 @@ export function PostClassroomRequestToJSON(value?: PostClassroomRequest | null):
         'grade': value.grade,
         'name': value.name,
         'teacher': value.teacher,
-        'student': value.student,
+        'students': value.students,
     };
 }
 

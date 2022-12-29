@@ -12,7 +12,7 @@ servers:
 
 tags:
   - name: "User"
-  - name: "UserInvitation"
+  - name: "Invitation"
   - name: "ClientIP"
   - name: "Classroom"
   - name: "Student"
@@ -102,13 +102,13 @@ paths:
         200:
           $ref: "#/components/responses/delete"
 
-  # UserInvitation -------------------------------------------
+  # Invitation -------------------------------------------
 
   /invitations:
     post:
       summary: 招待登録
       tags:
-        - UserInvitation
+        - Invitation
       operationId: postInvitation
       parameters:
         - $ref: "#/components/parameters/tenant"
@@ -118,6 +118,8 @@ paths:
           application/json:
             schema:
               type: object
+              required:
+                - email
               properties:
                 email:
                   type: string
@@ -131,15 +133,20 @@ paths:
                 type: object
                 properties:
                   data:
-                    $ref: "#/components/schemas/userInvitation"
+                    $ref: "#/components/schemas/invitation"
 
     get:
       summary: 招待一覧取得
       tags:
-        - UserInvitation
+        - Invitation
       operationId: getInvitations
       parameters:
         - $ref: "#/components/parameters/tenant"
+        - name: accept
+          in: query
+          required: false
+          schema:
+            type: boolean
       responses:
         200:
           description: 成功
@@ -151,13 +158,13 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: "#/components/schemas/userInvitation"
+                      $ref: "#/components/schemas/invitation"
 
   /invitations/{id}:
     get:
       summary: 招待単一取得
       tags:
-        - UserInvitation
+        - Invitation
       operationId: findInvitation
       parameters:
         - $ref: "#/components/parameters/tenant"
@@ -171,12 +178,12 @@ paths:
                 type: object
                 properties:
                   data:
-                    $ref: "#/components/schemas/userInvitation"
+                    $ref: "#/components/schemas/invitation"
     delete:
       summary: 招待削除
       operationId: deleteInvitation
       tags:
-        - UserInvitation
+        - Invitation
       parameters:
         - $ref: "#/components/parameters/tenant"
         - $ref: "#/components/parameters/id"
@@ -188,7 +195,7 @@ paths:
       summary: 招待メールを再送
       operationId: sendInvitationMail
       tags:
-        - UserInvitation
+        - Invitation
       parameters:
         - $ref: "#/components/parameters/tenant"
         - $ref: "#/components/parameters/id"
@@ -292,7 +299,7 @@ paths:
                   type: string
                 teacher:
                   type: string
-                student:
+                students:
                   type: array
                   description: 生徒氏名リスト（出席番号順）
                   items:
@@ -1009,7 +1016,7 @@ components:
           $ref: "#/components/schemas/datetime"
 
     # 招待
-    userInvitation:
+    invitation:
       type: object
       required:
         - id

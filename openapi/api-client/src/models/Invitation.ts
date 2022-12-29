@@ -23,57 +23,57 @@ import {
 /**
  * 
  * @export
- * @interface UserInvitation
+ * @interface Invitation
  */
-export interface UserInvitation {
+export interface Invitation {
     /**
      * 
      * @type {number}
-     * @memberof UserInvitation
+     * @memberof Invitation
      */
     id: number;
     /**
      * 
      * @type {string}
-     * @memberof UserInvitation
+     * @memberof Invitation
      */
     email: string;
     /**
      * 
      * @type {boolean}
-     * @memberof UserInvitation
+     * @memberof Invitation
      */
     acceptFlag: boolean;
     /**
      * 
      * @type {User}
-     * @memberof UserInvitation
+     * @memberof Invitation
      */
     createdBy?: User;
     /**
      * 
      * @type {User}
-     * @memberof UserInvitation
+     * @memberof Invitation
      */
     updatedBy?: User;
     /**
      * 
      * @type {Date}
-     * @memberof UserInvitation
+     * @memberof Invitation
      */
     createdAt: Date;
     /**
      * 
      * @type {Date}
-     * @memberof UserInvitation
+     * @memberof Invitation
      */
     updatedAt?: Date;
 }
 
 /**
- * Check if a given object implements the UserInvitation interface.
+ * Check if a given object implements the Invitation interface.
  */
-export function instanceOfUserInvitation(value: object): boolean {
+export function instanceOfInvitation(value: object): boolean {
     let isInstance = true;
     isInstance = isInstance && "id" in value;
     isInstance = isInstance && "email" in value;
@@ -83,11 +83,11 @@ export function instanceOfUserInvitation(value: object): boolean {
     return isInstance;
 }
 
-export function UserInvitationFromJSON(json: any): UserInvitation {
-    return UserInvitationFromJSONTyped(json, false);
+export function InvitationFromJSON(json: any): Invitation {
+    return InvitationFromJSONTyped(json, false);
 }
 
-export function UserInvitationFromJSONTyped(json: any, ignoreDiscriminator: boolean): UserInvitation {
+export function InvitationFromJSONTyped(json: any, ignoreDiscriminator: boolean): Invitation {
     if ((json === undefined) || (json === null)) {
         return json;
     }
@@ -103,7 +103,7 @@ export function UserInvitationFromJSONTyped(json: any, ignoreDiscriminator: bool
     };
 }
 
-export function UserInvitationToJSON(value?: UserInvitation | null): any {
+export function InvitationToJSON(value?: Invitation | null): any {
     if (value === undefined) {
         return undefined;
     }
