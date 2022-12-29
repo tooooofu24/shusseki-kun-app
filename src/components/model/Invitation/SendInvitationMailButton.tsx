@@ -1,8 +1,7 @@
 import { IconButton } from "@chakra-ui/react";
+import { Invitation } from "openapi/api-client/src";
 import { EnvelopeSimple } from "phosphor-react";
 import { FC } from "react";
-
-import { Invitation } from "@/types/Invitation";
 
 type props = {
 	invitation: Invitation;

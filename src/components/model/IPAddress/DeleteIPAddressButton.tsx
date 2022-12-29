@@ -13,11 +13,9 @@ import {
 	Text,
 	useDisclosure,
 } from "@chakra-ui/react";
+import { IPAddress } from "openapi/api-client/src";
 import { Tag, WifiHigh, X } from "phosphor-react";
 import { FC } from "react";
-
-import { IPAddress } from "@/types/IPAddress";
-import { deleteIPAddress } from "@/utils/api/IPAdress";
 
 type props = {
 	IPAddress: IPAddress;
@@ -27,7 +25,7 @@ export const DeleteIPAddressButton: FC<props> = ({ IPAddress }) => {
 	// const [error, setError] = useState("");
 
 	const onClick = async () => {
-		await deleteIPAddress(IPAddress.id);
+		// await deleteIPAddress(IPAddress.id);
 		onClose();
 	};
 

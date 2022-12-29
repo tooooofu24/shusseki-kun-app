@@ -8,10 +8,8 @@ import {
 	Thead,
 	Tr,
 } from "@chakra-ui/react";
+import { IPAddress } from "openapi/api-client/src";
 import { FC } from "react";
-
-import { IPAddress } from "@/types/IPAddress";
-import { formatTimeStamp } from "@/utils/time";
 
 import { DeleteIPAddressButton } from "./DeleteIPAddressButton";
 
@@ -41,7 +39,7 @@ export const IPAddressListTable: FC<props> = ({ IPAddresses }) => {
 							<Td>{IPAddress.label}</Td>
 							<Td>{IPAddress.ip}</Td>
 							<Td>{IPAddress.createdBy?.name}</Td>
-							<Td>{formatTimeStamp(IPAddress.createdAt)}</Td>
+							<Td>{/* {formatTimeStamp(IPAddress.createdAt)} */}</Td>
 							<Td>
 								<DeleteIPAddressButton IPAddress={IPAddress} />
 							</Td>

@@ -8,10 +8,8 @@ import {
 	Thead,
 	Tr,
 } from "@chakra-ui/react";
+import { User } from "openapi/api-client/src";
 import { FC } from "react";
-
-import { User } from "@/types/User";
-import { formatTimeStamp } from "@/utils/time";
 
 import { DeleteUserButton } from "./DeleteUserButton";
 
@@ -57,7 +55,7 @@ const UserRow: FC<UserRowProps> = ({ user }) => {
 			</Td>
 			<Td>{user.name}</Td>
 			<Td>{user.email}</Td>
-			<Td>{formatTimeStamp(user.lastAuthenticatedAt)}</Td>
+			<Td>{/* {formatTimeStamp(user.lastAuthenticatedAt)} */}</Td>
 			<Td>
 				<DeleteUserButton user={user} />
 			</Td>

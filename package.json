@@ -10,6 +10,7 @@
 		"export": "next build && next export",
 		"eslint:fix": "eslint src --ext .js,jsx,.ts,.tsx --fix",
 		"prettier:fix": "prettier --check --write 'src/**/*.{js,jsx,ts,tsx,css,scss,md,mdx}'",
+		"tsc": "tsc",
 		"format": "npm run eslint:fix && npm run prettier:fix",
 		"test": "jest --watch",
 		"prepare": "husky install",
@@ -38,7 +39,7 @@
 		"react-hook-form": "^7.41.0",
 		"react-papaparse": "^4.1.0",
 		"typescript": "4.9.4",
-		"yup": "^0.32.11"
+		"zod": "^3.20.2"
 	},
 	"devDependencies": {
 		"@babel/preset-env": "^7.20.2",
@@ -69,8 +70,9 @@
 	"lint-staged": {
 		"*.css": "stylelint --fix",
 		"*.{js,jsx,ts,tsx}": [
-			"eslint --fix",
-			"prettier --write"
+			"eslint --cache --fix",
+			"prettier --write",
+			"tsc --noEmit"
 		]
 	}
 }

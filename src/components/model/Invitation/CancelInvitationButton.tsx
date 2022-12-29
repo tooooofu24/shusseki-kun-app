@@ -11,10 +11,10 @@ import {
 	Text,
 	useDisclosure,
 } from "@chakra-ui/react";
+import { Invitation } from "openapi/api-client/src";
 import { X } from "phosphor-react";
 import { FC } from "react";
 
-import { Invitation } from "@/types/Invitation";
 import { deleteInvitation } from "@/utils/api/Invitation";
 
 type props = {

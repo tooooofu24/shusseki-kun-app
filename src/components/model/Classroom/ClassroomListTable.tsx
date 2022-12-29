@@ -2,7 +2,6 @@ import {
 	Flex,
 	Table,
 	TableContainer,
-	Tag,
 	Tbody,
 	Td,
 	Th,
@@ -10,14 +9,12 @@ import {
 	Tr,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
+import { Classroom, ClassroomWithCourse } from "openapi/api-client/src";
 import { CaretRight } from "phosphor-react";
 import { FC } from "react";
 
-import { Classroom } from "@/types/Classroom";
-import { formatTimeStamp } from "@/utils/time";
-
 type props = {
-	classrooms: Classroom[];
+	classrooms: ClassroomWithCourse[];
 };
 export const ClassroomListTable: FC<props> = ({ classrooms }) => {
 	return (
@@ -55,10 +52,10 @@ const Row = ({ classroom }: { classroom: Classroom }) => {
 				{classroom.grade}年{classroom.name}組
 			</Td>
 			<Td>{classroom.teacher}</Td>
-			<Td>{classroom.studentsCount}人</Td>
+			<Td>人</Td>
 			<Td>
 				<Flex gap="10px" justifyContent="center">
-					{!classroom.courses?.length && (
+					{/* {!classroom.courses?.length && (
 						<Tag
 							colorScheme="gray"
 							shadow="none"
@@ -70,10 +67,10 @@ const Row = ({ classroom }: { classroom: Classroom }) => {
 					)}
 					{classroom.courses?.map((course) => {
 						return <Tag key={course.id}>{course.subject.name}</Tag>;
-					})}
+					})} */}
 				</Flex>
 			</Td>
-			<Td>{formatTimeStamp(classroom.lastLessonDate) || "-"}</Td>
+			<Td>{/* {formatTimeStamp(classroom) || "-"} */}</Td>
 			<Td>
 				<Flex justifyContent="end" alignItems="center">
 					<CaretRight />
