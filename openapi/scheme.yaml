@@ -1,34 +1,36 @@
-openapi: "3.0.0"
-
+openapi: 3.0.0
 info:
-  title: "出席くんAPI"
-  version: "0.0.0"
-
+  title: 出席くんAPI
+  version: 0.0.0
+  description: 出席くんAPI
+  contact:
+    name: tkc-alien
+    url: "https://github.com/tkc-alien/AttendanceManager-backend"
+    email: tkc@gmail.com
+  termsOfService: "https://github.com/tkc-alien/AttendanceManager-backend"
+  license:
+    name: Apache 2.0
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
 servers:
   - url: "https://localhost"
-    description: "ローカル"
+    description: ローカル
   - url: "https://dev.api.shusseki-kun.com"
-    description: "検証環境"
-
+    description: 検証環境
 tags:
-  - name: "User"
-  - name: "Invitation"
-  - name: "IPAddress"
-  - name: "Classroom"
-  - name: "Student"
-  - name: "Course"
-  - name: "CourseLog"
-  - name: "Schedule"
-  - name: "Attendance"
-  - name: "Subject"
-  - name: "Score"
-
+  - name: User
+  - name: Invitation
+  - name: IPAddress
+  - name: Classroom
+  - name: Student
+  - name: Course
+  - name: CourseLog
+  - name: Schedule
+  - name: Attendance
+  - name: Subject
+  - name: Score
 security:
   - Bearer: []
-
 paths:
-  # User --------------------------------------------------
-
   /users:
     get:
       summary: ユーザ一覧取得
@@ -38,7 +40,7 @@ paths:
       parameters:
         - $ref: "#/components/parameters/tenant"
       responses:
-        200:
+        "200":
           description: 成功
           content:
             application/json:
@@ -51,7 +53,6 @@ paths:
                       $ref: "#/components/schemas/user"
         "400":
           $ref: "#/components/responses/error"
-
   /users/current:
     get:
       summary: 自身のユーザ情報を取得
@@ -61,7 +62,7 @@ paths:
       parameters:
         - $ref: "#/components/parameters/tenant"
       responses:
-        200:
+        "200":
           description: 成功
           content:
             application/json:
@@ -70,8 +71,8 @@ paths:
                 properties:
                   data:
                     $ref: "#/components/schemas/user"
-
-  /users/{id}:
+      description: ""
+  "/users/{id}":
     get:
       summary: ユーザ単一取得
       tags:
@@ -81,7 +82,7 @@ paths:
         - $ref: "#/components/parameters/tenant"
         - $ref: "#/components/parameters/id"
       responses:
-        200:
+        "200":
           description: 成功
           content:
             application/json:
@@ -99,11 +100,8 @@ paths:
         - $ref: "#/components/parameters/tenant"
         - $ref: "#/components/parameters/id"
       responses:
-        200:
+        "200":
           $ref: "#/components/responses/delete"
-
-  # Invitation -------------------------------------------
-
   /invitations:
     post:
       summary: 招待登録
@@ -125,7 +123,7 @@ paths:
                   type: string
                   format: email
       responses:
-        200:
+        "200":
           description: 成功
           content:
             application/json:
@@ -134,7 +132,6 @@ paths:
                 properties:
                   data:
                     $ref: "#/components/schemas/invitation"
-
     get:
       summary: 招待一覧取得
       tags:
@@ -148,7 +145,7 @@ paths:
           schema:
             type: boolean
       responses:
-        200:
+        "200":
           description: 成功
           content:
             application/json:
@@ -159,8 +156,7 @@ paths:
                     type: array
                     items:
                       $ref: "#/components/schemas/invitation"
-
-  /invitations/{id}:
+  "/invitations/{id}":
     get:
       summary: 招待単一取得
       tags:
@@ -170,7 +166,7 @@ paths:
         - $ref: "#/components/parameters/tenant"
         - $ref: "#/components/parameters/id"
       responses:
-        200:
+        "200":
           description: 成功
           content:
             application/json:
@@ -188,9 +184,9 @@ paths:
         - $ref: "#/components/parameters/tenant"
         - $ref: "#/components/parameters/id"
       responses:
-        200:
+        "200":
           $ref: "#/components/responses/delete"
-  /invitations/{id}/resend:
+  "/invitations/{id}/resend":
     post:
       summary: 招待メールを再送
       operationId: sendInvitationMail
@@ -200,11 +196,8 @@ paths:
         - $ref: "#/components/parameters/tenant"
         - $ref: "#/components/parameters/id"
       responses:
-        200:
+        "200":
           $ref: "#/components/responses/delete"
-
-  # IPAddress -----------------------------------------------
-
   /ip-addresses:
     post:
       summary: 許容IP登録
@@ -228,7 +221,7 @@ paths:
                 label:
                   type: string
       responses:
-        200:
+        "200":
           description: 成功
           content:
             application/json:
@@ -237,7 +230,6 @@ paths:
                 properties:
                   data:
                     $ref: "#/components/schemas/IPAddress"
-
     get:
       summary: 許容IP一覧取得
       tags:
@@ -246,7 +238,7 @@ paths:
       parameters:
         - $ref: "#/components/parameters/tenant"
       responses:
-        200:
+        "200":
           description: 成功
           content:
             application/json:
@@ -257,8 +249,7 @@ paths:
                     type: array
                     items:
                       $ref: "#/components/schemas/IPAddress"
-
-  /ip-addresses/{id}:
+  "/ip-addresses/{id}":
     delete:
       summary: 許容IP削除
       tags:
@@ -268,11 +259,8 @@ paths:
         - $ref: "#/components/parameters/tenant"
         - $ref: "#/components/parameters/id"
       responses:
-        200:
+        "200":
           $ref: "#/components/responses/delete"
-
-  # Classroom --------------------------------------------
-
   /classrooms:
     post:
       summary: 学級登録
@@ -306,7 +294,7 @@ paths:
                     type: string
                     description: 生徒氏名
       responses:
-        200:
+        "200":
           description: 成功
           content:
             application/json:
@@ -323,7 +311,7 @@ paths:
       parameters:
         - $ref: "#/components/parameters/tenant"
       responses:
-        200:
+        "200":
           description: 成功
           content:
             application/json:
@@ -334,8 +322,7 @@ paths:
                     type: array
                     items:
                       $ref: "#/components/schemas/classroomWithCourse"
-
-  /classrooms/{id}:
+  "/classrooms/{id}":
     get:
       summary: 学級単一取得
       tags:
@@ -345,7 +332,7 @@ paths:
         - $ref: "#/components/parameters/tenant"
         - $ref: "#/components/parameters/id"
       responses:
-        200:
+        "200":
           description: 成功
           content:
             application/json:
@@ -363,11 +350,8 @@ paths:
         - $ref: "#/components/parameters/tenant"
         - $ref: "#/components/parameters/id"
       responses:
-        200:
+        "200":
           $ref: "#/components/responses/delete"
-
-  # Student ------------------------------------------------
-
   /students:
     get:
       summary: 生徒一覧取得
@@ -392,7 +376,7 @@ paths:
           schema:
             type: integer
       responses:
-        200:
+        "200":
           description: 成功
           content:
             application/json:
@@ -403,7 +387,7 @@ paths:
                     type: array
                     items:
                       $ref: "#/components/schemas/student"
-  /students/{id}:
+  "/students/{id}":
     get:
       summary: 生徒単一取得
       tags:
@@ -413,7 +397,7 @@ paths:
         - $ref: "#/components/parameters/tenant"
         - $ref: "#/components/parameters/id"
       responses:
-        200:
+        "200":
           description: 成功
           content:
             application/json:
@@ -431,11 +415,8 @@ paths:
         - $ref: "#/components/parameters/tenant"
         - $ref: "#/components/parameters/id"
       responses:
-        200:
+        "200":
           $ref: "#/components/responses/delete"
-
-  # Course
-
   /courses:
     post:
       summary: 授業登録
@@ -459,7 +440,7 @@ paths:
                 subjectId:
                   type: integer
       responses:
-        200:
+        "200":
           description: 成功
           content:
             application/json:
@@ -486,7 +467,7 @@ paths:
           schema:
             type: integer
       responses:
-        200:
+        "200":
           description: 成功
           content:
             application/json:
@@ -497,8 +478,7 @@ paths:
                     type: array
                     items:
                       $ref: "#/components/schemas/course"
-
-  /courses/{id}:
+  "/courses/{id}":
     get:
       summary: 授業単一取得
       tags:
@@ -508,7 +488,7 @@ paths:
         - $ref: "#/components/parameters/tenant"
         - $ref: "#/components/parameters/id"
       responses:
-        200:
+        "200":
           description: 成功
           content:
             application/json:
@@ -526,10 +506,9 @@ paths:
         - $ref: "#/components/parameters/tenant"
         - $ref: "#/components/parameters/id"
       responses:
-        200:
+        "200":
           $ref: "#/components/responses/delete"
-
-  /courses/{id}/scores:
+  "/courses/{id}/scores":
     get:
       summary: 授業の成績一覧を取得
       tags:
@@ -539,7 +518,7 @@ paths:
         - $ref: "#/components/parameters/tenant"
         - $ref: "#/components/parameters/id"
       responses:
-        200:
+        "200":
           description: 成功
           content:
             application/json:
@@ -550,7 +529,6 @@ paths:
                     type: array
                     items:
                       $ref: "#/components/schemas/score"
-
   /course-logs:
     post:
       summary: 授業記録登録
@@ -607,7 +585,7 @@ paths:
                       comment:
                         type: string
       responses:
-        200:
+        "200":
           description: 成功
           content:
             application/json:
@@ -616,7 +594,6 @@ paths:
                 properties:
                   data:
                     $ref: "#/components/schemas/course"
-
     get:
       summary: 授業記録一覧取得
       tags:
@@ -649,7 +626,7 @@ paths:
             format: date
             example: "2022-10-01"
       responses:
-        200:
+        "200":
           description: 成功
           content:
             application/json:
@@ -660,8 +637,7 @@ paths:
                     type: array
                     items:
                       $ref: "#/components/schemas/courseLog"
-
-  /course-logs/{id}:
+  "/course-logs/{id}":
     get:
       summary: 授業記録単一取得
       tags:
@@ -671,7 +647,7 @@ paths:
         - $ref: "#/components/parameters/tenant"
         - $ref: "#/components/parameters/id"
       responses:
-        200:
+        "200":
           description: 成功
           content:
             application/json:
@@ -704,7 +680,7 @@ paths:
                   minimum: 1
                   maximum: 7
       responses:
-        200:
+        "200":
           description: 成功
           content:
             application/json:
@@ -722,10 +698,8 @@ paths:
         - $ref: "#/components/parameters/tenant"
         - $ref: "#/components/parameters/id"
       responses:
-        200:
+        "200":
           $ref: "#/components/responses/delete"
-
-  # Schedule
   /schedules:
     post:
       summary: 時間割登録
@@ -754,7 +728,7 @@ paths:
                   minimum: 1
                   maximum: 7
       responses:
-        200:
+        "200":
           description: 成功
           content:
             application/json:
@@ -763,7 +737,6 @@ paths:
                 properties:
                   data:
                     $ref: "#/components/schemas/schedule"
-
     get:
       summary: 時間割一覧取得
       tags:
@@ -778,7 +751,7 @@ paths:
             type: integer
         - name: day
           in: query
-          description: 1=月, 2=火, 3=水, ..., 7=日
+          description: "1=月, 2=火, 3=水, ..., 7=日"
           required: false
           schema:
             type: integer
@@ -788,7 +761,7 @@ paths:
           schema:
             type: integer
       responses:
-        200:
+        "200":
           description: 成功
           content:
             application/json:
@@ -799,8 +772,7 @@ paths:
                     type: array
                     items:
                       $ref: "#/components/schemas/schedule"
-
-  /schedules/{id}:
+  "/schedules/{id}":
     get:
       summary: 時間割単一取得
       tags:
@@ -810,7 +782,7 @@ paths:
         - $ref: "#/components/parameters/tenant"
         - $ref: "#/components/parameters/id"
       responses:
-        200:
+        "200":
           description: 成功
           content:
             application/json:
@@ -828,9 +800,8 @@ paths:
         - $ref: "#/components/parameters/tenant"
         - $ref: "#/components/parameters/id"
       responses:
-        200:
+        "200":
           $ref: "#/components/responses/delete"
-
   /attendances:
     get:
       summary: 出席情報一覧取得
@@ -865,7 +836,7 @@ paths:
           schema:
             type: integer
       responses:
-        200:
+        "200":
           description: 成功
           content:
             application/json:
@@ -876,8 +847,7 @@ paths:
                     type: array
                     items:
                       $ref: "#/components/schemas/attendance"
-
-  /attendances/{id}:
+  "/attendances/{id}":
     get:
       summary: 出席情報単一取得
       tags:
@@ -887,7 +857,7 @@ paths:
         - $ref: "#/components/parameters/tenant"
         - $ref: "#/components/parameters/id"
       responses:
-        200:
+        "200":
           description: 成功
           content:
             application/json:
@@ -927,7 +897,7 @@ paths:
                 comment:
                   type: string
       responses:
-        200:
+        "200":
           description: 成功
           content:
             application/json:
@@ -945,9 +915,8 @@ paths:
         - $ref: "#/components/parameters/tenant"
         - $ref: "#/components/parameters/id"
       responses:
-        200:
+        "200":
           $ref: "#/components/responses/delete"
-
   /subjects:
     get:
       summary: 科目一覧取得
@@ -957,7 +926,7 @@ paths:
       parameters:
         - $ref: "#/components/parameters/tenant"
       responses:
-        200:
+        "200":
           description: 成功
           content:
             application/json:
@@ -968,7 +937,6 @@ paths:
                     type: array
                     items:
                       $ref: "#/components/schemas/subject"
-
 components:
   parameters:
     tenant:
@@ -984,15 +952,11 @@ components:
       required: true
       schema:
         type: integer
-
   schemas:
-    # 日時
     datetime:
       type: string
       format: date-time
       example: "2022-10-01T09:00:00"
-
-    # ユーザ
     user:
       type: object
       required:
@@ -1017,8 +981,6 @@ components:
           $ref: "#/components/schemas/datetime"
         updatedAt:
           $ref: "#/components/schemas/datetime"
-
-    # 招待
     invitation:
       type: object
       required:
@@ -1041,8 +1003,6 @@ components:
           $ref: "#/components/schemas/datetime"
         updatedAt:
           $ref: "#/components/schemas/datetime"
-
-    # 送信元
     IPAddress:
       type: object
       required:
@@ -1064,8 +1024,6 @@ components:
           $ref: "#/components/schemas/datetime"
         updatedAt:
           $ref: "#/components/schemas/datetime"
-
-    # 科目
     subject:
       type: object
       required:
@@ -1076,8 +1034,6 @@ components:
           type: integer
         name:
           type: string
-
-    # 学級
     classroom:
       type: object
       required:
@@ -1101,8 +1057,6 @@ components:
           $ref: "#/components/schemas/datetime"
         updatedAt:
           $ref: "#/components/schemas/datetime"
-
-    # 学級（成績データ付き）
     classroomWithCourse:
       type: object
       required:
@@ -1151,8 +1105,6 @@ components:
           $ref: "#/components/schemas/datetime"
         updatedAt:
           $ref: "#/components/schemas/datetime"
-
-    # 生徒
     student:
       type: object
       required:
@@ -1175,8 +1127,6 @@ components:
           $ref: "#/components/schemas/datetime"
         updatedAt:
           $ref: "#/components/schemas/datetime"
-
-    # 授業
     course:
       type: object
       required:
@@ -1198,8 +1148,6 @@ components:
           $ref: "#/components/schemas/datetime"
         updatedAt:
           $ref: "#/components/schemas/datetime"
-
-    # 授業記録
     courseLog:
       type: object
       required:
@@ -1224,8 +1172,6 @@ components:
           $ref: "#/components/schemas/datetime"
         updatedAt:
           $ref: "#/components/schemas/datetime"
-
-    # 時間割
     schedule:
       type: object
       required:
@@ -1257,8 +1203,6 @@ components:
           $ref: "#/components/schemas/datetime"
         updatedAt:
           $ref: "#/components/schemas/datetime"
-
-    # 出席情報
     attendance:
       type: object
       required:
@@ -1294,7 +1238,6 @@ components:
           $ref: "#/components/schemas/datetime"
         updatedAt:
           $ref: "#/components/schemas/datetime"
-    # 成績情報
     score:
       type: object
       required:
@@ -1327,7 +1270,6 @@ components:
         attitudeAverage:
           type: number
           format: double
-
   responses:
     delete:
       description: 成功
