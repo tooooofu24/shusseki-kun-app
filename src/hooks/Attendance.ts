@@ -1,17 +1,17 @@
 import { atom, useAtom } from "jotai";
-import { Subject } from "openapi/api-client/src";
+import { Attendance } from "openapi/api-client/src";
 
-import { getSubjects } from "@/utils/api/Subject";
+import { getAttendances } from "@/utils/api/Attendance";
 
 const versionAtom = atom(0);
 
-const subjectsAtom = atom<Promise<Subject[]> | []>(async (get) => {
+const attendancesAtom = atom<Promise<Attendance[]> | []>(async (get) => {
 	get(versionAtom);
-	return getSubjects();
+	return getAttendances();
 });
 
 export const useAttendances = () => {
-	const [attendances] = useAtom(subjectsAtom);
+	const [attendances] = useAtom(attendancesAtom);
 	const [version, setVersion] = useAtom(versionAtom);
 	const refetch = () => {
 		setVersion(version + 1);

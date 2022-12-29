@@ -7,8 +7,7 @@ const versionAtom = atom(0);
 
 const IPAddressesAtom = atom<Promise<IPAddress[]> | []>(async (get) => {
 	get(versionAtom);
-	const IPAddresses = await getIPAddresses();
-	return IPAddresses;
+	return getIPAddresses();
 });
 
 export const useIPAddresses = () => {

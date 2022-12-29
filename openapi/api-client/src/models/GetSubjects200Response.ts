@@ -28,10 +28,10 @@ import {
 export interface GetSubjects200Response {
     /**
      * 
-     * @type {Subject}
+     * @type {Array<Subject>}
      * @memberof GetSubjects200Response
      */
-    data?: Subject;
+    data?: Array<Subject>;
 }
 
 /**
@@ -53,7 +53,7 @@ export function GetSubjects200ResponseFromJSONTyped(json: any, ignoreDiscriminat
     }
     return {
         
-        'data': !exists(json, 'data') ? undefined : SubjectFromJSON(json['data']),
+        'data': !exists(json, 'data') ? undefined : ((json['data'] as Array<any>).map(SubjectFromJSON)),
     };
 }
 
@@ -66,7 +66,7 @@ export function GetSubjects200ResponseToJSON(value?: GetSubjects200Response | nu
     }
     return {
         
-        'data': SubjectToJSON(value.data),
+        'data': value.data === undefined ? undefined : ((value.data as Array<any>).map(SubjectToJSON)),
     };
 }
 

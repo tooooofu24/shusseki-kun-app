@@ -965,7 +965,9 @@ paths:
                 type: object
                 properties:
                   data:
-                    $ref: "#/components/schemas/subject"
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/subject"
 
 components:
   parameters:
