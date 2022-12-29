@@ -1,3 +1,3 @@
 export const ContactPage = () => {
-	return null;
+  return null;
 };

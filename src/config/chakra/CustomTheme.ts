@@ -5,10 +5,10 @@ import { CustomComponents } from "./CustomComponents";
 import { CustomStyle } from "./CustomStyle";
 
 export const chakraTheme = extendTheme(
-	CustomComponents,
-	CustomStyle,
-	BreakPoints,
-	withDefaultColorScheme({
-		colorScheme: "teal",
-	})
+  CustomComponents,
+  CustomStyle,
+  BreakPoints,
+  withDefaultColorScheme({
+    colorScheme: "teal",
+  })
 );

@@ -8,22 +8,22 @@ import { FullPageLayout } from "./FullPageLayout";
 import { SidebarLayout } from "./SidebarLayout";
 
 type props = {
-	type: LayoutType;
-	children?: ReactNode;
+  type: LayoutType;
+  children?: ReactNode;
 };
 type LayoutType = "sidebar" | "fullPage";
 
 export const Layout: FC<props> = ({ type, children }) => {
-	switch (type) {
-		case "sidebar":
-			return (
-				<SidebarLayout>
-					<ErrorBoundary FallbackComponent={ErrorPage}>
-						<Suspense fallback={<LoadingPage />}>{children}</Suspense>
-					</ErrorBoundary>
-				</SidebarLayout>
-			);
-		case "fullPage":
-			return <FullPageLayout>{children}</FullPageLayout>;
-	}
+  switch (type) {
+    case "sidebar":
+      return (
+        <SidebarLayout>
+          <ErrorBoundary FallbackComponent={ErrorPage}>
+            <Suspense fallback={<LoadingPage />}>{children}</Suspense>
+          </ErrorBoundary>
+        </SidebarLayout>
+      );
+    case "fullPage":
+      return <FullPageLayout>{children}</FullPageLayout>;
+  }
 };

@@ -8,15 +8,15 @@
 type Color = string;
 
 type Colors = {
-	primary: Color;
-	gray: Color;
-	black: Color;
-	lightGray: Color;
+  primary: Color;
+  gray: Color;
+  black: Color;
+  lightGray: Color;
 };
 
 export const colors: Colors = {
-	primary: "teal.500",
-	gray: "gray.500",
-	black: "gray.700",
-	lightGray: "gray.50",
+  primary: "teal.500",
+  gray: "gray.500",
+  black: "gray.700",
+  lightGray: "gray.50",
 };

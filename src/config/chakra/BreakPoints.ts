@@ -1,5 +1,5 @@
 export const BreakPoints = {
-	breakpoints: {
-		sm: "900px",
-	},
+  breakpoints: {
+    sm: "900px",
+  },
 };

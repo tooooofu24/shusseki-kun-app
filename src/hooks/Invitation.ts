@@ -6,18 +6,18 @@ import { getInvitations } from "@/utils/api/Invitation";
 const versionAtom = atom(0);
 
 const invitationsAtom = atom<Promise<Invitation[]> | []>(async (get) => {
-	get(versionAtom);
-	return getInvitations();
+  get(versionAtom);
+  return getInvitations();
 });
 
 export const useInvitations = () => {
-	const [invitations] = useAtom(invitationsAtom);
-	const [version, setVersion] = useAtom(versionAtom);
-	const refetch = () => {
-		setVersion(version + 1);
-	};
-	return {
-		invitations,
-		refetch,
-	};
+  const [invitations] = useAtom(invitationsAtom);
+  const [version, setVersion] = useAtom(versionAtom);
+  const refetch = () => {
+    setVersion(version + 1);
+  };
+  return {
+    invitations,
+    refetch,
+  };
 };

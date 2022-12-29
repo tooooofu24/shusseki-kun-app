@@ -6,18 +6,18 @@ import { getAttendances } from "@/utils/api/Attendance";
 const versionAtom = atom(0);
 
 const attendancesAtom = atom<Promise<Attendance[]> | []>(async (get) => {
-	get(versionAtom);
-	return getAttendances();
+  get(versionAtom);
+  return getAttendances();
 });
 
 export const useAttendances = () => {
-	const [attendances] = useAtom(attendancesAtom);
-	const [version, setVersion] = useAtom(versionAtom);
-	const refetch = () => {
-		setVersion(version + 1);
-	};
-	return {
-		attendances,
-		refetch,
-	};
+  const [attendances] = useAtom(attendancesAtom);
+  const [version, setVersion] = useAtom(versionAtom);
+  const refetch = () => {
+    setVersion(version + 1);
+  };
+  return {
+    attendances,
+    refetch,
+  };
 };

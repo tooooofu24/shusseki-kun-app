@@ -9,26 +9,26 @@ import { useInvitations } from "@/hooks/Invitation";
 import { useUsers } from "@/hooks/User";
 
 export const UserListPage = () => {
-	const { users } = useUsers();
-	const { invitations } = useInvitations();
-	return (
-		<SectionWrapper>
-			<Box>
-				<PageTitle title="ユーザー一覧" icon={<Users />} />
-				<Card>
-					<CardBody>
-						<UserListTable users={users} />
-					</CardBody>
-				</Card>
-			</Box>
-			<Box>
-				<PageTitle title="招待中" icon={<UserPlus />} />
-				<Card>
-					<CardBody>
-						<InvitationListTable invitations={invitations} />
-					</CardBody>
-				</Card>
-			</Box>
-		</SectionWrapper>
-	);
+  const { users } = useUsers();
+  const { invitations } = useInvitations();
+  return (
+    <SectionWrapper>
+      <Box>
+        <PageTitle title="ユーザー一覧" icon={<Users />} />
+        <Card>
+          <CardBody>
+            <UserListTable users={users} />
+          </CardBody>
+        </Card>
+      </Box>
+      <Box>
+        <PageTitle title="招待中" icon={<UserPlus />} />
+        <Card>
+          <CardBody>
+            <InvitationListTable invitations={invitations} />
+          </CardBody>
+        </Card>
+      </Box>
+    </SectionWrapper>
+  );
 };
