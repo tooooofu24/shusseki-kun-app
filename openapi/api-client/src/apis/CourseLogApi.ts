@@ -15,35 +15,27 @@
 
 import * as runtime from '../runtime';
 import type {
-  CourseLogsGet200Response,
   DeleteUser200Response,
   FindCourseLog200Response,
-  GetCourseLogsRequest,
+  GetCourseLogs200Response,
   PostCourse200Response,
+  PostCourseLogsRequest,
   UpdateCourseLogRequest,
 } from '../models';
 import {
-    CourseLogsGet200ResponseFromJSON,
-    CourseLogsGet200ResponseToJSON,
     DeleteUser200ResponseFromJSON,
     DeleteUser200ResponseToJSON,
     FindCourseLog200ResponseFromJSON,
     FindCourseLog200ResponseToJSON,
-    GetCourseLogsRequestFromJSON,
-    GetCourseLogsRequestToJSON,
+    GetCourseLogs200ResponseFromJSON,
+    GetCourseLogs200ResponseToJSON,
     PostCourse200ResponseFromJSON,
     PostCourse200ResponseToJSON,
+    PostCourseLogsRequestFromJSON,
+    PostCourseLogsRequestToJSON,
     UpdateCourseLogRequestFromJSON,
     UpdateCourseLogRequestToJSON,
 } from '../models';
-
-export interface CourseLogsGetRequest {
-    xTenantUID: string;
-    courseId?: number;
-    period?: number;
-    minDate?: Date;
-    maxDate?: Date;
-}
 
 export interface DeleteCourseLogRequest {
     xTenantUID: string;
@@ -55,9 +47,17 @@ export interface FindCourseLogRequest {
     id: number;
 }
 
-export interface GetCourseLogsOperationRequest {
+export interface GetCourseLogsRequest {
     xTenantUID: string;
-    getCourseLogsRequest: GetCourseLogsRequest;
+    courseId?: number;
+    period?: number;
+    minDate?: Date;
+    maxDate?: Date;
+}
+
+export interface PostCourseLogsOperationRequest {
+    xTenantUID: string;
+    postCourseLogsRequest: PostCourseLogsRequest;
 }
 
 export interface UpdateCourseLogOperationRequest {
@@ -73,25 +73,6 @@ export interface UpdateCourseLogOperationRequest {
  * @interface CourseLogApiInterface
  */
 export interface CourseLogApiInterface {
-    /**
-     * 
-     * @summary 授業記録一覧取得
-     * @param {string} xTenantUID テナント識別子
-     * @param {number} [courseId] 
-     * @param {number} [period] 
-     * @param {Date} [minDate] 
-     * @param {Date} [maxDate] 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof CourseLogApiInterface
-     */
-    courseLogsGetRaw(requestParameters: CourseLogsGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CourseLogsGet200Response>>;
-
-    /**
-     * 授業記録一覧取得
-     */
-    courseLogsGet(requestParameters: CourseLogsGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CourseLogsGet200Response>;
-
     /**
      * 
      * @summary 授業記録削除
@@ -126,19 +107,38 @@ export interface CourseLogApiInterface {
 
     /**
      * 
-     * @summary 授業記録登録
+     * @summary 授業記録一覧取得
      * @param {string} xTenantUID テナント識別子
-     * @param {GetCourseLogsRequest} getCourseLogsRequest 
+     * @param {number} [courseId] 
+     * @param {number} [period] 
+     * @param {Date} [minDate] 
+     * @param {Date} [maxDate] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof CourseLogApiInterface
      */
-    getCourseLogsRaw(requestParameters: GetCourseLogsOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PostCourse200Response>>;
+    getCourseLogsRaw(requestParameters: GetCourseLogsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GetCourseLogs200Response>>;
+
+    /**
+     * 授業記録一覧取得
+     */
+    getCourseLogs(requestParameters: GetCourseLogsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GetCourseLogs200Response>;
+
+    /**
+     * 
+     * @summary 授業記録登録
+     * @param {string} xTenantUID テナント識別子
+     * @param {PostCourseLogsRequest} postCourseLogsRequest 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof CourseLogApiInterface
+     */
+    postCourseLogsRaw(requestParameters: PostCourseLogsOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PostCourse200Response>>;
 
     /**
      * 授業記録登録
      */
-    getCourseLogs(requestParameters: GetCourseLogsOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PostCourse200Response>;
+    postCourseLogs(requestParameters: PostCourseLogsOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PostCourse200Response>;
 
     /**
      * 
@@ -163,64 +163,6 @@ export interface CourseLogApiInterface {
  * 
  */
 export class CourseLogApi extends runtime.BaseAPI implements CourseLogApiInterface {
-
-    /**
-     * 授業記録一覧取得
-     */
-    async courseLogsGetRaw(requestParameters: CourseLogsGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CourseLogsGet200Response>> {
-        if (requestParameters.xTenantUID === null || requestParameters.xTenantUID === undefined) {
-            throw new runtime.RequiredError('xTenantUID','Required parameter requestParameters.xTenantUID was null or undefined when calling courseLogsGet.');
-        }
-
-        const queryParameters: any = {};
-
-        if (requestParameters.courseId !== undefined) {
-            queryParameters['course-id'] = requestParameters.courseId;
-        }
-
-        if (requestParameters.period !== undefined) {
-            queryParameters['period'] = requestParameters.period;
-        }
-
-        if (requestParameters.minDate !== undefined) {
-            queryParameters['min-date'] = (requestParameters.minDate as any).toISOString().substr(0,10);
-        }
-
-        if (requestParameters.maxDate !== undefined) {
-            queryParameters['max-date'] = (requestParameters.maxDate as any).toISOString().substr(0,10);
-        }
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (requestParameters.xTenantUID !== undefined && requestParameters.xTenantUID !== null) {
-            headerParameters['X-Tenant-UID'] = String(requestParameters.xTenantUID);
-        }
-
-        if (this.configuration && this.configuration.accessToken) {
-            const token = this.configuration.accessToken;
-            const tokenString = await token("Bearer", []);
-
-            if (tokenString) {
-                headerParameters["Authorization"] = `Bearer ${tokenString}`;
-            }
-        }
-        const response = await this.request({
-            path: `/course-logs`,
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => CourseLogsGet200ResponseFromJSON(jsonValue));
-    }
-
-    /**
-     * 授業記録一覧取得
-     */
-    async courseLogsGet(requestParameters: CourseLogsGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CourseLogsGet200Response> {
-        const response = await this.courseLogsGetRaw(requestParameters, initOverrides);
-        return await response.value();
-    }
 
     /**
      * 授業記録削除
@@ -315,15 +257,73 @@ export class CourseLogApi extends runtime.BaseAPI implements CourseLogApiInterfa
     }
 
     /**
-     * 授業記録登録
+     * 授業記録一覧取得
      */
-    async getCourseLogsRaw(requestParameters: GetCourseLogsOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PostCourse200Response>> {
+    async getCourseLogsRaw(requestParameters: GetCourseLogsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GetCourseLogs200Response>> {
         if (requestParameters.xTenantUID === null || requestParameters.xTenantUID === undefined) {
             throw new runtime.RequiredError('xTenantUID','Required parameter requestParameters.xTenantUID was null or undefined when calling getCourseLogs.');
         }
 
-        if (requestParameters.getCourseLogsRequest === null || requestParameters.getCourseLogsRequest === undefined) {
-            throw new runtime.RequiredError('getCourseLogsRequest','Required parameter requestParameters.getCourseLogsRequest was null or undefined when calling getCourseLogs.');
+        const queryParameters: any = {};
+
+        if (requestParameters.courseId !== undefined) {
+            queryParameters['course-id'] = requestParameters.courseId;
+        }
+
+        if (requestParameters.period !== undefined) {
+            queryParameters['period'] = requestParameters.period;
+        }
+
+        if (requestParameters.minDate !== undefined) {
+            queryParameters['min-date'] = (requestParameters.minDate as any).toISOString().substr(0,10);
+        }
+
+        if (requestParameters.maxDate !== undefined) {
+            queryParameters['max-date'] = (requestParameters.maxDate as any).toISOString().substr(0,10);
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters.xTenantUID !== undefined && requestParameters.xTenantUID !== null) {
+            headerParameters['X-Tenant-UID'] = String(requestParameters.xTenantUID);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/course-logs`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => GetCourseLogs200ResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * 授業記録一覧取得
+     */
+    async getCourseLogs(requestParameters: GetCourseLogsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GetCourseLogs200Response> {
+        const response = await this.getCourseLogsRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * 授業記録登録
+     */
+    async postCourseLogsRaw(requestParameters: PostCourseLogsOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PostCourse200Response>> {
+        if (requestParameters.xTenantUID === null || requestParameters.xTenantUID === undefined) {
+            throw new runtime.RequiredError('xTenantUID','Required parameter requestParameters.xTenantUID was null or undefined when calling postCourseLogs.');
+        }
+
+        if (requestParameters.postCourseLogsRequest === null || requestParameters.postCourseLogsRequest === undefined) {
+            throw new runtime.RequiredError('postCourseLogsRequest','Required parameter requestParameters.postCourseLogsRequest was null or undefined when calling postCourseLogs.');
         }
 
         const queryParameters: any = {};
@@ -349,7 +349,7 @@ export class CourseLogApi extends runtime.BaseAPI implements CourseLogApiInterfa
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: GetCourseLogsRequestToJSON(requestParameters.getCourseLogsRequest),
+            body: PostCourseLogsRequestToJSON(requestParameters.postCourseLogsRequest),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => PostCourse200ResponseFromJSON(jsonValue));
@@ -358,8 +358,8 @@ export class CourseLogApi extends runtime.BaseAPI implements CourseLogApiInterfa
     /**
      * 授業記録登録
      */
-    async getCourseLogs(requestParameters: GetCourseLogsOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PostCourse200Response> {
-        const response = await this.getCourseLogsRaw(requestParameters, initOverrides);
+    async postCourseLogs(requestParameters: PostCourseLogsOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PostCourse200Response> {
+        const response = await this.postCourseLogsRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

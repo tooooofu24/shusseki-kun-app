@@ -556,7 +556,7 @@ paths:
       summary: 授業記録登録
       tags:
         - CourseLog
-      operationId: getCourseLogs
+      operationId: postCourseLogs
       parameters:
         - $ref: "#/components/parameters/tenant"
       requestBody:
@@ -621,6 +621,7 @@ paths:
       summary: 授業記録一覧取得
       tags:
         - CourseLog
+      operationId: getCourseLogs
       parameters:
         - $ref: "#/components/parameters/tenant"
         - name: course-id

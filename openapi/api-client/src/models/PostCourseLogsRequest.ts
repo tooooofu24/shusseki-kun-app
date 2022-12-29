@@ -13,49 +13,49 @@
  */
 
 import { exists, mapValues } from '../runtime';
-import type { GetCourseLogsRequestAttendancesInner } from './GetCourseLogsRequestAttendancesInner';
+import type { PostCourseLogsRequestAttendancesInner } from './PostCourseLogsRequestAttendancesInner';
 import {
-    GetCourseLogsRequestAttendancesInnerFromJSON,
-    GetCourseLogsRequestAttendancesInnerFromJSONTyped,
-    GetCourseLogsRequestAttendancesInnerToJSON,
-} from './GetCourseLogsRequestAttendancesInner';
+    PostCourseLogsRequestAttendancesInnerFromJSON,
+    PostCourseLogsRequestAttendancesInnerFromJSONTyped,
+    PostCourseLogsRequestAttendancesInnerToJSON,
+} from './PostCourseLogsRequestAttendancesInner';
 
 /**
  * 
  * @export
- * @interface GetCourseLogsRequest
+ * @interface PostCourseLogsRequest
  */
-export interface GetCourseLogsRequest {
+export interface PostCourseLogsRequest {
     /**
      * 
      * @type {number}
-     * @memberof GetCourseLogsRequest
+     * @memberof PostCourseLogsRequest
      */
     courseId: number;
     /**
      * 
      * @type {Date}
-     * @memberof GetCourseLogsRequest
+     * @memberof PostCourseLogsRequest
      */
     date: Date;
     /**
      * 
      * @type {number}
-     * @memberof GetCourseLogsRequest
+     * @memberof PostCourseLogsRequest
      */
     period: number;
     /**
      * 
-     * @type {Array<GetCourseLogsRequestAttendancesInner>}
-     * @memberof GetCourseLogsRequest
+     * @type {Array<PostCourseLogsRequestAttendancesInner>}
+     * @memberof PostCourseLogsRequest
      */
-    attendances: Array<GetCourseLogsRequestAttendancesInner>;
+    attendances: Array<PostCourseLogsRequestAttendancesInner>;
 }
 
 /**
- * Check if a given object implements the GetCourseLogsRequest interface.
+ * Check if a given object implements the PostCourseLogsRequest interface.
  */
-export function instanceOfGetCourseLogsRequest(value: object): boolean {
+export function instanceOfPostCourseLogsRequest(value: object): boolean {
     let isInstance = true;
     isInstance = isInstance && "courseId" in value;
     isInstance = isInstance && "date" in value;
@@ -65,11 +65,11 @@ export function instanceOfGetCourseLogsRequest(value: object): boolean {
     return isInstance;
 }
 
-export function GetCourseLogsRequestFromJSON(json: any): GetCourseLogsRequest {
-    return GetCourseLogsRequestFromJSONTyped(json, false);
+export function PostCourseLogsRequestFromJSON(json: any): PostCourseLogsRequest {
+    return PostCourseLogsRequestFromJSONTyped(json, false);
 }
 
-export function GetCourseLogsRequestFromJSONTyped(json: any, ignoreDiscriminator: boolean): GetCourseLogsRequest {
+export function PostCourseLogsRequestFromJSONTyped(json: any, ignoreDiscriminator: boolean): PostCourseLogsRequest {
     if ((json === undefined) || (json === null)) {
         return json;
     }
@@ -78,11 +78,11 @@ export function GetCourseLogsRequestFromJSONTyped(json: any, ignoreDiscriminator
         'courseId': json['courseId'],
         'date': (new Date(json['date'])),
         'period': json['period'],
-        'attendances': ((json['attendances'] as Array<any>).map(GetCourseLogsRequestAttendancesInnerFromJSON)),
+        'attendances': ((json['attendances'] as Array<any>).map(PostCourseLogsRequestAttendancesInnerFromJSON)),
     };
 }
 
-export function GetCourseLogsRequestToJSON(value?: GetCourseLogsRequest | null): any {
+export function PostCourseLogsRequestToJSON(value?: PostCourseLogsRequest | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -94,7 +94,7 @@ export function GetCourseLogsRequestToJSON(value?: GetCourseLogsRequest | null):
         'courseId': value.courseId,
         'date': (value.date.toISOString().substr(0,10)),
         'period': value.period,
-        'attendances': ((value.attendances as Array<any>).map(GetCourseLogsRequestAttendancesInnerToJSON)),
+        'attendances': ((value.attendances as Array<any>).map(PostCourseLogsRequestAttendancesInnerToJSON)),
     };
 }
 

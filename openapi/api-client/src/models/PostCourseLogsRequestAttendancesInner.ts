@@ -16,51 +16,51 @@ import { exists, mapValues } from '../runtime';
 /**
  * 
  * @export
- * @interface GetCourseLogsRequestAttendancesInner
+ * @interface PostCourseLogsRequestAttendancesInner
  */
-export interface GetCourseLogsRequestAttendancesInner {
+export interface PostCourseLogsRequestAttendancesInner {
     /**
      * 
      * @type {number}
-     * @memberof GetCourseLogsRequestAttendancesInner
+     * @memberof PostCourseLogsRequestAttendancesInner
      */
     studentId: number;
     /**
      * 
      * @type {boolean}
-     * @memberof GetCourseLogsRequestAttendancesInner
+     * @memberof PostCourseLogsRequestAttendancesInner
      */
     attend: boolean;
     /**
      * 
      * @type {number}
-     * @memberof GetCourseLogsRequestAttendancesInner
+     * @memberof PostCourseLogsRequestAttendancesInner
      */
     knowledge?: number;
     /**
      * 
      * @type {number}
-     * @memberof GetCourseLogsRequestAttendancesInner
+     * @memberof PostCourseLogsRequestAttendancesInner
      */
     expression?: number;
     /**
      * 
      * @type {number}
-     * @memberof GetCourseLogsRequestAttendancesInner
+     * @memberof PostCourseLogsRequestAttendancesInner
      */
     attitude?: number;
     /**
      * 
      * @type {string}
-     * @memberof GetCourseLogsRequestAttendancesInner
+     * @memberof PostCourseLogsRequestAttendancesInner
      */
     comment?: string;
 }
 
 /**
- * Check if a given object implements the GetCourseLogsRequestAttendancesInner interface.
+ * Check if a given object implements the PostCourseLogsRequestAttendancesInner interface.
  */
-export function instanceOfGetCourseLogsRequestAttendancesInner(value: object): boolean {
+export function instanceOfPostCourseLogsRequestAttendancesInner(value: object): boolean {
     let isInstance = true;
     isInstance = isInstance && "studentId" in value;
     isInstance = isInstance && "attend" in value;
@@ -68,11 +68,11 @@ export function instanceOfGetCourseLogsRequestAttendancesInner(value: object): b
     return isInstance;
 }
 
-export function GetCourseLogsRequestAttendancesInnerFromJSON(json: any): GetCourseLogsRequestAttendancesInner {
-    return GetCourseLogsRequestAttendancesInnerFromJSONTyped(json, false);
+export function PostCourseLogsRequestAttendancesInnerFromJSON(json: any): PostCourseLogsRequestAttendancesInner {
+    return PostCourseLogsRequestAttendancesInnerFromJSONTyped(json, false);
 }
 
-export function GetCourseLogsRequestAttendancesInnerFromJSONTyped(json: any, ignoreDiscriminator: boolean): GetCourseLogsRequestAttendancesInner {
+export function PostCourseLogsRequestAttendancesInnerFromJSONTyped(json: any, ignoreDiscriminator: boolean): PostCourseLogsRequestAttendancesInner {
     if ((json === undefined) || (json === null)) {
         return json;
     }
@@ -87,7 +87,7 @@ export function GetCourseLogsRequestAttendancesInnerFromJSONTyped(json: any, ign
     };
 }
 
-export function GetCourseLogsRequestAttendancesInnerToJSON(value?: GetCourseLogsRequestAttendancesInner | null): any {
+export function PostCourseLogsRequestAttendancesInnerToJSON(value?: PostCourseLogsRequestAttendancesInner | null): any {
     if (value === undefined) {
         return undefined;
     }

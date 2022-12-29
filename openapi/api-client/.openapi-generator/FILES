@@ -22,7 +22,6 @@ src/models/ClassroomWithCourse.ts
 src/models/ClassroomWithCourseCoursesInner.ts
 src/models/Course.ts
 src/models/CourseLog.ts
-src/models/CourseLogsGet200Response.ts
 src/models/DeleteUser200Response.ts
 src/models/FindAttendance200Response.ts
 src/models/FindClassroom200Response.ts
@@ -30,8 +29,7 @@ src/models/FindCourseLog200Response.ts
 src/models/FindStudent200Response.ts
 src/models/GetAttendances200Response.ts
 src/models/GetClassrooms200Response.ts
-src/models/GetCourseLogsRequest.ts
-src/models/GetCourseLogsRequestAttendancesInner.ts
+src/models/GetCourseLogs200Response.ts
 src/models/GetCourses200Response.ts
 src/models/GetCurrentUser200Response.ts
 src/models/GetInvitations200Response.ts
@@ -47,6 +45,8 @@ src/models/Invitation.ts
 src/models/PostClassroom200Response.ts
 src/models/PostClassroomRequest.ts
 src/models/PostCourse200Response.ts
+src/models/PostCourseLogsRequest.ts
+src/models/PostCourseLogsRequestAttendancesInner.ts
 src/models/PostCourseRequest.ts
 src/models/PostInvitation200Response.ts
 src/models/PostInvitationRequest.ts

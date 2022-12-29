@@ -23,31 +23,31 @@ import {
 /**
  * 
  * @export
- * @interface CourseLogsGet200Response
+ * @interface GetCourseLogs200Response
  */
-export interface CourseLogsGet200Response {
+export interface GetCourseLogs200Response {
     /**
      * 
      * @type {Array<CourseLog>}
-     * @memberof CourseLogsGet200Response
+     * @memberof GetCourseLogs200Response
      */
     data?: Array<CourseLog>;
 }
 
 /**
- * Check if a given object implements the CourseLogsGet200Response interface.
+ * Check if a given object implements the GetCourseLogs200Response interface.
  */
-export function instanceOfCourseLogsGet200Response(value: object): boolean {
+export function instanceOfGetCourseLogs200Response(value: object): boolean {
     let isInstance = true;
 
     return isInstance;
 }
 
-export function CourseLogsGet200ResponseFromJSON(json: any): CourseLogsGet200Response {
-    return CourseLogsGet200ResponseFromJSONTyped(json, false);
+export function GetCourseLogs200ResponseFromJSON(json: any): GetCourseLogs200Response {
+    return GetCourseLogs200ResponseFromJSONTyped(json, false);
 }
 
-export function CourseLogsGet200ResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): CourseLogsGet200Response {
+export function GetCourseLogs200ResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): GetCourseLogs200Response {
     if ((json === undefined) || (json === null)) {
         return json;
     }
@@ -57,7 +57,7 @@ export function CourseLogsGet200ResponseFromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function CourseLogsGet200ResponseToJSON(value?: CourseLogsGet200Response | null): any {
+export function GetCourseLogs200ResponseToJSON(value?: GetCourseLogs200Response | null): any {
     if (value === undefined) {
         return undefined;
     }
