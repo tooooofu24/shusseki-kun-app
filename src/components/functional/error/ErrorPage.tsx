@@ -12,13 +12,6 @@ type props = {
 };
 
 export const ErrorPage: FC<props> = () => {
-  const router = useRouter();
-  const onReload = () => {
-    router.reload();
-  };
-  const onContact = () => {
-    router.push("/contact");
-  };
   return (
     <>
       <PageTitle title="エラーが発生しました" icon={<WarningCircle />} />
@@ -36,19 +29,35 @@ export const ErrorPage: FC<props> = () => {
             ※再読み込みをしても直らない場合、下記ボタンよりお問合せ下さい。
           </Text>
           <Flex pt={8} pb={5} gap={8} justifyContent="center">
-            <Button leftIcon={<ArrowClockwise />} onClick={onReload}>
-              再読み込み
-            </Button>
-            <Button
-              variant="outline"
-              leftIcon={<ChatsCircle />}
-              onClick={onContact}
-            >
-              お問合せ
-            </Button>
+            <ReloadButton />
+            <ContactButton />
           </Flex>
         </CardBody>
       </Card>
     </>
+  );
+};
+
+const ReloadButton = () => {
+  const router = useRouter();
+  const onClick = () => {
+    router.reload();
+  };
+  return (
+    <Button leftIcon={<ArrowClockwise />} onClick={onClick}>
+      再読み込み
+    </Button>
+  );
+};
+
+const ContactButton = () => {
+  const router = useRouter();
+  const onClick = () => {
+    router.push("/contact");
+  };
+  return (
+    <Button variant="outline" leftIcon={<ChatsCircle />} onClick={onClick}>
+      お問合せ
+    </Button>
   );
 };
