@@ -10,6 +10,8 @@ import {
 import { Invitation } from "openapi/api-client/src";
 import { FC } from "react";
 
+import { formatTimeStamp } from "@/utils/time";
+
 import { CancelInvitationButton } from "./CancelInvitationButton";
 import { SendInvitationMailButton } from "./SendInvitationMailButton";
 
@@ -50,7 +52,7 @@ const InvitationRow: FC<InvitationRowProps> = ({ invitation }) => {
       </Td>
       <Td>{invitation.email}</Td>
       <Td>{invitation.createdBy?.name}</Td>
-      <Td>{/* {formatTimeStamp(invitation?.createdAt)} */}</Td>
+      <Td> {formatTimeStamp(invitation?.createdAt)} </Td>
       <Td>
         <CancelInvitationButton invitation={invitation} />
       </Td>
