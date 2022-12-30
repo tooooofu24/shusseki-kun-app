@@ -12,7 +12,7 @@ export const getInvitations = async () => {
   const response = await api
     .getInvitations({
       xTenantUID: getTenantUid(),
-      accept: true,
+      accept: false,
     })
     .catch(async (e: ResponseError) => {
       throw await handleApiError(e);

@@ -16,6 +16,7 @@ import { FC, useState } from "react";
 import { useForm } from "react-hook-form";
 
 import { FlushedEmailField } from "@/components/functional/form/FlushedEmailField";
+import { useInvitations } from "@/hooks/Invitation";
 import { useShowToast } from "@/hooks/Toast";
 import { postInvitation } from "@/utils/api/Invitation";
 import {
@@ -31,6 +32,7 @@ export const AddInvitationModal: FC<props> = (props) => {
   const { onClose } = props;
   const showToast = useShowToast();
   const [isLoading, setIsLoading] = useState(false);
+  const { refetch } = useInvitations();
   const {
     register,
     handleSubmit,
@@ -46,6 +48,7 @@ export const AddInvitationModal: FC<props> = (props) => {
       .then(() => {
         showToast("招待しました！", "success");
         onClose();
+        refetch();
       })
       .catch((e) => setError("email", { message: e.message }));
     setIsLoading(false);
