@@ -15,7 +15,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { FC, useState } from "react";
 import { useForm } from "react-hook-form";
 
-import { FlushedEmailField } from "@/components/functional/form/FlushedEmailField";
+import { FlushedEmailField } from "@/components/ui/fields/FlushedEmailField";
 import { useInvitations } from "@/hooks/Invitation";
 import { useShowToast } from "@/hooks/Toast";
 import { postInvitation } from "@/utils/api/Invitation";

@@ -18,6 +18,7 @@ import { X } from "phosphor-react";
 import { FC, useState } from "react";
 
 import { ErrorModal } from "@/components/functional/error/modal/ErrorModal";
+import { useUsers } from "@/hooks/User";
 import { deleteUser } from "@/utils/api/User";
 
 type props = {
@@ -32,12 +33,14 @@ export const DeleteUserButton: FC<props> = ({ user }) => {
   } = useDisclosure();
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const { refetch } = useUsers();
 
   const onClick = async () => {
     setIsLoading(true);
     try {
-      await deleteUser(100);
+      await deleteUser(user.id);
       onClose();
+      refetch();
     } catch (e: any) {
       setError(e.message);
       onOpenErrorModal();
