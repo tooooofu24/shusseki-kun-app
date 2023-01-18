@@ -24,25 +24,25 @@ export interface PostScheduleRequest {
      * @type {number}
      * @memberof PostScheduleRequest
      */
-    classroomId?: number;
+    classroomId: number;
     /**
      * 
      * @type {number}
      * @memberof PostScheduleRequest
      */
-    subjectId?: number;
+    subjectId: number;
     /**
      * 1-7 or mon-sun or 月-日
      * @type {string}
      * @memberof PostScheduleRequest
      */
-    day?: string;
+    day: string;
     /**
      * 
      * @type {number}
      * @memberof PostScheduleRequest
      */
-    period?: number;
+    period: number;
 }
 
 /**
@@ -50,6 +50,10 @@ export interface PostScheduleRequest {
  */
 export function instanceOfPostScheduleRequest(value: object): boolean {
     let isInstance = true;
+    isInstance = isInstance && "classroomId" in value;
+    isInstance = isInstance && "subjectId" in value;
+    isInstance = isInstance && "day" in value;
+    isInstance = isInstance && "period" in value;
 
     return isInstance;
 }
@@ -64,10 +68,10 @@ export function PostScheduleRequestFromJSONTyped(json: any, ignoreDiscriminator:
     }
     return {
         
-        'classroomId': !exists(json, 'classroomId') ? undefined : json['classroomId'],
-        'subjectId': !exists(json, 'subjectId') ? undefined : json['subjectId'],
-        'day': !exists(json, 'day') ? undefined : json['day'],
-        'period': !exists(json, 'period') ? undefined : json['period'],
+        'classroomId': json['classroomId'],
+        'subjectId': json['subjectId'],
+        'day': json['day'],
+        'period': json['period'],
     };
 }
 

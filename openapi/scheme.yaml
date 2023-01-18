@@ -545,11 +545,6 @@ paths:
           application/json:
             schema:
               type: object
-              required:
-                - courseId
-                - date
-                - period
-                - attendances
               properties:
                 courseId:
                   type: integer
@@ -564,9 +559,6 @@ paths:
                   type: array
                   items:
                     type: object
-                    required:
-                      - studentId
-                      - attend
                     properties:
                       studentId:
                         type: integer
@@ -586,6 +578,14 @@ paths:
                         maximum: 3
                       comment:
                         type: string
+                    required:
+                      - studentId
+                      - attend
+              required:
+                - courseId
+                - date
+                - period
+                - attendances
       responses:
         "200":
           description: 成功
@@ -729,6 +729,11 @@ paths:
                   type: integer
                   minimum: 1
                   maximum: 7
+              required:
+                - classroomId
+                - subjectId
+                - day
+                - period
       responses:
         "200":
           description: 成功

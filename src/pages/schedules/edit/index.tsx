@@ -1,7 +1,7 @@
 import Head from "next/head";
 
 import { Auth } from "@/components/functional/authentication/Auth";
-import { HomePage } from "@/components/page/index/HomePage";
+import { EditSchedulePage } from "@/components/page/schedules/EditSchedulePage";
 import { Layout } from "@/components/ui/layouts/Layout";
 
 function Home() {
@@ -12,7 +12,7 @@ function Home() {
       </Head>
       <Layout type="sidebar">
         <Auth>
-          <HomePage />
+          <EditSchedulePage />
         </Auth>
       </Layout>
     </>

@@ -10,14 +10,14 @@ const subjectsAtom = atom<Promise<Subject[]> | []>(async (get) => {
   return getSubjects();
 });
 
-export const useAttendances = () => {
-  const [attendances] = useAtom(subjectsAtom);
+export const useSubjects = () => {
+  const [subjects] = useAtom(subjectsAtom);
   const [version, setVersion] = useAtom(versionAtom);
   const refetch = () => {
     setVersion(version + 1);
   };
   return {
-    attendances,
+    subjects,
     refetch,
   };
 };

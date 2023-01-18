@@ -8,9 +8,7 @@ import { schemaFromType } from "./utils";
 export const postInvitationScheme = schemaFromType<PostInvitationRequest>()(
   z.object({
     email: z
-      .string({
-        required_error: "Name is required",
-      })
+      .string()
       .min(1, { message: formError.REQUIRED })
       .email({ message: formError.INVALID_EMAIL }),
   })

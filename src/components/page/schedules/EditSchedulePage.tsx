@@ -6,7 +6,7 @@ import { ScheduleTable } from "@/components/model/Schedule/ScheduleTable";
 import { PageTitle } from "@/components/ui/parts/PageTitle";
 import { useSchedules } from "@/hooks/Schedule";
 
-export const HomePage = () => {
+export const EditSchedulePage = () => {
   const { schedules } = useSchedules();
   return (
     <>
@@ -17,7 +17,7 @@ export const HomePage = () => {
       />
       <Card>
         <CardBody>
-          <ScheduleTable schedules={schedules} type="index" />
+          <ScheduleTable schedules={schedules} type="edit" />
         </CardBody>
       </Card>
     </>
