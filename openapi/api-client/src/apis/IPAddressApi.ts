@@ -31,7 +31,7 @@ import {
     PostIpAddressRequestToJSON,
 } from '../models';
 
-export interface FindIpAddressRequest {
+export interface DeleteIpAddressRequest {
     xTenantUID: string;
     id: number;
 }
@@ -61,12 +61,12 @@ export interface IPAddressApiInterface {
      * @throws {RequiredError}
      * @memberof IPAddressApiInterface
      */
-    findIpAddressRaw(requestParameters: FindIpAddressRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DeleteUser200Response>>;
+    deleteIpAddressRaw(requestParameters: DeleteIpAddressRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DeleteUser200Response>>;
 
     /**
      * 許容IP削除
      */
-    findIpAddress(requestParameters: FindIpAddressRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DeleteUser200Response>;
+    deleteIpAddress(requestParameters: DeleteIpAddressRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DeleteUser200Response>;
 
     /**
      * 
@@ -109,13 +109,13 @@ export class IPAddressApi extends runtime.BaseAPI implements IPAddressApiInterfa
     /**
      * 許容IP削除
      */
-    async findIpAddressRaw(requestParameters: FindIpAddressRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DeleteUser200Response>> {
+    async deleteIpAddressRaw(requestParameters: DeleteIpAddressRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DeleteUser200Response>> {
         if (requestParameters.xTenantUID === null || requestParameters.xTenantUID === undefined) {
-            throw new runtime.RequiredError('xTenantUID','Required parameter requestParameters.xTenantUID was null or undefined when calling findIpAddress.');
+            throw new runtime.RequiredError('xTenantUID','Required parameter requestParameters.xTenantUID was null or undefined when calling deleteIpAddress.');
         }
 
         if (requestParameters.id === null || requestParameters.id === undefined) {
-            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling findIpAddress.');
+            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling deleteIpAddress.');
         }
 
         const queryParameters: any = {};
@@ -147,8 +147,8 @@ export class IPAddressApi extends runtime.BaseAPI implements IPAddressApiInterfa
     /**
      * 許容IP削除
      */
-    async findIpAddress(requestParameters: FindIpAddressRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DeleteUser200Response> {
-        const response = await this.findIpAddressRaw(requestParameters, initOverrides);
+    async deleteIpAddress(requestParameters: DeleteIpAddressRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DeleteUser200Response> {
+        const response = await this.deleteIpAddressRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

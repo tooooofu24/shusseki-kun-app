@@ -12,6 +12,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { PostInvitationRequest } from "openapi/api-client/src";
 import { FC, useState } from "react";
 import { useForm } from "react-hook-form";
 
@@ -19,10 +20,7 @@ import { FlushedEmailField } from "@/components/ui/fields/FlushedEmailField";
 import { useInvitations } from "@/hooks/Invitation";
 import { useShowToast } from "@/hooks/Toast";
 import { postInvitation } from "@/utils/api/Invitation";
-import {
-  postInvitationForm,
-  postInvitationScheme,
-} from "@/utils/form-scheme/Invitation";
+import { postInvitationScheme } from "@/utils/form-scheme/Invitation";
 
 type props = {
   isOpen: boolean;
@@ -38,11 +36,11 @@ export const AddInvitationModal: FC<props> = (props) => {
     handleSubmit,
     formState: { errors },
     setError,
-  } = useForm<postInvitationForm>({
+  } = useForm<PostInvitationRequest>({
     resolver: zodResolver(postInvitationScheme),
   });
 
-  const onSubmit = async (data: postInvitationForm) => {
+  const onSubmit = async (data: PostInvitationRequest) => {
     setIsLoading(true);
     await postInvitation(data)
       .then(() => {

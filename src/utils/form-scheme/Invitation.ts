@@ -13,4 +13,3 @@ export const postInvitationScheme = schemaFromType<PostInvitationRequest>()(
       .email({ message: formError.INVALID_EMAIL }),
   })
 );
-export type postInvitationForm = z.infer<typeof postInvitationScheme>;

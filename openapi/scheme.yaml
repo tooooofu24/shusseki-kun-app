@@ -256,7 +256,7 @@ paths:
       summary: 許容IP削除
       tags:
         - IPAddress
-      operationId: findIpAddress
+      operationId: deleteIpAddress
       parameters:
         - $ref: "#/components/parameters/tenant"
         - $ref: "#/components/parameters/id"
