@@ -1,11 +1,15 @@
 import { IconButton, useDisclosure } from "@chakra-ui/react";
+import { Schedule } from "openapi/api-client/src";
 import { X } from "phosphor-react";
+import { FC } from "react";
 
-// type props = {
-//   schedule: Schedule;
-// };
-export const DeleteScheduleButton = () => {
-  const { onOpen } = useDisclosure();
+import { DeleteScheduleModal } from "./DeleteScheduleModal";
+
+type props = {
+  schedule: Schedule;
+};
+export const DeleteScheduleButton: FC<props> = ({ schedule }) => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
     <>
@@ -16,35 +20,11 @@ export const DeleteScheduleButton = () => {
         rounded="full"
         onClick={onOpen}
       />
-
-      {/* <Modal isOpen={isOpen} onClose={onClose} isCentered>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>時間割を削除</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            {schedule.dayJa}曜{schedule.period}時間目の
-            {schedule.course.subject.name}の授業を削除します。
-            <br />
-            よろしいですか？
-            {error && (
-              <Alert status="error" mt={2}>
-                <AlertIcon />
-                <AlertDescription>{error}</AlertDescription>
-              </Alert>
-            )}
-          </ModalBody>
-
-          <ModalFooter>
-            <Button variant="ghost" colorScheme="gray" onClick={onClose} mr={2}>
-              キャンセル
-            </Button>
-            <Button colorScheme="red" onClick={onClick} isLoading={isLoading}>
-              削除
-            </Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal> */}
+      <DeleteScheduleModal
+        schedule={schedule}
+        isOpen={isOpen}
+        onClose={onClose}
+      />
     </>
   );
 };

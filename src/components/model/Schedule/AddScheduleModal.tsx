@@ -16,7 +16,7 @@ import {
 } from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { PostScheduleRequest } from "openapi/api-client/src";
-import { FC } from "react";
+import { FC, useState } from "react";
 import { useForm } from "react-hook-form";
 
 import { ClassroomField } from "@/components/ui/fields/ClassroomField";
@@ -51,8 +51,11 @@ export const AddScheduleModal: FC<props> = ({
     },
   });
   const { refetch } = useSchedules();
+  const [isLoading, setIsLoading] = useState(false);
   const onSubmit = async (data: PostScheduleRequest) => {
+    setIsLoading(true);
     await postSchedule(data);
+    setIsLoading(false);
     refetch();
     onClose();
   };
@@ -111,7 +114,9 @@ export const AddScheduleModal: FC<props> = ({
             <Button variant="ghost" colorScheme="gray" mr={2} onClick={onClose}>
               キャンセル
             </Button>
-            <Button type="submit">授業を追加</Button>
+            <Button type="submit" isLoading={isLoading}>
+              授業を追加
+            </Button>
           </ModalFooter>
         </form>
       </ModalContent>

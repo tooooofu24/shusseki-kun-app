@@ -32,3 +32,16 @@ export const postSchedule = async (props: PostScheduleRequest) => {
     });
   return response.data ?? null;
 };
+
+export const deleteSchedule = async (id: number) => {
+  const config = await getApiConfig();
+  const api = new ScheduleApi(config);
+  await api
+    .deleteSchedule({
+      xTenantUID: getTenantUid(),
+      id,
+    })
+    .catch(async (e: ResponseError) => {
+      throw await handleApiError(e);
+    });
+};

@@ -1,7 +1,7 @@
 import { Card, CardBody } from "@chakra-ui/react";
 import { CalendarCheck } from "phosphor-react";
 
-import { EditScheduleButton } from "@/components/model/Schedule/EditScheduleButton";
+import { EndEditScheduleButton } from "@/components/model/Schedule/EndEditScheduleButton";
 import { ScheduleTable } from "@/components/model/Schedule/ScheduleTable";
 import { PageTitle } from "@/components/ui/parts/PageTitle";
 import { useSchedules } from "@/hooks/Schedule";
@@ -13,7 +13,7 @@ export const EditSchedulePage = () => {
       <PageTitle
         title="時間割"
         icon={<CalendarCheck />}
-        rightItem={<EditScheduleButton />}
+        rightItem={<EndEditScheduleButton />}
       />
       <Card>
         <CardBody>

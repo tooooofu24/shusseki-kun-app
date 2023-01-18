@@ -24,9 +24,6 @@ const Field: FC<props> = ({ register, ...props }) => {
           {classroom.grade}年{classroom.name}組
         </option>
       ))}
-      <option key={0} value={1}>
-        テスト
-      </option>
     </Select>
   );
 };
