@@ -14,3 +14,10 @@ export const getClassrooms = async () => {
     });
   return json.data ?? [];
 };
+
+export const findClassroom = async (id: number) => {
+  const config = await getApiConfig();
+  const api = new ClassroomApi(config);
+  const json = await api.findClassroom({ xTenantUID: getTenantUid(), id });
+  return json.data ?? null;
+};

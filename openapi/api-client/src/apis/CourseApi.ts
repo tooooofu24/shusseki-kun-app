@@ -16,6 +16,7 @@
 import * as runtime from '../runtime';
 import type {
   DeleteUser200Response,
+  FindCourse200Response,
   GetCourses200Response,
   PostCourse200Response,
   PostCourseRequest,
@@ -23,6 +24,8 @@ import type {
 import {
     DeleteUser200ResponseFromJSON,
     DeleteUser200ResponseToJSON,
+    FindCourse200ResponseFromJSON,
+    FindCourse200ResponseToJSON,
     GetCourses200ResponseFromJSON,
     GetCourses200ResponseToJSON,
     PostCourse200ResponseFromJSON,
@@ -84,12 +87,12 @@ export interface CourseApiInterface {
      * @throws {RequiredError}
      * @memberof CourseApiInterface
      */
-    findCourseRaw(requestParameters: FindCourseRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PostCourse200Response>>;
+    findCourseRaw(requestParameters: FindCourseRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<FindCourse200Response>>;
 
     /**
      * 授業単一取得
      */
-    findCourse(requestParameters: FindCourseRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PostCourse200Response>;
+    findCourse(requestParameters: FindCourseRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<FindCourse200Response>;
 
     /**
      * 
@@ -180,7 +183,7 @@ export class CourseApi extends runtime.BaseAPI implements CourseApiInterface {
     /**
      * 授業単一取得
      */
-    async findCourseRaw(requestParameters: FindCourseRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PostCourse200Response>> {
+    async findCourseRaw(requestParameters: FindCourseRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<FindCourse200Response>> {
         if (requestParameters.xTenantUID === null || requestParameters.xTenantUID === undefined) {
             throw new runtime.RequiredError('xTenantUID','Required parameter requestParameters.xTenantUID was null or undefined when calling findCourse.');
         }
@@ -212,13 +215,13 @@ export class CourseApi extends runtime.BaseAPI implements CourseApiInterface {
             query: queryParameters,
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => PostCourse200ResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => FindCourse200ResponseFromJSON(jsonValue));
     }
 
     /**
      * 授業単一取得
      */
-    async findCourse(requestParameters: FindCourseRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PostCourse200Response> {
+    async findCourse(requestParameters: FindCourseRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<FindCourse200Response> {
         const response = await this.findCourseRaw(requestParameters, initOverrides);
         return await response.value();
     }

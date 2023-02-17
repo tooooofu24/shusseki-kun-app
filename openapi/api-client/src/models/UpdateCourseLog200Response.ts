@@ -23,42 +23,41 @@ import {
 /**
  * 
  * @export
- * @interface FindCourseLog200Response
+ * @interface UpdateCourseLog200Response
  */
-export interface FindCourseLog200Response {
+export interface UpdateCourseLog200Response {
     /**
      * 
      * @type {CourseLog}
-     * @memberof FindCourseLog200Response
+     * @memberof UpdateCourseLog200Response
      */
-    data: CourseLog;
+    data?: CourseLog;
 }
 
 /**
- * Check if a given object implements the FindCourseLog200Response interface.
+ * Check if a given object implements the UpdateCourseLog200Response interface.
  */
-export function instanceOfFindCourseLog200Response(value: object): boolean {
+export function instanceOfUpdateCourseLog200Response(value: object): boolean {
     let isInstance = true;
-    isInstance = isInstance && "data" in value;
 
     return isInstance;
 }
 
-export function FindCourseLog200ResponseFromJSON(json: any): FindCourseLog200Response {
-    return FindCourseLog200ResponseFromJSONTyped(json, false);
+export function UpdateCourseLog200ResponseFromJSON(json: any): UpdateCourseLog200Response {
+    return UpdateCourseLog200ResponseFromJSONTyped(json, false);
 }
 
-export function FindCourseLog200ResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): FindCourseLog200Response {
+export function UpdateCourseLog200ResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): UpdateCourseLog200Response {
     if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'data': CourseLogFromJSON(json['data']),
+        'data': !exists(json, 'data') ? undefined : CourseLogFromJSON(json['data']),
     };
 }
 
-export function FindCourseLog200ResponseToJSON(value?: FindCourseLog200Response | null): any {
+export function UpdateCourseLog200ResponseToJSON(value?: UpdateCourseLog200Response | null): any {
     if (value === undefined) {
         return undefined;
     }

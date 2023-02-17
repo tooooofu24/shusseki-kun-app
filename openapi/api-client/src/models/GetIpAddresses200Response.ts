@@ -31,7 +31,7 @@ export interface GetIpAddresses200Response {
      * @type {Array<IPAddress>}
      * @memberof GetIpAddresses200Response
      */
-    data?: Array<IPAddress>;
+    data: Array<IPAddress>;
 }
 
 /**
@@ -39,6 +39,7 @@ export interface GetIpAddresses200Response {
  */
 export function instanceOfGetIpAddresses200Response(value: object): boolean {
     let isInstance = true;
+    isInstance = isInstance && "data" in value;
 
     return isInstance;
 }
@@ -53,7 +54,7 @@ export function GetIpAddresses200ResponseFromJSONTyped(json: any, ignoreDiscrimi
     }
     return {
         
-        'data': !exists(json, 'data') ? undefined : ((json['data'] as Array<any>).map(IPAddressFromJSON)),
+        'data': ((json['data'] as Array<any>).map(IPAddressFromJSON)),
     };
 }
 
@@ -66,7 +67,7 @@ export function GetIpAddresses200ResponseToJSON(value?: GetIpAddresses200Respons
     }
     return {
         
-        'data': value.data === undefined ? undefined : ((value.data as Array<any>).map(IPAddressToJSON)),
+        'data': ((value.data as Array<any>).map(IPAddressToJSON)),
     };
 }
 

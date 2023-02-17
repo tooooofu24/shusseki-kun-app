@@ -31,7 +31,7 @@ export interface FindClassroom200Response {
      * @type {ClassroomWithCourse}
      * @memberof FindClassroom200Response
      */
-    data?: ClassroomWithCourse;
+    data: ClassroomWithCourse;
 }
 
 /**
@@ -39,6 +39,7 @@ export interface FindClassroom200Response {
  */
 export function instanceOfFindClassroom200Response(value: object): boolean {
     let isInstance = true;
+    isInstance = isInstance && "data" in value;
 
     return isInstance;
 }
@@ -53,7 +54,7 @@ export function FindClassroom200ResponseFromJSONTyped(json: any, ignoreDiscrimin
     }
     return {
         
-        'data': !exists(json, 'data') ? undefined : ClassroomWithCourseFromJSON(json['data']),
+        'data': ClassroomWithCourseFromJSON(json['data']),
     };
 }
 

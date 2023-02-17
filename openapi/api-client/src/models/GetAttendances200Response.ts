@@ -31,7 +31,7 @@ export interface GetAttendances200Response {
      * @type {Array<Attendance>}
      * @memberof GetAttendances200Response
      */
-    data?: Array<Attendance>;
+    data: Array<Attendance>;
 }
 
 /**
@@ -39,6 +39,7 @@ export interface GetAttendances200Response {
  */
 export function instanceOfGetAttendances200Response(value: object): boolean {
     let isInstance = true;
+    isInstance = isInstance && "data" in value;
 
     return isInstance;
 }
@@ -53,7 +54,7 @@ export function GetAttendances200ResponseFromJSONTyped(json: any, ignoreDiscrimi
     }
     return {
         
-        'data': !exists(json, 'data') ? undefined : ((json['data'] as Array<any>).map(AttendanceFromJSON)),
+        'data': ((json['data'] as Array<any>).map(AttendanceFromJSON)),
     };
 }
 
@@ -66,7 +67,7 @@ export function GetAttendances200ResponseToJSON(value?: GetAttendances200Respons
     }
     return {
         
-        'data': value.data === undefined ? undefined : ((value.data as Array<any>).map(AttendanceToJSON)),
+        'data': ((value.data as Array<any>).map(AttendanceToJSON)),
     };
 }
 

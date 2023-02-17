@@ -31,7 +31,7 @@ export interface GetUsers200Response {
      * @type {Array<User>}
      * @memberof GetUsers200Response
      */
-    data?: Array<User>;
+    data: Array<User>;
 }
 
 /**
@@ -39,6 +39,7 @@ export interface GetUsers200Response {
  */
 export function instanceOfGetUsers200Response(value: object): boolean {
     let isInstance = true;
+    isInstance = isInstance && "data" in value;
 
     return isInstance;
 }
@@ -53,7 +54,7 @@ export function GetUsers200ResponseFromJSONTyped(json: any, ignoreDiscriminator:
     }
     return {
         
-        'data': !exists(json, 'data') ? undefined : ((json['data'] as Array<any>).map(UserFromJSON)),
+        'data': ((json['data'] as Array<any>).map(UserFromJSON)),
     };
 }
 
@@ -66,7 +67,7 @@ export function GetUsers200ResponseToJSON(value?: GetUsers200Response | null): a
     }
     return {
         
-        'data': value.data === undefined ? undefined : ((value.data as Array<any>).map(UserToJSON)),
+        'data': ((value.data as Array<any>).map(UserToJSON)),
     };
 }
 

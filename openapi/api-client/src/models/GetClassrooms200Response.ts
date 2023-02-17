@@ -31,7 +31,7 @@ export interface GetClassrooms200Response {
      * @type {Array<ClassroomWithCourse>}
      * @memberof GetClassrooms200Response
      */
-    data?: Array<ClassroomWithCourse>;
+    data: Array<ClassroomWithCourse>;
 }
 
 /**
@@ -39,6 +39,7 @@ export interface GetClassrooms200Response {
  */
 export function instanceOfGetClassrooms200Response(value: object): boolean {
     let isInstance = true;
+    isInstance = isInstance && "data" in value;
 
     return isInstance;
 }
@@ -53,7 +54,7 @@ export function GetClassrooms200ResponseFromJSONTyped(json: any, ignoreDiscrimin
     }
     return {
         
-        'data': !exists(json, 'data') ? undefined : ((json['data'] as Array<any>).map(ClassroomWithCourseFromJSON)),
+        'data': ((json['data'] as Array<any>).map(ClassroomWithCourseFromJSON)),
     };
 }
 
@@ -66,7 +67,7 @@ export function GetClassrooms200ResponseToJSON(value?: GetClassrooms200Response 
     }
     return {
         
-        'data': value.data === undefined ? undefined : ((value.data as Array<any>).map(ClassroomWithCourseToJSON)),
+        'data': ((value.data as Array<any>).map(ClassroomWithCourseToJSON)),
     };
 }
 

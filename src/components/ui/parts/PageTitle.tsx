@@ -1,4 +1,5 @@
-import { Box, Flex, IconButton, Text } from "@chakra-ui/react";
+import { Box, Flex, Text } from "@chakra-ui/react";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { CaretLeft } from "phosphor-react";
 import { FC, memo, ReactNode } from "react";
@@ -17,7 +18,7 @@ export const PageTitle: FC<props> = memo(
     return (
       <Flex marginBottom="10px" alignItems="center" gap="15px" height="40px">
         <>
-          <IconWrapper>{icon}</IconWrapper>
+          {icon && <IconWrapper>{icon}</IconWrapper>}
           {goBackButton && <GoBackButton />}
           <Title>{title}</Title>
           <Flex ml="auto">{rightItem}</Flex>
@@ -44,13 +45,11 @@ const GoBackButton = () => {
     router.back();
   };
   return (
-    <IconButton
-      onClick={onClick}
-      color={colors.primary}
-      aria-label="戻るボタン"
-      variant="link"
-      icon={<CaretLeft size={25} />}
-    />
+    <Box color={colors.primary}>
+      <Link href="" onClick={onClick}>
+        <CaretLeft size={25} />
+      </Link>
+    </Box>
   );
 };
 

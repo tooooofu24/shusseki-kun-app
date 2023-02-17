@@ -23,42 +23,42 @@ import {
 /**
  * 
  * @export
- * @interface GetCourses200Response
+ * @interface FindCourse200Response
  */
-export interface GetCourses200Response {
+export interface FindCourse200Response {
     /**
      * 
-     * @type {Array<Course>}
-     * @memberof GetCourses200Response
+     * @type {Course}
+     * @memberof FindCourse200Response
      */
-    data: Array<Course>;
+    data: Course;
 }
 
 /**
- * Check if a given object implements the GetCourses200Response interface.
+ * Check if a given object implements the FindCourse200Response interface.
  */
-export function instanceOfGetCourses200Response(value: object): boolean {
+export function instanceOfFindCourse200Response(value: object): boolean {
     let isInstance = true;
     isInstance = isInstance && "data" in value;
 
     return isInstance;
 }
 
-export function GetCourses200ResponseFromJSON(json: any): GetCourses200Response {
-    return GetCourses200ResponseFromJSONTyped(json, false);
+export function FindCourse200ResponseFromJSON(json: any): FindCourse200Response {
+    return FindCourse200ResponseFromJSONTyped(json, false);
 }
 
-export function GetCourses200ResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): GetCourses200Response {
+export function FindCourse200ResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): FindCourse200Response {
     if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'data': ((json['data'] as Array<any>).map(CourseFromJSON)),
+        'data': CourseFromJSON(json['data']),
     };
 }
 
-export function GetCourses200ResponseToJSON(value?: GetCourses200Response | null): any {
+export function FindCourse200ResponseToJSON(value?: FindCourse200Response | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -67,7 +67,7 @@ export function GetCourses200ResponseToJSON(value?: GetCourses200Response | null
     }
     return {
         
-        'data': ((value.data as Array<any>).map(CourseToJSON)),
+        'data': CourseToJSON(value.data),
     };
 }
 

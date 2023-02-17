@@ -23,42 +23,42 @@ import {
 /**
  * 
  * @export
- * @interface GetSchedules200Response
+ * @interface FindSchedule200Response
  */
-export interface GetSchedules200Response {
+export interface FindSchedule200Response {
     /**
      * 
-     * @type {Array<Schedule>}
-     * @memberof GetSchedules200Response
+     * @type {Schedule}
+     * @memberof FindSchedule200Response
      */
-    data: Array<Schedule>;
+    data: Schedule;
 }
 
 /**
- * Check if a given object implements the GetSchedules200Response interface.
+ * Check if a given object implements the FindSchedule200Response interface.
  */
-export function instanceOfGetSchedules200Response(value: object): boolean {
+export function instanceOfFindSchedule200Response(value: object): boolean {
     let isInstance = true;
     isInstance = isInstance && "data" in value;
 
     return isInstance;
 }
 
-export function GetSchedules200ResponseFromJSON(json: any): GetSchedules200Response {
-    return GetSchedules200ResponseFromJSONTyped(json, false);
+export function FindSchedule200ResponseFromJSON(json: any): FindSchedule200Response {
+    return FindSchedule200ResponseFromJSONTyped(json, false);
 }
 
-export function GetSchedules200ResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): GetSchedules200Response {
+export function FindSchedule200ResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): FindSchedule200Response {
     if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'data': ((json['data'] as Array<any>).map(ScheduleFromJSON)),
+        'data': ScheduleFromJSON(json['data']),
     };
 }
 
-export function GetSchedules200ResponseToJSON(value?: GetSchedules200Response | null): any {
+export function FindSchedule200ResponseToJSON(value?: FindSchedule200Response | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -67,7 +67,7 @@ export function GetSchedules200ResponseToJSON(value?: GetSchedules200Response | 
     }
     return {
         
-        'data': ((value.data as Array<any>).map(ScheduleToJSON)),
+        'data': ScheduleToJSON(value.data),
     };
 }
 

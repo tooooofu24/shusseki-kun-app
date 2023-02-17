@@ -23,42 +23,42 @@ import {
 /**
  * 
  * @export
- * @interface GetInvitations200Response
+ * @interface FindInvitation200Response
  */
-export interface GetInvitations200Response {
+export interface FindInvitation200Response {
     /**
      * 
-     * @type {Array<Invitation>}
-     * @memberof GetInvitations200Response
+     * @type {Invitation}
+     * @memberof FindInvitation200Response
      */
-    data: Array<Invitation>;
+    data: Invitation;
 }
 
 /**
- * Check if a given object implements the GetInvitations200Response interface.
+ * Check if a given object implements the FindInvitation200Response interface.
  */
-export function instanceOfGetInvitations200Response(value: object): boolean {
+export function instanceOfFindInvitation200Response(value: object): boolean {
     let isInstance = true;
     isInstance = isInstance && "data" in value;
 
     return isInstance;
 }
 
-export function GetInvitations200ResponseFromJSON(json: any): GetInvitations200Response {
-    return GetInvitations200ResponseFromJSONTyped(json, false);
+export function FindInvitation200ResponseFromJSON(json: any): FindInvitation200Response {
+    return FindInvitation200ResponseFromJSONTyped(json, false);
 }
 
-export function GetInvitations200ResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): GetInvitations200Response {
+export function FindInvitation200ResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): FindInvitation200Response {
     if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'data': ((json['data'] as Array<any>).map(InvitationFromJSON)),
+        'data': InvitationFromJSON(json['data']),
     };
 }
 
-export function GetInvitations200ResponseToJSON(value?: GetInvitations200Response | null): any {
+export function FindInvitation200ResponseToJSON(value?: FindInvitation200Response | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -67,7 +67,7 @@ export function GetInvitations200ResponseToJSON(value?: GetInvitations200Respons
     }
     return {
         
-        'data': ((value.data as Array<any>).map(InvitationToJSON)),
+        'data': InvitationToJSON(value.data),
     };
 }
 

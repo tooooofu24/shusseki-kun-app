@@ -16,6 +16,7 @@
 import * as runtime from '../runtime';
 import type {
   DeleteUser200Response,
+  FindInvitation200Response,
   GetInvitations200Response,
   PostInvitation200Response,
   PostInvitationRequest,
@@ -23,6 +24,8 @@ import type {
 import {
     DeleteUser200ResponseFromJSON,
     DeleteUser200ResponseToJSON,
+    FindInvitation200ResponseFromJSON,
+    FindInvitation200ResponseToJSON,
     GetInvitations200ResponseFromJSON,
     GetInvitations200ResponseToJSON,
     PostInvitation200ResponseFromJSON,
@@ -88,12 +91,12 @@ export interface InvitationApiInterface {
      * @throws {RequiredError}
      * @memberof InvitationApiInterface
      */
-    findInvitationRaw(requestParameters: FindInvitationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PostInvitation200Response>>;
+    findInvitationRaw(requestParameters: FindInvitationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<FindInvitation200Response>>;
 
     /**
      * 招待単一取得
      */
-    findInvitation(requestParameters: FindInvitationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PostInvitation200Response>;
+    findInvitation(requestParameters: FindInvitationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<FindInvitation200Response>;
 
     /**
      * 
@@ -199,7 +202,7 @@ export class InvitationApi extends runtime.BaseAPI implements InvitationApiInter
     /**
      * 招待単一取得
      */
-    async findInvitationRaw(requestParameters: FindInvitationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PostInvitation200Response>> {
+    async findInvitationRaw(requestParameters: FindInvitationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<FindInvitation200Response>> {
         if (requestParameters.xTenantUID === null || requestParameters.xTenantUID === undefined) {
             throw new runtime.RequiredError('xTenantUID','Required parameter requestParameters.xTenantUID was null or undefined when calling findInvitation.');
         }
@@ -231,13 +234,13 @@ export class InvitationApi extends runtime.BaseAPI implements InvitationApiInter
             query: queryParameters,
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => PostInvitation200ResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => FindInvitation200ResponseFromJSON(jsonValue));
     }
 
     /**
      * 招待単一取得
      */
-    async findInvitation(requestParameters: FindInvitationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PostInvitation200Response> {
+    async findInvitation(requestParameters: FindInvitationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<FindInvitation200Response> {
         const response = await this.findInvitationRaw(requestParameters, initOverrides);
         return await response.value();
     }

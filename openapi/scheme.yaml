@@ -51,6 +51,8 @@ paths:
                     type: array
                     items:
                       $ref: "#/components/schemas/user"
+                required:
+                  - data
         "400":
           $ref: "#/components/responses/error"
   /users/current:
@@ -71,6 +73,8 @@ paths:
                 properties:
                   data:
                     $ref: "#/components/schemas/user"
+                required:
+                  - data
       description: ""
   "/users/{id}":
     get:
@@ -91,6 +95,8 @@ paths:
                 properties:
                   data:
                     $ref: "#/components/schemas/user"
+                required:
+                  - data
     delete:
       summary: ユーザ削除
       tags:
@@ -158,6 +164,8 @@ paths:
                     type: array
                     items:
                       $ref: "#/components/schemas/invitation"
+                required:
+                  - data
   "/invitations/{id}":
     get:
       summary: 招待単一取得
@@ -177,6 +185,8 @@ paths:
                 properties:
                   data:
                     $ref: "#/components/schemas/invitation"
+                required:
+                  - data
     delete:
       summary: 招待削除
       operationId: deleteInvitation
@@ -251,6 +261,8 @@ paths:
                     type: array
                     items:
                       $ref: "#/components/schemas/IPAddress"
+                required:
+                  - data
   "/ip-addresses/{id}":
     delete:
       summary: 許容IP削除
@@ -324,6 +336,8 @@ paths:
                     type: array
                     items:
                       $ref: "#/components/schemas/classroomWithCourse"
+                required:
+                  - data
   "/classrooms/{id}":
     get:
       summary: 学級単一取得
@@ -343,6 +357,8 @@ paths:
                 properties:
                   data:
                     $ref: "#/components/schemas/classroomWithCourse"
+                required:
+                  - data
     delete:
       summary: 学級削除
       tags:
@@ -389,6 +405,8 @@ paths:
                     type: array
                     items:
                       $ref: "#/components/schemas/student"
+                required:
+                  - data
   "/students/{id}":
     get:
       summary: 生徒単一取得
@@ -408,6 +426,8 @@ paths:
                 properties:
                   data:
                     $ref: "#/components/schemas/student"
+                required:
+                  - data
     delete:
       summary: 生徒削除
       tags:
@@ -480,6 +500,8 @@ paths:
                     type: array
                     items:
                       $ref: "#/components/schemas/course"
+                required:
+                  - data
   "/courses/{id}":
     get:
       summary: 授業単一取得
@@ -499,6 +521,8 @@ paths:
                 properties:
                   data:
                     $ref: "#/components/schemas/course"
+                required:
+                  - data
     delete:
       summary: 授業削除
       operationId: deleteCourse
@@ -531,6 +555,8 @@ paths:
                     type: array
                     items:
                       $ref: "#/components/schemas/score"
+                required:
+                  - data
   /course-logs:
     post:
       summary: 授業記録登録
@@ -550,7 +576,6 @@ paths:
                   type: integer
                 date:
                   type: string
-                  format: date
                 period:
                   type: integer
                   minimum: 1
@@ -639,6 +664,8 @@ paths:
                     type: array
                     items:
                       $ref: "#/components/schemas/courseLog"
+                required:
+                  - data
   "/course-logs/{id}":
     get:
       summary: 授業記録単一取得
@@ -658,6 +685,8 @@ paths:
                 properties:
                   data:
                     $ref: "#/components/schemas/courseLog"
+                required:
+                  - data
     put:
       summary: 授業記録更新
       tags:
@@ -676,7 +705,6 @@ paths:
                   type: integer
                 date:
                   type: string
-                  format: date
                 period:
                   type: integer
                   minimum: 1
@@ -779,6 +807,8 @@ paths:
                     type: array
                     items:
                       $ref: "#/components/schemas/schedule"
+                required:
+                  - data
   "/schedules/{id}":
     get:
       summary: 時間割単一取得
@@ -798,6 +828,8 @@ paths:
                 properties:
                   data:
                     $ref: "#/components/schemas/schedule"
+                required:
+                  - data
     delete:
       summary: 時間割削除
       tags:
@@ -854,6 +886,8 @@ paths:
                     type: array
                     items:
                       $ref: "#/components/schemas/attendance"
+                required:
+                  - data
   "/attendances/{id}":
     get:
       summary: 出席情報単一取得
@@ -873,6 +907,8 @@ paths:
                 properties:
                   data:
                     $ref: "#/components/schemas/attendance"
+                required:
+                  - data
     put:
       summary: 出席情報更新
       tags:
@@ -944,6 +980,8 @@ paths:
                     type: array
                     items:
                       $ref: "#/components/schemas/subject"
+                required:
+                  - data
 components:
   parameters:
     tenant:

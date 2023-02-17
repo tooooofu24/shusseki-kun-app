@@ -34,10 +34,10 @@ export interface PostCourseLogsRequest {
     courseId: number;
     /**
      * 
-     * @type {Date}
+     * @type {string}
      * @memberof PostCourseLogsRequest
      */
-    date: Date;
+    date: string;
     /**
      * 
      * @type {number}
@@ -76,7 +76,7 @@ export function PostCourseLogsRequestFromJSONTyped(json: any, ignoreDiscriminato
     return {
         
         'courseId': json['courseId'],
-        'date': (new Date(json['date'])),
+        'date': json['date'],
         'period': json['period'],
         'attendances': ((json['attendances'] as Array<any>).map(PostCourseLogsRequestAttendancesInnerFromJSON)),
     };
@@ -92,7 +92,7 @@ export function PostCourseLogsRequestToJSON(value?: PostCourseLogsRequest | null
     return {
         
         'courseId': value.courseId,
-        'date': (value.date.toISOString().substr(0,10)),
+        'date': value.date,
         'period': value.period,
         'attendances': ((value.attendances as Array<any>).map(PostCourseLogsRequestAttendancesInnerToJSON)),
     };

@@ -27,10 +27,10 @@ export interface UpdateCourseLogRequest {
     courseId?: number;
     /**
      * 
-     * @type {Date}
+     * @type {string}
      * @memberof UpdateCourseLogRequest
      */
-    date?: Date;
+    date?: string;
     /**
      * 
      * @type {number}
@@ -59,7 +59,7 @@ export function UpdateCourseLogRequestFromJSONTyped(json: any, ignoreDiscriminat
     return {
         
         'courseId': !exists(json, 'courseId') ? undefined : json['courseId'],
-        'date': !exists(json, 'date') ? undefined : (new Date(json['date'])),
+        'date': !exists(json, 'date') ? undefined : json['date'],
         'period': !exists(json, 'period') ? undefined : json['period'],
     };
 }
@@ -74,7 +74,7 @@ export function UpdateCourseLogRequestToJSON(value?: UpdateCourseLogRequest | nu
     return {
         
         'courseId': value.courseId,
-        'date': value.date === undefined ? undefined : (value.date.toISOString().substr(0,10)),
+        'date': value.date,
         'period': value.period,
     };
 }

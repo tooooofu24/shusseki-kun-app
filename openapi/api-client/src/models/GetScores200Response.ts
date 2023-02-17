@@ -31,7 +31,7 @@ export interface GetScores200Response {
      * @type {Array<Score>}
      * @memberof GetScores200Response
      */
-    data?: Array<Score>;
+    data: Array<Score>;
 }
 
 /**
@@ -39,6 +39,7 @@ export interface GetScores200Response {
  */
 export function instanceOfGetScores200Response(value: object): boolean {
     let isInstance = true;
+    isInstance = isInstance && "data" in value;
 
     return isInstance;
 }
@@ -53,7 +54,7 @@ export function GetScores200ResponseFromJSONTyped(json: any, ignoreDiscriminator
     }
     return {
         
-        'data': !exists(json, 'data') ? undefined : ((json['data'] as Array<any>).map(ScoreFromJSON)),
+        'data': ((json['data'] as Array<any>).map(ScoreFromJSON)),
     };
 }
 
@@ -66,7 +67,7 @@ export function GetScores200ResponseToJSON(value?: GetScores200Response | null):
     }
     return {
         
-        'data': value.data === undefined ? undefined : ((value.data as Array<any>).map(ScoreToJSON)),
+        'data': ((value.data as Array<any>).map(ScoreToJSON)),
     };
 }
 

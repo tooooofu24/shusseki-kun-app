@@ -31,7 +31,7 @@ export interface GetSubjects200Response {
      * @type {Array<Subject>}
      * @memberof GetSubjects200Response
      */
-    data?: Array<Subject>;
+    data: Array<Subject>;
 }
 
 /**
@@ -39,6 +39,7 @@ export interface GetSubjects200Response {
  */
 export function instanceOfGetSubjects200Response(value: object): boolean {
     let isInstance = true;
+    isInstance = isInstance && "data" in value;
 
     return isInstance;
 }
@@ -53,7 +54,7 @@ export function GetSubjects200ResponseFromJSONTyped(json: any, ignoreDiscriminat
     }
     return {
         
-        'data': !exists(json, 'data') ? undefined : ((json['data'] as Array<any>).map(SubjectFromJSON)),
+        'data': ((json['data'] as Array<any>).map(SubjectFromJSON)),
     };
 }
 
@@ -66,7 +67,7 @@ export function GetSubjects200ResponseToJSON(value?: GetSubjects200Response | nu
     }
     return {
         
-        'data': value.data === undefined ? undefined : ((value.data as Array<any>).map(SubjectToJSON)),
+        'data': ((value.data as Array<any>).map(SubjectToJSON)),
     };
 }
 

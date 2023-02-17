@@ -9,14 +9,11 @@ import { schemaFromType } from "./utils";
 
 export const addScheduleScheme = schemaFromType<PostScheduleRequest>()(
   z.object({
-    classroomId: z
+    classroomId: z.coerce
       .string()
       .min(1, { message: formError.REQUIRED })
       .transform((v) => parseInt(v)),
-    subjectId: z
-      .string()
-      .min(1, { message: formError.REQUIRED })
-      .transform((v) => parseInt(v)),
+    subjectId: z.coerce.number().min(1, { message: formError.REQUIRED }),
     day: DayScheme,
     period: PeriodScheme,
   })

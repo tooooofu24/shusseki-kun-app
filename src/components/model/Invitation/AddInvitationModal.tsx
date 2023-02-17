@@ -36,6 +36,7 @@ export const AddInvitationModal: FC<props> = (props) => {
     handleSubmit,
     formState: { errors },
     setError,
+    reset,
   } = useForm<PostInvitationRequest>({
     resolver: zodResolver(postInvitationScheme),
   });
@@ -44,6 +45,7 @@ export const AddInvitationModal: FC<props> = (props) => {
     setIsLoading(true);
     await postInvitation(data)
       .then(() => {
+        reset();
         showToast("招待しました！", "success");
         onClose();
         refetch();

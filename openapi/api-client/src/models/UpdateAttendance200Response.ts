@@ -23,42 +23,41 @@ import {
 /**
  * 
  * @export
- * @interface FindAttendance200Response
+ * @interface UpdateAttendance200Response
  */
-export interface FindAttendance200Response {
+export interface UpdateAttendance200Response {
     /**
      * 
      * @type {Attendance}
-     * @memberof FindAttendance200Response
+     * @memberof UpdateAttendance200Response
      */
-    data: Attendance;
+    data?: Attendance;
 }
 
 /**
- * Check if a given object implements the FindAttendance200Response interface.
+ * Check if a given object implements the UpdateAttendance200Response interface.
  */
-export function instanceOfFindAttendance200Response(value: object): boolean {
+export function instanceOfUpdateAttendance200Response(value: object): boolean {
     let isInstance = true;
-    isInstance = isInstance && "data" in value;
 
     return isInstance;
 }
 
-export function FindAttendance200ResponseFromJSON(json: any): FindAttendance200Response {
-    return FindAttendance200ResponseFromJSONTyped(json, false);
+export function UpdateAttendance200ResponseFromJSON(json: any): UpdateAttendance200Response {
+    return UpdateAttendance200ResponseFromJSONTyped(json, false);
 }
 
-export function FindAttendance200ResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): FindAttendance200Response {
+export function UpdateAttendance200ResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): UpdateAttendance200Response {
     if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'data': AttendanceFromJSON(json['data']),
+        'data': !exists(json, 'data') ? undefined : AttendanceFromJSON(json['data']),
     };
 }
 
-export function FindAttendance200ResponseToJSON(value?: FindAttendance200Response | null): any {
+export function UpdateAttendance200ResponseToJSON(value?: UpdateAttendance200Response | null): any {
     if (value === undefined) {
         return undefined;
     }

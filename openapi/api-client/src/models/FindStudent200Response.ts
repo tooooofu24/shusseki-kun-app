@@ -31,7 +31,7 @@ export interface FindStudent200Response {
      * @type {Student}
      * @memberof FindStudent200Response
      */
-    data?: Student;
+    data: Student;
 }
 
 /**
@@ -39,6 +39,7 @@ export interface FindStudent200Response {
  */
 export function instanceOfFindStudent200Response(value: object): boolean {
     let isInstance = true;
+    isInstance = isInstance && "data" in value;
 
     return isInstance;
 }
@@ -53,7 +54,7 @@ export function FindStudent200ResponseFromJSONTyped(json: any, ignoreDiscriminat
     }
     return {
         
-        'data': !exists(json, 'data') ? undefined : StudentFromJSON(json['data']),
+        'data': StudentFromJSON(json['data']),
     };
 }
 

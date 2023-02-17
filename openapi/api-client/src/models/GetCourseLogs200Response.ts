@@ -31,7 +31,7 @@ export interface GetCourseLogs200Response {
      * @type {Array<CourseLog>}
      * @memberof GetCourseLogs200Response
      */
-    data?: Array<CourseLog>;
+    data: Array<CourseLog>;
 }
 
 /**
@@ -39,6 +39,7 @@ export interface GetCourseLogs200Response {
  */
 export function instanceOfGetCourseLogs200Response(value: object): boolean {
     let isInstance = true;
+    isInstance = isInstance && "data" in value;
 
     return isInstance;
 }
@@ -53,7 +54,7 @@ export function GetCourseLogs200ResponseFromJSONTyped(json: any, ignoreDiscrimin
     }
     return {
         
-        'data': !exists(json, 'data') ? undefined : ((json['data'] as Array<any>).map(CourseLogFromJSON)),
+        'data': ((json['data'] as Array<any>).map(CourseLogFromJSON)),
     };
 }
 
@@ -66,7 +67,7 @@ export function GetCourseLogs200ResponseToJSON(value?: GetCourseLogs200Response 
     }
     return {
         
-        'data': value.data === undefined ? undefined : ((value.data as Array<any>).map(CourseLogToJSON)),
+        'data': ((value.data as Array<any>).map(CourseLogToJSON)),
     };
 }
 

@@ -31,7 +31,7 @@ export interface GetStudents200Response {
      * @type {Array<Student>}
      * @memberof GetStudents200Response
      */
-    data?: Array<Student>;
+    data: Array<Student>;
 }
 
 /**
@@ -39,6 +39,7 @@ export interface GetStudents200Response {
  */
 export function instanceOfGetStudents200Response(value: object): boolean {
     let isInstance = true;
+    isInstance = isInstance && "data" in value;
 
     return isInstance;
 }
@@ -53,7 +54,7 @@ export function GetStudents200ResponseFromJSONTyped(json: any, ignoreDiscriminat
     }
     return {
         
-        'data': !exists(json, 'data') ? undefined : ((json['data'] as Array<any>).map(StudentFromJSON)),
+        'data': ((json['data'] as Array<any>).map(StudentFromJSON)),
     };
 }
 
@@ -66,7 +67,7 @@ export function GetStudents200ResponseToJSON(value?: GetStudents200Response | nu
     }
     return {
         
-        'data': value.data === undefined ? undefined : ((value.data as Array<any>).map(StudentToJSON)),
+        'data': ((value.data as Array<any>).map(StudentToJSON)),
     };
 }
 

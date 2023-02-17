@@ -20,6 +20,7 @@ import type {
   GetCourseLogs200Response,
   PostCourse200Response,
   PostCourseLogsRequest,
+  UpdateCourseLog200Response,
   UpdateCourseLogRequest,
 } from '../models';
 import {
@@ -33,6 +34,8 @@ import {
     PostCourse200ResponseToJSON,
     PostCourseLogsRequestFromJSON,
     PostCourseLogsRequestToJSON,
+    UpdateCourseLog200ResponseFromJSON,
+    UpdateCourseLog200ResponseToJSON,
     UpdateCourseLogRequestFromJSON,
     UpdateCourseLogRequestToJSON,
 } from '../models';
@@ -150,12 +153,12 @@ export interface CourseLogApiInterface {
      * @throws {RequiredError}
      * @memberof CourseLogApiInterface
      */
-    updateCourseLogRaw(requestParameters: UpdateCourseLogOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<FindCourseLog200Response>>;
+    updateCourseLogRaw(requestParameters: UpdateCourseLogOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UpdateCourseLog200Response>>;
 
     /**
      * 授業記録更新
      */
-    updateCourseLog(requestParameters: UpdateCourseLogOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<FindCourseLog200Response>;
+    updateCourseLog(requestParameters: UpdateCourseLogOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UpdateCourseLog200Response>;
 
 }
 
@@ -366,7 +369,7 @@ export class CourseLogApi extends runtime.BaseAPI implements CourseLogApiInterfa
     /**
      * 授業記録更新
      */
-    async updateCourseLogRaw(requestParameters: UpdateCourseLogOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<FindCourseLog200Response>> {
+    async updateCourseLogRaw(requestParameters: UpdateCourseLogOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UpdateCourseLog200Response>> {
         if (requestParameters.xTenantUID === null || requestParameters.xTenantUID === undefined) {
             throw new runtime.RequiredError('xTenantUID','Required parameter requestParameters.xTenantUID was null or undefined when calling updateCourseLog.');
         }
@@ -401,13 +404,13 @@ export class CourseLogApi extends runtime.BaseAPI implements CourseLogApiInterfa
             body: UpdateCourseLogRequestToJSON(requestParameters.updateCourseLogRequest),
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => FindCourseLog200ResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => UpdateCourseLog200ResponseFromJSON(jsonValue));
     }
 
     /**
      * 授業記録更新
      */
-    async updateCourseLog(requestParameters: UpdateCourseLogOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<FindCourseLog200Response> {
+    async updateCourseLog(requestParameters: UpdateCourseLogOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UpdateCourseLog200Response> {
         const response = await this.updateCourseLogRaw(requestParameters, initOverrides);
         return await response.value();
     }

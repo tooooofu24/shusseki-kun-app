@@ -31,7 +31,7 @@ export interface GetCurrentUser200Response {
      * @type {User}
      * @memberof GetCurrentUser200Response
      */
-    data?: User;
+    data: User;
 }
 
 /**
@@ -39,6 +39,7 @@ export interface GetCurrentUser200Response {
  */
 export function instanceOfGetCurrentUser200Response(value: object): boolean {
     let isInstance = true;
+    isInstance = isInstance && "data" in value;
 
     return isInstance;
 }
@@ -53,7 +54,7 @@ export function GetCurrentUser200ResponseFromJSONTyped(json: any, ignoreDiscrimi
     }
     return {
         
-        'data': !exists(json, 'data') ? undefined : UserFromJSON(json['data']),
+        'data': UserFromJSON(json['data']),
     };
 }
 

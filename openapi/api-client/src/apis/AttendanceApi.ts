@@ -18,6 +18,7 @@ import type {
   DeleteUser200Response,
   FindAttendance200Response,
   GetAttendances200Response,
+  UpdateAttendance200Response,
   UpdateAttendanceRequest,
 } from '../models';
 import {
@@ -27,6 +28,8 @@ import {
     FindAttendance200ResponseToJSON,
     GetAttendances200ResponseFromJSON,
     GetAttendances200ResponseToJSON,
+    UpdateAttendance200ResponseFromJSON,
+    UpdateAttendance200ResponseToJSON,
     UpdateAttendanceRequestFromJSON,
     UpdateAttendanceRequestToJSON,
 } from '../models';
@@ -125,12 +128,12 @@ export interface AttendanceApiInterface {
      * @throws {RequiredError}
      * @memberof AttendanceApiInterface
      */
-    updateAttendanceRaw(requestParameters: UpdateAttendanceOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<FindAttendance200Response>>;
+    updateAttendanceRaw(requestParameters: UpdateAttendanceOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UpdateAttendance200Response>>;
 
     /**
      * 出席情報更新
      */
-    updateAttendance(requestParameters: UpdateAttendanceOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<FindAttendance200Response>;
+    updateAttendance(requestParameters: UpdateAttendanceOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UpdateAttendance200Response>;
 
 }
 
@@ -296,7 +299,7 @@ export class AttendanceApi extends runtime.BaseAPI implements AttendanceApiInter
     /**
      * 出席情報更新
      */
-    async updateAttendanceRaw(requestParameters: UpdateAttendanceOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<FindAttendance200Response>> {
+    async updateAttendanceRaw(requestParameters: UpdateAttendanceOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UpdateAttendance200Response>> {
         if (requestParameters.xTenantUID === null || requestParameters.xTenantUID === undefined) {
             throw new runtime.RequiredError('xTenantUID','Required parameter requestParameters.xTenantUID was null or undefined when calling updateAttendance.');
         }
@@ -331,13 +334,13 @@ export class AttendanceApi extends runtime.BaseAPI implements AttendanceApiInter
             body: UpdateAttendanceRequestToJSON(requestParameters.updateAttendanceRequest),
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => FindAttendance200ResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => UpdateAttendance200ResponseFromJSON(jsonValue));
     }
 
     /**
      * 出席情報更新
      */
-    async updateAttendance(requestParameters: UpdateAttendanceOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<FindAttendance200Response> {
+    async updateAttendance(requestParameters: UpdateAttendanceOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UpdateAttendance200Response> {
         const response = await this.updateAttendanceRaw(requestParameters, initOverrides);
         return await response.value();
     }

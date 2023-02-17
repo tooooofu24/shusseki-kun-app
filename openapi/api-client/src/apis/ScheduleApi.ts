@@ -16,6 +16,7 @@
 import * as runtime from '../runtime';
 import type {
   DeleteUser200Response,
+  FindSchedule200Response,
   GetSchedules200Response,
   PostSchedule200Response,
   PostScheduleRequest,
@@ -23,6 +24,8 @@ import type {
 import {
     DeleteUser200ResponseFromJSON,
     DeleteUser200ResponseToJSON,
+    FindSchedule200ResponseFromJSON,
+    FindSchedule200ResponseToJSON,
     GetSchedules200ResponseFromJSON,
     GetSchedules200ResponseToJSON,
     PostSchedule200ResponseFromJSON,
@@ -85,12 +88,12 @@ export interface ScheduleApiInterface {
      * @throws {RequiredError}
      * @memberof ScheduleApiInterface
      */
-    findScheduleRaw(requestParameters: FindScheduleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PostSchedule200Response>>;
+    findScheduleRaw(requestParameters: FindScheduleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<FindSchedule200Response>>;
 
     /**
      * 時間割単一取得
      */
-    findSchedule(requestParameters: FindScheduleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PostSchedule200Response>;
+    findSchedule(requestParameters: FindScheduleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<FindSchedule200Response>;
 
     /**
      * 
@@ -182,7 +185,7 @@ export class ScheduleApi extends runtime.BaseAPI implements ScheduleApiInterface
     /**
      * 時間割単一取得
      */
-    async findScheduleRaw(requestParameters: FindScheduleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PostSchedule200Response>> {
+    async findScheduleRaw(requestParameters: FindScheduleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<FindSchedule200Response>> {
         if (requestParameters.xTenantUID === null || requestParameters.xTenantUID === undefined) {
             throw new runtime.RequiredError('xTenantUID','Required parameter requestParameters.xTenantUID was null or undefined when calling findSchedule.');
         }
@@ -214,13 +217,13 @@ export class ScheduleApi extends runtime.BaseAPI implements ScheduleApiInterface
             query: queryParameters,
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => PostSchedule200ResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => FindSchedule200ResponseFromJSON(jsonValue));
     }
 
     /**
      * 時間割単一取得
      */
-    async findSchedule(requestParameters: FindScheduleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PostSchedule200Response> {
+    async findSchedule(requestParameters: FindScheduleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<FindSchedule200Response> {
         const response = await this.findScheduleRaw(requestParameters, initOverrides);
         return await response.value();
     }
