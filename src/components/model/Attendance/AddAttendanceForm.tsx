@@ -8,7 +8,6 @@ import {
   FormLabel,
   SimpleGrid,
   Text,
-  useDisclosure,
 } from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/router";
@@ -17,7 +16,7 @@ import {
   PostCourseLogsRequestAttendancesInner,
 } from "openapi/api-client/src";
 import { AddressBook, Calendar, Clock, PaperPlaneTilt } from "phosphor-react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 
 import { CourseField } from "@/components/ui/fields/CourseField";
@@ -25,22 +24,23 @@ import { DateField } from "@/components/ui/fields/DateField";
 import { PeriodField } from "@/components/ui/fields/PeriodField";
 import { SectionWrapper } from "@/components/ui/layouts/SectionWrapper";
 import { useStudentsByCourseId } from "@/hooks/Student";
+import { useShowToast } from "@/hooks/Toast";
+import { postCourseLog } from "@/utils/api/CourseLog";
 import { postCourseLogScheme } from "@/utils/form-scheme/CourseLog";
 
-import { AddAttendanceConfirmModal } from "./AddAttendanceConfirmModal";
 import { AddAttendanceStudentsTable } from "./AddAttendanceStudentsTable";
 
 export const AddAttendanceForm = () => {
   const router = useRouter();
-  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const { courseId, date, period } = router.query;
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const {
     register,
     handleSubmit,
     control,
-    watch,
     formState: { errors },
     setValue,
   } = useForm<PostCourseLogsRequest>({
@@ -58,7 +58,9 @@ export const AddAttendanceForm = () => {
     name: "attendances",
   });
 
-  const { students } = useStudentsByCourseId(watch("courseId"));
+  const { students } = useStudentsByCourseId(Number(courseId));
+
+  const showToast = useShowToast();
 
   useEffect(() => {
     const data = students.map((student) => {
@@ -71,8 +73,14 @@ export const AddAttendanceForm = () => {
     setValue("attendances", data);
   }, [students]);
 
-  const onSubmit = () => {
-    onOpen();
+  const onSubmit = async (data: PostCourseLogsRequest) => {
+    setIsLoading(true);
+    try {
+      await postCourseLog(data);
+    } catch (e) {
+      showToast("出席登録に失敗しました", "error");
+    }
+    setIsLoading(false);
   };
 
   return (
@@ -119,15 +127,13 @@ export const AddAttendanceForm = () => {
           </CardBody>
         </Card>
         <Flex justifyContent="end">
-          <Button leftIcon={<PaperPlaneTilt />} type="submit">
+          <Button
+            leftIcon={<PaperPlaneTilt />}
+            type="submit"
+            isLoading={isLoading}
+          >
             成績を登録する
           </Button>
-          <AddAttendanceConfirmModal
-            isOpen={isOpen}
-            onClose={onClose}
-            students={students}
-            data={watch()}
-          />
         </Flex>
       </SectionWrapper>
     </form>

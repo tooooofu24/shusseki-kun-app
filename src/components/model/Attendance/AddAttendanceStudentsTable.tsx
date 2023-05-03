@@ -44,7 +44,7 @@ export const AddAttendanceStudentsTable: FC<props> = ({
             <Th>知識・技能</Th>
             <Th>思・判・表</Th>
             <Th>態度</Th>
-            <Th>コメント</Th>
+            <Th>コメント(実装中)</Th>
           </Tr>
         </Thead>
         <Tbody>
